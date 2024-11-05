@@ -9,8 +9,8 @@ create table sincerementeur
 (
     idsincerementeur serialprimary key,
     idjoueur int not null
-    reponse1 boolean not null
-    reponse2 boolean not null
+    reponse1 boolean
+    reponse2 boolean
 );
 
 
