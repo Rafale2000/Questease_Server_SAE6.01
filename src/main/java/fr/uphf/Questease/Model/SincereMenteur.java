@@ -37,6 +37,31 @@ public class SincereMenteur {
     private boolean reponse2;
 
 
+    public long getId() {
+        return id;
+    }
 
+    public int getJoueur() {
+        return joueur;
+    }
 
+    public boolean isReponse1() {
+        return reponse1;
+    }
+
+    public boolean isReponse2() {
+        return reponse2;
+    }
+
+    public void setReponse1(boolean reponse1) {
+        this.reponse1 = reponse1;
+    }
+
+    public void setJoueur(int joueur) {
+        this.joueur = joueur;
+    }
+
+    public void setReponse2(boolean reponse2) {
+        this.reponse2 = reponse2;
+    }
 }
