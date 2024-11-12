@@ -6,7 +6,7 @@ import jakarta.persistence.*;
  * Représente les réponse des joueurs dans Sincère-Menteur
  */
 @Entity
-@Table
+@Table(name = "sincerementeur")
 public class SincereMenteur {
 
     /**
