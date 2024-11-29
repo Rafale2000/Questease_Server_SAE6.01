@@ -66,9 +66,17 @@ public class JoueurTmpController {
         UtilRepository.DeleteJoueur(idUtil);
     }
 
+    /**
+     * Méthode GET qui renvoie tous les JoueurTmp de la base de données
+     * @return une list de JoueurTmp
+     */
     @GetMapping()
     public List<JoueurTmp> GetAllUserGet(){return UtilRepository.FetchJoueurList();}
 
+    /**
+     * Méthode POST qui renvoie tous les JoueurTmp de la base de données
+     * @return une list de JoueurTmp
+     */
     @PostMapping()
     public List<JoueurTmp> GetAllUserPost(){return UtilRepository.FetchJoueurList();}
 

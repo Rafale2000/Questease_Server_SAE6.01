@@ -76,6 +76,11 @@ public class IndiceController {
         repo.deleteIndice(I.getId());
     }
 
+    /**
+     * Méthode Get premettant de récupérer un indice avec son id
+     * @param idIndice
+     * @return
+     */
     @GetMapping("/{idIndice}")
     public Indice GetIndice(@PathVariable Long idIndice) {
         return repo.FetchIndice(idIndice).get();

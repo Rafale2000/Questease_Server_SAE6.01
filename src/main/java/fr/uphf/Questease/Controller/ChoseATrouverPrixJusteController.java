@@ -66,12 +66,20 @@ public class ChoseATrouverPrixJusteController {
         repo.DeleteChose(idChoseATrouver);
     }
 
+    /**
+     * Méthode GET permettant d'obtenir un objet ChoseATrouverPrixJuste choisi au hasard parmi tous ceux présents dans la base de données.
+     * @return ChoseATrouverPrixJuste
+     */
     @GetMapping("/random")
     public ChoseATrouverPrixJuste GetRandomChose() {
         List<ChoseATrouverPrixJuste> liste = repo.FetchChoseList();
         return liste.get((int) (Math.random() * ((liste.size()))));
     }
 
+    /**
+     * Méthode GET par défault, renvoie tous les elements ChoseATrouverPrixJuste de la base de données.
+     * @return une list de ChoseATrouverPrixJuste
+     */
     @GetMapping("")
     public List<ChoseATrouverPrixJuste> GetAll(){
         return repo.FetchChoseList();
