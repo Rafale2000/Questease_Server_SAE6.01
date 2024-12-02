@@ -1,6 +1,7 @@
 package fr.uphf.Questease.Controller;
 
 
+import fr.uphf.Questease.Model.ChoseATrouverPrixJuste;
 import fr.uphf.Questease.Model.MotCryptex;
 import fr.uphf.Questease.Model.MotPendu;
 import fr.uphf.Questease.Repository.MotPenduRepository;
@@ -72,6 +73,16 @@ public class motPenduController {
 
     @GetMapping()
     public List<MotPendu> getAllMotGet() {return repo.FetchMotPenduList();}
+
+    /**
+     * Méthode GET permettant d'obtenir un objet MotPendu choisi au hasard parmi tous ceux présents dans la base de données.
+     * @return MotPendu
+     */
+    @GetMapping("/random")
+    public MotPendu GetRandomMotPendu() {
+        List<MotPendu> liste = repo.FetchMotPenduList();
+        return liste.get((int) (Math.random() * ((liste.size()))));
+    }
 }
 
 
