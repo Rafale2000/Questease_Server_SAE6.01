@@ -16,6 +16,4 @@ public interface MotCryptexService {
     MotCryptex UpdateMotCryptex(MotCryptex motCryptex, Long motCrpyexId);
 
     void deleteMotCryptex(Long motCryptexId);
-
-    Indice GetIndiceWithId(Long motCryptexId);
 }

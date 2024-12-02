@@ -25,7 +25,7 @@ public class motPenduController {
 
     /**
      * Le constructeur de la classe motPenduController
-     * @param repo Repositoire de la classe motPendu
+     * @param repo le repositoire de motPendu
      */
     public motPenduController(MotPenduServiceImpl repo) {
         this.repo = repo;
@@ -40,13 +40,6 @@ public class motPenduController {
     public Optional<MotPendu> getMotById(@PathVariable Long idMot) {
         return repo.FetchOne(idMot);
     }
-
-    /**
-     * Méthode Get permettant de récupérer tout les mots du Pendu
-     * @return Une liste de tout les mots possibles du Pendu
-     */
-    @GetMapping()
-    public List<MotPendu> getAllMotGet() {return repo.FetchMotPenduList();}
 
     /**
      * Méthode Post permettant d'ajouter un mot à la base de donnée
@@ -77,7 +70,8 @@ public class motPenduController {
         repo.DeleteMotPendu(idPendu);
     }
 
-
+    @GetMapping()
+    public List<MotPendu> getAllMotGet() {return repo.FetchMotPenduList();}
 }
 
 

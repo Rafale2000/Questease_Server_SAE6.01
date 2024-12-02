@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package fr.uphf.Questease.Controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;

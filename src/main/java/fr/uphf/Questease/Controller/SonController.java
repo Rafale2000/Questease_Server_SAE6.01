@@ -41,16 +41,6 @@ public class SonController {
     }
 
     /**
-     * Méthode Get permettant de récupérer un son au hasard de la base de donnée
-     * @return Un mot choisi au hasard de la base de donnée
-     */
-    @GetMapping("/random")
-    public Son GetRandomSon() {
-        Random rand = new Random();
-        return repo.FetchSonList().get(rand.nextInt(repo.FetchSonList().size()));
-    }
-
-    /**
      * Méthode Post permettant d'ajouter un Son à la base de donnée
      * @param S
      */
@@ -58,6 +48,7 @@ public class SonController {
     public void PostSon(@PathVariable Son S) {
         repo.SaveSon(S);
     }
+
 
     /**
      * Méthode Update permettant de mettre à jour un Son dans la base de donnée
@@ -92,4 +83,11 @@ public class SonController {
      */
     @PostMapping()
     public List<Son> GetAllSonPost() {return repo.FetchSonList();}
+
+
+    @GetMapping("/random")
+    public Son GetRandomSon() {
+        Random rand = new Random();
+        return repo.FetchSonList().get(rand.nextInt(repo.FetchSonList().size()));
+    }
 }

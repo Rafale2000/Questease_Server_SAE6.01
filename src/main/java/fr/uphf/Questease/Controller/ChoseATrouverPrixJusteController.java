@@ -1,6 +1,7 @@
 package fr.uphf.Questease.Controller;
 
 import fr.uphf.Questease.Model.ChoseATrouverPrixJuste;
+import fr.uphf.Questease.Repository.ChoseATrouverPrixJusteRepository;
 import fr.uphf.Questease.Service.ChoseATrouverPrixJusteServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +13,7 @@ import java.util.Optional;
  * Controller du repositoire de ChoseATrouverPrixJuste
  */
 @RestController
-@RequestMapping("/chose")
+@RequestMapping("/choseATrouver")
 public class ChoseATrouverPrixJusteController {
 
     /**
@@ -28,14 +29,9 @@ public class ChoseATrouverPrixJusteController {
         this.repo = repo;
     }
 
-    /**
-     * Méthode Get permettant de récupérer un des élément mystère du Prix Juste via son id
-     * @param idChoseATrouver L'id du mot à trouver
-     * @return L'élément récupéré
-     */
-    @GetMapping("/{idChoseATrouver}")
-    public ResponseEntity<Optional<ChoseATrouverPrixJuste>> GetChoseById(@PathVariable Long idChoseATrouver) {
-        return ResponseEntity.ok(repo.ReadChose(idChoseATrouver));
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<ChoseATrouverPrixJuste>> GetChoseById(@PathVariable Long id) {
+        return ResponseEntity.ok(repo.ReadChose(id));
     }
 
     /**
@@ -43,7 +39,7 @@ public class ChoseATrouverPrixJusteController {
      * @param C L'élément à ajouter à la base de donnée
      */
     @PostMapping("/{idChoseATrouver}")
-    public void PostChose(@RequestBody ChoseATrouverPrixJuste C) {
+    public void PostChose(@PathVariable Long idChoseATrouver, @RequestBody ChoseATrouverPrixJuste C) {
         repo.SaveChose(C);
     }
 
