@@ -2,7 +2,6 @@ package fr.uphf.Questease.Controller;
 
 
 import fr.uphf.Questease.Model.MotCryptex;
-import fr.uphf.Questease.Repository.MotCryptexRepository;
 import fr.uphf.Questease.Service.MotCryptexServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
@@ -78,9 +77,17 @@ public class MotCryptexController {
         repo.deleteMotCryptex(M.getId());
     }
 
+    /**
+     * Méthode GET qui renvoit une liste contenant tous les MotCryptex de la base de données.
+     * @return List<MotCryptex> une liste qui contient des valeurs (s'il y en a dans la BDD)
+     */
     @GetMapping("")
     public List<MotCryptex> getMotCryptex() {return repo.FetchMotCryptexList();}
 
+    /**
+     * Méthode POST qui renvoit une liste contenant tous les MotCryptex de la base de données.
+     * @return List<MotCryptex> une liste qui contient des valeurs (s'il y en a dans la BDD)
+     */
     @PostMapping("")
     public List<MotCryptex> getMotCryptexPost() {return repo.FetchMotCryptexList();}
 

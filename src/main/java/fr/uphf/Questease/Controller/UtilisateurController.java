@@ -1,13 +1,11 @@
 package fr.uphf.Questease.Controller;
 
 import fr.uphf.Questease.Model.Utilisateur;
-import fr.uphf.Questease.Repository.UtilisateurRepository;
 import fr.uphf.Questease.Service.UtilisateurServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Controller du repositoire d'Utilisateur

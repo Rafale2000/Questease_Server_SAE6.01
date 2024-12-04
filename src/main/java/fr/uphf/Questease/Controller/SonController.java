@@ -2,10 +2,8 @@ package fr.uphf.Questease.Controller;
 
 
 import fr.uphf.Questease.Model.Son;
-import fr.uphf.Questease.Repository.SonRepository;
 import fr.uphf.Questease.Service.SonServiceImpl;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -84,7 +82,10 @@ public class SonController {
     @PostMapping()
     public List<Son> GetAllSonPost() {return repo.FetchSonList();}
 
-
+    /**
+     * Méthode get qui renvoie un Son random contenu dans la base de données
+     * @return List<Son>
+     */
     @GetMapping("/random")
     public Son GetRandomSon() {
         Random rand = new Random();

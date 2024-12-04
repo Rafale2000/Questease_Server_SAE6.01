@@ -6,11 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
-
+/**
+ * Controller du repositoire de sincere menteur
+ */
 @RestController
 @RequestMapping("/api/sincere_menteur")
 public class SincereMenteurController {
-
+    /**
+     * Le repositoire de sincere_menteur
+     */
     @Autowired
     private SincereMenteurRepository repository;
 

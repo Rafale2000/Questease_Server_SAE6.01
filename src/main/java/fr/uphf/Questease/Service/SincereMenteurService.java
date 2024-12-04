@@ -3,7 +3,7 @@ package fr.uphf.Questease.Service;
 import java.util.List;
 import java.util.Optional;
 
-import fr.uphf.Questease.Model.InfoSecu;
+
 import fr.uphf.Questease.Model.SincereMenteur;
 
 public interface SincereMenteurService {

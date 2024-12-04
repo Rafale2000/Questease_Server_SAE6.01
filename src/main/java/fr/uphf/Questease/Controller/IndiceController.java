@@ -1,7 +1,6 @@
 package fr.uphf.Questease.Controller;
 
 import fr.uphf.Questease.Model.Indice;
-import fr.uphf.Questease.Repository.IndiceRepository;
 import fr.uphf.Questease.Service.IndiceServiceImpl;
 import org.springframework.web.bind.annotation.*;
 

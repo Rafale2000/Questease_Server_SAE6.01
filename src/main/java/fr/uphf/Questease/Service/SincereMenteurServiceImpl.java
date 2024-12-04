@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-import fr.uphf.Questease.Model.Resultat;
+
 import fr.uphf.Questease.Model.SincereMenteur;
 import fr.uphf.Questease.Repository.SincereMenteurRepository;
 

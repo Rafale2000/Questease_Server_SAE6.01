@@ -5,14 +5,13 @@ import fr.uphf.Questease.Model.Utilisateur;
 import java.util.List;
 
 public interface UtilisateurService {
-    Utilisateur SaveUtilisateur(Utilisateur utilisateur);
+    public Utilisateur SaveUtilisateur(Utilisateur utilisateur);
 
-    List<Utilisateur> FetchUtilisateurList();
+    public List<Utilisateur> FetchUtilisateurList();
 
-    Iterable<Utilisateur> FetchOne(String pseudoUser);
+    public Iterable<Utilisateur> FetchOne(String pseudoUser);
 
-    Utilisateur UpdateUtilisateur(Utilisateur utilisateur, Long utilisateurId);
+    public Utilisateur UpdateUtilisateur(Utilisateur utilisateur, Long utilisateurId);
 
-    void DeleteUtilisateur(Long utilisateurId);
-
+    public void DeleteUtilisateur(Long utilisateurId);
 }
