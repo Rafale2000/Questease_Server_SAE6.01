@@ -23,16 +23,5 @@ public class MotPendu {
     @Column(name = "mot",unique=true, nullable = false)
     private String mot;
 
-    /**
-     * TODO
-     */
-    @Column(name = "diff", nullable = false)
-    private int diff;
 
-    /**
-     * L'indice lié au mot à trouver lors du jeu du Pendu
-     */
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idindice", referencedColumnName = "idindice")
-    private Indice indice;
 }

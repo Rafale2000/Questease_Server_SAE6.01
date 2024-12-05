@@ -23,11 +23,6 @@ public class MotCryptex {
     @Column(name = "mot",unique=true, nullable = false)
     private String mot;
 
-    /**
-     * TODO
-     */
-    @Column(name = "diff", nullable = false)
-    private int diff;
 
     /**
      * L'indice lié au mot à trouver lors du Cryptex
@@ -42,10 +37,6 @@ public class MotCryptex {
 
     public String getMot() {
         return mot;
-    }
-
-    public int getDiff() {
-        return diff;
     }
 
     public Indice getIndice() {

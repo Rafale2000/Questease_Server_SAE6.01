@@ -1,10 +1,6 @@
 package fr.uphf.Questease.Controller;
 
-
-import fr.uphf.Questease.Model.MotCryptex;
 import fr.uphf.Questease.Model.MotPendu;
-import fr.uphf.Questease.Repository.MotPenduRepository;
-import fr.uphf.Questease.Service.MotCryptexServiceImpl;
 import fr.uphf.Questease.Service.MotPenduServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,12 +29,12 @@ public class motPenduController {
 
     /**
      * Méthode Get permettant de récupérer un mot via son id
-     * @param idMot L'id du mot à trouver lors d'un pendu
+     * @param idMotPendu L'id du mot à trouver lors d'un pendu
      * @return Le mot à trouver
      */
     @GetMapping("/{idMotPendu}")
-    public Optional<MotPendu> getMotById(@PathVariable Long idMot) {
-        return repo.FetchOne(idMot);
+    public Optional<MotPendu> getMotById(@PathVariable Long idMotPendu) {
+        return repo.FetchOne(idMotPendu);
     }
 
     /**
@@ -72,6 +68,16 @@ public class motPenduController {
 
     @GetMapping()
     public List<MotPendu> getAllMotGet() {return repo.FetchMotPenduList();}
+
+    /**
+     * Méthode GET permettant d'obtenir un objet MotPendu choisi au hasard parmi tous ceux présents dans la base de données.
+     * @return MotPendu
+     */
+    @GetMapping("/random")
+    public MotPendu GetRandomMotPendu() {
+        List<MotPendu> liste = repo.FetchMotPenduList();
+        return liste.get((int) (Math.random() * ((liste.size()))));
+    }
 }
 
 

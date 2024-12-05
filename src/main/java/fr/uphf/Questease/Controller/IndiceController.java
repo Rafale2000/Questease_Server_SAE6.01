@@ -1,7 +1,6 @@
 package fr.uphf.Questease.Controller;
 
 import fr.uphf.Questease.Model.Indice;
-import fr.uphf.Questease.Repository.IndiceRepository;
 import fr.uphf.Questease.Service.IndiceServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,6 +37,10 @@ public class IndiceController {
         return repo.FetchIndice(idIndice);
     }
 
+    /**
+     * Méthode Get permettant de récupérer tout les indices
+     * @return Une liste contenant tout les indices
+     */
     @GetMapping("")
     public List<Indice> getAllIndices() {
         return repo.FetchIndiceList();
@@ -70,5 +73,15 @@ public class IndiceController {
     @DeleteMapping("/{idIndice}")
     public void DeleteinfoSecu(@PathVariable Indice I) {
         repo.deleteIndice(I.getId());
+    }
+
+    /**
+     * Méthode Get premettant de récupérer un indice avec son id
+     * @param idIndice
+     * @return
+     */
+    @GetMapping("/{idIndice}")
+    public Indice GetIndice(@PathVariable Long idIndice) {
+        return repo.FetchIndice(idIndice).get();
     }
 }

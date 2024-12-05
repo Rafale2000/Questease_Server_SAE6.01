@@ -30,19 +30,6 @@ public class Utilisateur {
     @Column(name = "xp",nullable = false)
     private int Xp;
 
-    /**
-     * Les informations privées de l'utilisateur
-     */
-    @OneToOne(mappedBy = "utilisateur", cascade = CascadeType.ALL)
-    private InfoSecu infoSecu;
-
-
-    /**
-     * Les résultats de l'utilisateur
-     */
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idutilisateur", referencedColumnName = "idutilisateur")  // Clé étrangère dans la table "resultat"
-    private Set<Resultat> resultat;
 
     /**
      * Le getter de l'id de l'utilisateur

@@ -9,7 +9,6 @@ import java.util.List;
  */
 @Entity
 public class Indice {
-
     /**
      * L'id de l'indice
      */
@@ -24,22 +23,13 @@ public class Indice {
     @Column(name = "indice",unique=true, nullable=false)
     private String indice;
 
-    /**
-     * Le mot caché par cet indice
-     */
-    @Column(name = "motcache",nullable=false)
-    private String motcache;
+
     /**
      * La liste d'indices pour le Cryptex
      */
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "indice", cascade = CascadeType.ALL)
     private List<MotCryptex> motCryptexList;
 
-    /**
-     * La liste d'indices du Pendu
-     */
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "indice", cascade = CascadeType.ALL)
-    private List<MotCryptex> motPenduList;
 
     /**
      * La liste d'indices du Deviner le Son

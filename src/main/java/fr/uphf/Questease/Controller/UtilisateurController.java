@@ -1,7 +1,6 @@
 package fr.uphf.Questease.Controller;
 
 import fr.uphf.Questease.Model.Utilisateur;
-import fr.uphf.Questease.Repository.UtilisateurRepository;
 import fr.uphf.Questease.Service.UtilisateurServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -66,9 +65,17 @@ public class UtilisateurController {
         UtilRepository.DeleteUtilisateur(idUtil);
     }
 
+    /**
+     * Méthode GET qui renvoie tous les JoueurTmp de la base de données
+     * @return une list de JoueurTmp
+     */
     @GetMapping()
     public List<Utilisateur> GetAllUserGet(){return UtilRepository.FetchUtilisateurList();}
 
+    /**
+     * Méthode POST qui renvoie tous les JoueurTmp de la base de données
+     * @return une list de JoueurTmp
+     */
     @PostMapping()
     public List<Utilisateur> GetAllUserPost(){return UtilRepository.FetchUtilisateurList();}
 
