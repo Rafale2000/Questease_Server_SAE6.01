@@ -1,11 +1,8 @@
 package fr.uphf.Questease.Controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import fr.uphf.Questease.Model.Lobby;
 import fr.uphf.Questease.Model.Mot;
-import fr.uphf.Questease.Model.User;
 import fr.uphf.Questease.Model.WebSocketMessage;
-import jakarta.websocket.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
@@ -85,6 +82,7 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
             }
             else if("setP2Name".equals(receivedMessage.getTag())) {
                 Lobby lobby = findlobbybyplayer(session);
+                
                 User p1 = lobby.getp1();
                 WebSocketSession sessionp1 = p1.getSession();
                 lobby.getp2().setNom(receivedMessage.getMessage());
