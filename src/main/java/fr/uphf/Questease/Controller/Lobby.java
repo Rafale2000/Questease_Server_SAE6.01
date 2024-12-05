@@ -30,7 +30,7 @@ public class Lobby {
         this.p1 = user;
         this.p2 = null;
         ArrayList<String> possiblegames = new ArrayList<String>();
-        possiblegames.addAll(Arrays.asList("pendu","rotating_pictures","menteur","prix_juste"));
+        possiblegames.addAll(Arrays.asList("pendu","rotating_pictures","menteur","prix_juste","son"));
 
         this.lobbyGames= new ArrayList<>();
         Collections.shuffle(possiblegames);
