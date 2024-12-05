@@ -30,13 +30,16 @@ public class Lobby {
         this.p1 = user;
         this.p2 = null;
         ArrayList<String> possiblegames = new ArrayList<String>();
-        //possiblegames.addAll(Arrays.asList("pendu","prix_juste","rotating_pictures","menteur","cryptex"));
-        possiblegames.addAll(Arrays.asList("rotating_pictures"));
+        possiblegames.addAll(Arrays.asList("pendu","rotating_pictures","menteur","prix_juste"));
+
         this.lobbyGames= new ArrayList<>();
         Collections.shuffle(possiblegames);
-        /*for(int x=0;x<3;x++){
-            this.lobbygames.add(possiblegames.get(x));
-        }*/
+        for(int x=0;x<2;x++){
+            this.lobbyGames.add(possiblegames.get(x));
+        }
+
+        this.lobbyGames.add("gyroscope");
+        this.lobbyGames.add("endActivity");
         this.lobbyGames.addAll(possiblegames);
     }
 

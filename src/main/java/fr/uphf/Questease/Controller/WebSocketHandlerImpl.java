@@ -124,12 +124,10 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
                 String responseJson = objectMapper.writeValueAsString(responseMessage);
                 session.sendMessage(new TextMessage(responseJson));
             } else if ("leaveLobby".equals(receivedMessage.getTag())) {
-
                 User user = identifyUserBySession(session);
                 if(findlobbybyname(receivedMessage.getMessage()) != null){
                     Lobby lobby = findlobbybyname(receivedMessage.getMessage());
                     System.out.println(lobby.toString());
-
                     if (lobby.getp1() == user){
                         WebSocketSession webSocketSession1  = null;
                         if(lobby.getp2()!=null){
@@ -148,7 +146,6 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
                         webSocketSession2.sendMessage(new TextMessage(responsejson));
                         lobby.setp2(null);
                         System.out.println(lobby.toString());
-
                     }
                     if (lobby.getp2() == null && lobby.getp1() == null){
                         lobbies.remove(lobby);
