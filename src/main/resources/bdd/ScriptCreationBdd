@@ -80,7 +80,7 @@ CREATE TABLE InfoSecu
 );
 
 
-INSERT INTO Indice (idIndice, Indice, motcache) VALUES
+INSERT INTO indice (idIndice, Indice, motcache) VALUES
 (0, "UnIndiceSon", "Oui")
 (1, "UnIndiceSon", "Oui")
 (3, "UnIndiceSon", "Oui")
@@ -93,27 +93,27 @@ INSERT INTO Indice (idIndice, Indice, motcache) VALUES
 (8, "UnIndiceCryptex", "Oui")
 (9, "UnIndiceCryptex", "Biggus Dickusgit add .")
 
-INSERT INTO choseatrouverprixjust (idchoseatrouver, nom, prix, pathtopicture) VALUES
+INSERT INTO choseatrouver_prix_just (idchoseatrouver, nom, prix, pathtopicture) VALUES
 (0, "Voiture", 2500, "A/Path/To/Somewhere")
 (1, "Grille-Pain", 40, "A/Path/To/Somewhere/Else")
 (2, "Bouteille d'eau", 1, "A/Path/Elsewhere")
 
-INSERT INTO Son (idSon, cheminSon, idIndice) VALUES
+INSERT INTO son (idSon, cheminSon, idIndice) VALUES
 (0, "A/Path/To/Somewhere", 0)
 (1, "A/Path/To/Somewhere/Else", 1)
 (2, "A/Path/Elsewhere", 2)
 
-INSERT INTO MotPendu (idMotPendu, mot, idIndice) VALUES
+INSERT INTO mot_pendu (idMotPendu, mot, idIndice) VALUES
 (0, "Oui", 4)
 (1, "Oui", 5)
 (2, "Oui", 6)
 
-INSERT INTO MotCryptex (idMotCryptex, mot, idIndice) VALUES
+INSERT INTO mot_cryptex (idMotCryptex, mot, idIndice) VALUES
 (0, "Non", 7)
 (1, "Non", 8)
 (2, "Non", 9)
 
-INSERT INTO Utilisateur (idUtilisateur, pseudoUser, xp) VALUES
+INSERT INTO utilisateur (idUtilisateur, pseudoUser, xp) VALUES
 (0, "Oui", 0)
 (1, "Oui", 0)
 (2, "Biggus Dickus", 0)
@@ -123,7 +123,7 @@ INSERT INTO resultat (idpartie, idutilisateur, istresor, iscryptex, ispendu, iss
 (1, 1, false, false, false, false, false)
 (2, 2, false, false, false, false, false)
 
-INSERT INTO InfoSecu (idInfoSecu, idUtilisateur, psswrd, email) VALUES
+INSERT INTO info_secu (idInfoSecu, idUtilisateur, psswrd, email) VALUES
 (0, 0, "1234", "YesButNo@gmail.com")
 (1, 1, "1234", "NoButYes@gmail.com")
 (2, 2, "1234", "YesButYes@gmail.com")
