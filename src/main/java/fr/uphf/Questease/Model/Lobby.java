@@ -45,8 +45,16 @@ public class Lobby {
      *Renvoie le prochain jeu
      * @return
      */
-    public String getNextGame(){
+        public String getNextGame(){
         return this.lobbyGames.get(0);
+        if(lobbyGames.size()==0){
+            return "";
+        }
+        String game = this.lobbyGames.get(0);
+        if(!lobbyGames.isEmpty()){
+            this.lobbyGames.remove(0);
+        }
+        return game;
     }
 
     /**
