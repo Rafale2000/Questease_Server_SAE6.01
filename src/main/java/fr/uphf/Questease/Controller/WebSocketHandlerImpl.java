@@ -1,26 +1,36 @@
-
 package fr.uphf.Questease.Controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.uphf.Questease.Model.Lobby;
+import fr.uphf.Questease.Model.Mot;
 import fr.uphf.Questease.Model.User;
 import fr.uphf.Questease.Model.WebSocketMessage;
+import jakarta.websocket.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.TextMessage;
-
+import fr.uphf.Questease.Model.MotRepository;
 import java.util.ArrayList;
+import java.util.Optional;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class WebSocketHandlerImpl implements WebSocketHandler {
     private ArrayList<Lobby> lobbies;
     private ArrayList<User> users;
+    @Autowired
+    private MotRepository motRepository;
+
     public WebSocketHandlerImpl() {
         System.out.println("WebSocketHandlerImpl chargé et prêt.");
         this.lobbies = new ArrayList<>();
         this.users = new ArrayList<>();
+
     }
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -116,9 +126,12 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
                 String responseJson = objectMapper.writeValueAsString(responseMessage);
                 session.sendMessage(new TextMessage(responseJson));
             } else if ("leaveLobby".equals(receivedMessage.getTag())) {
+
                 User user = identifyUserBySession(session);
                 if(findlobbybyname(receivedMessage.getMessage()) != null){
                     Lobby lobby = findlobbybyname(receivedMessage.getMessage());
+                    System.out.println(lobby.toString());
+
                     if (lobby.getp1() == user){
                         WebSocketSession webSocketSession1  = null;
                         if(lobby.getp2()!=null){
@@ -130,12 +143,14 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
                             webSocketSession1.sendMessage(new TextMessage(responseJson));
                         }
                         this.lobbies.remove(lobby);
-                    } else if (lobby.getp2().getSession() == session) {
+                    } else if (lobby.getp2() != null && lobby.getp2() == user) {
                         WebSocketSession webSocketSession2 = lobby.getp1().getSession();
                         responseMessage = new WebSocketMessage("p2Leaved",lobby.getp2().getNom());
                         String responsejson = objectMapper.writeValueAsString(responseMessage);
                         webSocketSession2.sendMessage(new TextMessage(responsejson));
                         lobby.setp2(null);
+                        System.out.println(lobby.toString());
+
                     }
                     if (lobby.getp2() == null && lobby.getp1() == null){
                         lobbies.remove(lobby);
@@ -175,8 +190,23 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
                 String responseJson2 = objectMapper.writeValueAsString(responseMessage2);
                 System.out.println("j'envoie "+responseJson1+ " au joueur "+lobby.getp1().getNom());
                 session1.sendMessage(new TextMessage(responseJson1));
+
                 System.out.println("j'envoie "+responseJson2+ " au joueur "+lobby.getp2().getNom());
                 session2.sendMessage(new TextMessage(responseJson2));
+
+                // Dans le cas où les deux ont la même activity, on envoie au j1 l'initiative
+                WebSocketMessage responseMessage3 = new WebSocketMessage("beginGame", "");
+                String responseJson3 = objectMapper.writeValueAsString(responseMessage3);
+
+                try {
+                    // Introduire un délai de 1 seconde
+                    Thread.sleep(1000);
+                    session1.sendMessage(new TextMessage(responseJson3));
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt(); // Restaurer l'état d'interruption
+                    System.err.println("Le délai avant l'envoi a été interrompu : " + e.getMessage());
+                }
+
             }
             //Fonctions pour le jeu Rotating Pictures
             else if ("RotatingPicOrientation".equals(receivedMessage.getTag())) {
@@ -192,6 +222,54 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
                 else if(user2.equals(sourceUser)){
                     user1.getSession().sendMessage(new TextMessage(responseJson));
                 }
+            } else if ("PenduTry".equals(receivedMessage.getTag())) {
+                User sourceUser = identifyUserBySession(session);
+                Lobby lobby = findlobbybyplayer(sourceUser.getSession());
+                User user1 = lobby.getp1();
+                User user2 = lobby.getp2();
+                responseMessage = new WebSocketMessage("PenduTry",receivedMessage.getMessage());
+                String responseJson = objectMapper.writeValueAsString(responseMessage);
+                if(user1.equals(sourceUser)){
+                    user2.getSession().sendMessage(new TextMessage(responseJson));
+                }
+                else if(user2.equals(sourceUser)){
+                    user1.getSession().sendMessage(new TextMessage(responseJson));
+                }
+            } else if ("getRandomMot".equals(receivedMessage.getTag())) {
+                Lobby lobby = findlobbybyplayer(session);
+                User user1 = lobby.getp1();
+                User user2 = lobby.getp2();
+                WebSocketSession session1 = user1.getSession();
+                WebSocketSession session2 = user2.getSession();
+                if(lobby.getp1().getSession() == session){
+                    try {
+                        Optional<Mot> motOpt = motRepository.findRandomMot();
+                        if (motOpt.isPresent()) {
+                            Mot mot = motOpt.get();
+                            responseMessage = new WebSocketMessage("setWord", mot.getTexte());
+                        } else {
+                            responseMessage = new WebSocketMessage("setWord", "Aucun mot trouvé");
+                        }
+                        String responseJson = objectMapper.writeValueAsString(responseMessage);
+
+                        // Planifier l'envoi avec un délai de 2 secondes
+                        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+                        scheduler.schedule(() -> {
+                            try {
+                                session1.sendMessage(new TextMessage(responseJson));
+                                session2.sendMessage(new TextMessage(responseJson));
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }, 2, TimeUnit.SECONDS);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        responseMessage = new WebSocketMessage("error", "Erreur lors de l'accès à la base de données");
+                        String responseJson = objectMapper.writeValueAsString(responseMessage);
+                        session.sendMessage(new TextMessage(responseJson));
+                    }
+                }
             }
             else if("successPopup".equals(receivedMessage.getTag())){
                 User sourceUser = identifyUserBySession(session);
@@ -199,6 +277,46 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
                 User user1 = lobby.getp1();
                 User user2 = lobby.getp2();
                 responseMessage = new WebSocketMessage("successPopup",receivedMessage.getMessage());
+                String responseJson = objectMapper.writeValueAsString(responseMessage);
+                if(user1.equals(sourceUser)){
+                    user2.getSession().sendMessage(new TextMessage(responseJson));
+                }
+                else if(user2.equals(sourceUser)){
+                    user1.getSession().sendMessage(new TextMessage(responseJson));
+                }
+            } else if("showTip".equals(receivedMessage.getTag())){
+                User sourceUser = identifyUserBySession(session);
+                Lobby lobby = findlobbybyplayer(sourceUser.getSession());
+                User user1 = lobby.getp1();
+                User user2 = lobby.getp2();
+                responseMessage = new WebSocketMessage("showTip",receivedMessage.getMessage());
+                String responseJson = objectMapper.writeValueAsString(responseMessage);
+                if(user1.equals(sourceUser)){
+                    user2.getSession().sendMessage(new TextMessage(responseJson));
+                }
+                else if(user2.equals(sourceUser)){
+                    user1.getSession().sendMessage(new TextMessage(responseJson));
+                }
+            }
+            else if ("PrixJusteTry".equals(receivedMessage.getTag())) {
+                User sourceUser = identifyUserBySession(session);
+                Lobby lobby = findlobbybyplayer(sourceUser.getSession());
+                User user1 = lobby.getp1();
+                User user2 = lobby.getp2();
+                responseMessage = new WebSocketMessage("PrixJusteTry",receivedMessage.getMessage());
+                String responseJson = objectMapper.writeValueAsString(responseMessage);
+                if(user1.equals(sourceUser)){
+                    user2.getSession().sendMessage(new TextMessage(responseJson));
+                }
+                else if(user2.equals(sourceUser)){
+                    user1.getSession().sendMessage(new TextMessage(responseJson));
+                }
+            } else if ("TrouveLeSonMessage".equals(receivedMessage.getTag())) {
+                User sourceUser = identifyUserBySession(session);
+                Lobby lobby = findlobbybyplayer(sourceUser.getSession());
+                User user1 = lobby.getp1();
+                User user2 = lobby.getp2();
+                responseMessage = new WebSocketMessage("TrouveLeSonMessage",receivedMessage.getMessage());
                 String responseJson = objectMapper.writeValueAsString(responseMessage);
                 if(user1.equals(sourceUser)){
                     user2.getSession().sendMessage(new TextMessage(responseJson));
@@ -216,7 +334,6 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
             }
         }
     }
-
     @Override
     public void handleTransportError(WebSocketSession session, Throwable exception) {
         exception.printStackTrace();
@@ -229,6 +346,12 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
         if (lobby != null) {
             System.out.println("Lobby "+lobby.getNom()+" fermé");
             this.lobbies.remove(lobby);
+        }
+        try{
+        User user = identifyUserBySession(session);
+        users.remove(user);}
+        catch (Exception e){
+            System.out.println("la session n'avais pas défini de user");
         }
     }
 
