@@ -11,13 +11,11 @@ import java.util.Collections;
  * Classe Lobby qui est utilisé dans l'application
  */
 public class Lobby {
-    /*private static int counter = 0;
-    private final int id;
-    */
-    private String nom;
+
+    private final String nom;
     private User p1;
     private User p2;
-    private ArrayList<String> lobbyGames;
+    private final ArrayList<String> lobbyGames;
     /**
      * Constructeur de la classe Lobby
      * @param user l'host du lobby et aussi le créateur
@@ -25,12 +23,11 @@ public class Lobby {
      */
 
     public Lobby(User user,String nom) {
-        //this.id = (++counter);
+
         this.nom = nom;
         this.p1 = user;
         this.p2 = null;
-        ArrayList<String> possiblegames = new ArrayList<String>();
-        possiblegames.addAll(Arrays.asList("prix_juste","pendu","rotating_pictures","menteur","son"));
+        ArrayList<String> possiblegames = new ArrayList<>(Arrays.asList("prix_juste", "pendu", "rotating_pictures", "menteur", "son"));
 
         this.lobbyGames= new ArrayList<>();
         Collections.shuffle(possiblegames);
@@ -45,18 +42,22 @@ public class Lobby {
 
     /**
      *Renvoie le prochain jeu
-     * @return
+     * @return lobby.get(0)
      */
     public String getNextGame(){
-        if(lobbyGames.size()==0){
+        if(lobbyGames.isEmpty()){
             return "";
-        }
-        String game = this.lobbyGames.get(0);
-        if(!lobbyGames.isEmpty()){
+        } else{
             this.lobbyGames.remove(0);
         }
-        return game;
+
+        return this.lobbyGames.get(0);
     }
+
+    /**
+     *  Ajoute un user au lobby
+     * @param user second joueur du lobby
+     */
     private void addplayer(User user){
         this.p2 = user;
     }
@@ -71,15 +72,6 @@ public class Lobby {
         webSocketSession1.sendMessage(content);
         WebSocketSession webSocketSession2 = p1.getSession();
         webSocketSession2.sendMessage(content);
-    }
-
-    /**
-     * Renvoie les sessions des joueurs connectés au lobby
-     * @return
-     */
-    private ArrayList<WebSocketSession> getplayers(){
-        ArrayList<WebSocketSession> playerlist = new ArrayList<>();
-        return playerlist;
     }
 
     /**
