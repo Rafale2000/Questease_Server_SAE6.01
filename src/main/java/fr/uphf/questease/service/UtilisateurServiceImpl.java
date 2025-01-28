@@ -25,7 +25,7 @@ public class UtilisateurServiceImpl implements UtilisateurService{
      * @return L'objet `Utilisateur` sauvegardé.
      */
     @Override
-    public Utilisateur SaveUtilisateur(Utilisateur utilisateur) {
+    public Utilisateur saveUtilisateur(Utilisateur utilisateur) {
         return repo.save(utilisateur);
     }
 
@@ -35,7 +35,7 @@ public class UtilisateurServiceImpl implements UtilisateurService{
      * @return Une liste contenant tous les objets `Utilisateur`.
      */
     @Override
-    public List<Utilisateur> FetchUtilisateurList() {
+    public List<Utilisateur> fetchUtilisateurList() {
         return (List<Utilisateur>) repo.findAll();
     }
 
@@ -46,7 +46,7 @@ public class UtilisateurServiceImpl implements UtilisateurService{
      * @return Un `Iterable` contenant l'utilisateur correspondant, ou vide si aucun utilisateur n'est trouvé.
      */
     @Override
-    public Iterable<Utilisateur> FetchOne(String pseudoUser){
+    public Iterable<Utilisateur> fetchOne(String pseudoUser){
         return repo.findUtilByName(pseudoUser);
     }
 
@@ -58,7 +58,7 @@ public class UtilisateurServiceImpl implements UtilisateurService{
      * @return L'objet `Utilisateur` mis à jour.
      */
     @Override
-    public Utilisateur UpdateUtilisateur(Utilisateur utilisateur, Long utilisateurId) {
+    public Utilisateur updateUtilisateur(Utilisateur utilisateur, Long utilisateurId) {
         repo.deleteById(utilisateurId);
         return repo.save(utilisateur);
     }
@@ -69,7 +69,7 @@ public class UtilisateurServiceImpl implements UtilisateurService{
      * @param utilisateurId L'identifiant de l'objet `Utilisateur` à supprimer.
      */
     @Override
-    public void DeleteUtilisateur(Long utilisateurId) {
+    public void deleteUtilisateur(Long utilisateurId) {
         repo.deleteById(utilisateurId);
     }
 }

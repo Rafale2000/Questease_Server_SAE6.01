@@ -16,14 +16,14 @@ public interface UtilisateurService {
      * @param utilisateur L'objet `Utilisateur` à sauvegarder.
      * @return L'objet `Utilisateur` sauvegardé.
      */
-    public Utilisateur SaveUtilisateur(Utilisateur utilisateur);
+    public Utilisateur saveUtilisateur(Utilisateur utilisateur);
 
     /**
      * Récupère la liste de tous les objets `Utilisateur` enregistrés.
      *
      * @return Une liste contenant tous les objets `Utilisateur`.
      */
-    public List<Utilisateur> FetchUtilisateurList();
+    public List<Utilisateur> fetchUtilisateurList();
 
     /**
      * Récupère un ou plusieurs objets `Utilisateur` spécifiques à partir du pseudo de l'utilisateur.
@@ -31,7 +31,7 @@ public interface UtilisateurService {
      * @param pseudoUser Le pseudo de l'utilisateur à récupérer.
      * @return Un `Iterable` contenant l'utilisateur correspondant, ou vide si aucun utilisateur n'est trouvé.
      */
-    public Iterable<Utilisateur> FetchOne(String pseudoUser);
+    public Iterable<Utilisateur> fetchOne(String pseudoUser);
 
     /**
      * Met à jour un objet `Utilisateur` existant.
@@ -40,12 +40,12 @@ public interface UtilisateurService {
      * @param utilisateurId L'identifiant de l'objet `Utilisateur` à mettre à jour.
      * @return L'objet `Utilisateur` mis à jour.
      */
-    public Utilisateur UpdateUtilisateur(Utilisateur utilisateur, Long utilisateurId);
+    public Utilisateur updateUtilisateur(Utilisateur utilisateur, Long utilisateurId);
 
     /**
      * Supprime un objet `Utilisateur` à partir de son identifiant.
      *
      * @param utilisateurId L'identifiant de l'objet `Utilisateur` à supprimer.
      */
-    public void DeleteUtilisateur(Long utilisateurId);
+    public void deleteUtilisateur(Long utilisateurId);
 }
