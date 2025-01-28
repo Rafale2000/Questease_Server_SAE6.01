@@ -20,7 +20,7 @@ public class ResultatServiceImpl implements ResultatService {
      * @return L'objet `Resultat` sauvegardé.
      */
     @Override
-    public Resultat SaveResultat(Resultat resultat) {
+    public Resultat saveResultat(Resultat resultat) {
         return null;
     }
 
@@ -30,7 +30,7 @@ public class ResultatServiceImpl implements ResultatService {
      * @return Une liste contenant tous les resultats.
      */
     @Override
-    public List<Resultat> FetchResultatList() {
+    public List<Resultat> fetchResultatList() {
         return (List<Resultat>) repo.findAll();
     }
 
@@ -41,7 +41,7 @@ public class ResultatServiceImpl implements ResultatService {
      * @return Un `Optional` contenant un resultat s'il est trouvé, sinon vide.
      */
     @Override
-    public Optional<Resultat> FetchResulat(Long id) {
+    public Optional<Resultat> fetchResulat(Long id) {
         return repo.findById(id);
     }
 
@@ -53,7 +53,7 @@ public class ResultatServiceImpl implements ResultatService {
      * @return L'objet `Resultat` mis à jour.
      */
     @Override
-    public Resultat UpdateInfoSecu(Resultat resultat, Long resultatId) {
+    public Resultat updateInfoSecu(Resultat resultat, Long resultatId) {
         repo.deleteById(resultatId);
         return repo.save(resultat);
     }
@@ -65,6 +65,6 @@ public class ResultatServiceImpl implements ResultatService {
      */
     @Override
     public void deleteResultat(Long resultatId) {
-
+        repo.deleteById(resultatId);
     }
 }
