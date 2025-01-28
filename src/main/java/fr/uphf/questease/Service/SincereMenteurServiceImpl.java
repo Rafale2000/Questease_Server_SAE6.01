@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-import fr.uphf.questease.Model.SincereMenteur;
+import fr.uphf.questease.model.SincereMenteur;
 import fr.uphf.questease.Repository.SincereMenteurRepository;
 
 /**

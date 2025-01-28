@@ -1,6 +1,6 @@
 package fr.uphf.questease.Repository;
 
-import fr.uphf.questease.Model.Indice;
+import fr.uphf.questease.model.Indice;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,6 @@
 package fr.uphf.questease.Repository;
 
-import fr.uphf.questease.Model.SincereMenteur;
+import fr.uphf.questease.model.SincereMenteur;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

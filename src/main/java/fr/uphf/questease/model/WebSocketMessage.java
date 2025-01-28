@@ -1,4 +1,4 @@
-package fr.uphf.questease.Model;
+package fr.uphf.questease.model;
 
 public class WebSocketMessage {
     private String tag;

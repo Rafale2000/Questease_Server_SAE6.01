@@ -1,6 +1,6 @@
 package fr.uphf.questease.controller;
 
-import fr.uphf.questease.Model.Indice;
+import fr.uphf.questease.model.Indice;
 import fr.uphf.questease.Service.IndiceServiceImpl;
 import org.springframework.web.bind.annotation.*;
 

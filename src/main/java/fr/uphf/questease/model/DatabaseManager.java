@@ -1,4 +1,4 @@
-package fr.uphf.questease.Model;
+package fr.uphf.questease.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,6 +1,6 @@
 package fr.uphf.questease.Service;
 
-import fr.uphf.questease.Model.Son;
+import fr.uphf.questease.model.Son;
 import fr.uphf.questease.Repository.SonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

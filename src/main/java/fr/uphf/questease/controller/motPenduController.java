@@ -1,6 +1,6 @@
 package fr.uphf.questease.controller;
 
-import fr.uphf.questease.Model.MotPendu;
+import fr.uphf.questease.model.MotPendu;
 import fr.uphf.questease.Service.MotPenduServiceImpl;
 import org.springframework.web.bind.annotation.*;
 

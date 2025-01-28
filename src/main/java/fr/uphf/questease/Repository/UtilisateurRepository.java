@@ -1,6 +1,6 @@
 package fr.uphf.questease.Repository;
 
-import fr.uphf.questease.Model.Utilisateur;
+import fr.uphf.questease.model.Utilisateur;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;

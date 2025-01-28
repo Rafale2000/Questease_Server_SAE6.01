@@ -1,6 +1,6 @@
 package fr.uphf.questease.Repository;
 
-import fr.uphf.questease.Model.Son;
+import fr.uphf.questease.model.Son;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,6 @@
 package fr.uphf.questease.Repository;
 
-import fr.uphf.questease.Model.MotPendu;
+import fr.uphf.questease.model.MotPendu;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package fr.uphf.questease.Model;
+package fr.uphf.questease.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

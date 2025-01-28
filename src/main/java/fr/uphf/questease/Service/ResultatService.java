@@ -1,6 +1,6 @@
 package fr.uphf.questease.Service;
 
-import fr.uphf.questease.Model.Resultat;
+import fr.uphf.questease.model.Resultat;
 
 import java.util.List;
 import java.util.Optional;

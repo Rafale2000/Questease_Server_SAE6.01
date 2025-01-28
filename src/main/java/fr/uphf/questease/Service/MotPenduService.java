@@ -1,6 +1,6 @@
 package fr.uphf.questease.Service;
 
-import fr.uphf.questease.Model.MotPendu;
+import fr.uphf.questease.model.MotPendu;
 
 import java.util.List;
 import java.util.Optional;

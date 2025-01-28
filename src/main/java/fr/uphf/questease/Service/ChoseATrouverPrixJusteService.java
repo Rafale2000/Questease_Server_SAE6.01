@@ -1,6 +1,6 @@
 package fr.uphf.questease.Service;
 
-import fr.uphf.questease.Model.ChoseATrouverPrixJuste;
+import fr.uphf.questease.model.ChoseATrouverPrixJuste;
 import java.util.List;
 import java.util.Optional;
 

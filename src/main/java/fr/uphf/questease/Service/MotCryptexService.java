@@ -1,6 +1,6 @@
 package fr.uphf.questease.Service;
 
-import fr.uphf.questease.Model.MotCryptex;
+import fr.uphf.questease.model.MotCryptex;
 import java.util.List;
 import java.util.Optional;
 

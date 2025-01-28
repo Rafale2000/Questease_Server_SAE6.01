@@ -1,6 +1,6 @@
 package fr.uphf.questease.Service;
 
-import fr.uphf.questease.Model.InfoSecu;
+import fr.uphf.questease.model.InfoSecu;
 
 import java.util.Optional;
 

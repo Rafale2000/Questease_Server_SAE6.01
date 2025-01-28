@@ -1,6 +1,6 @@
 package fr.uphf.questease.Service;
 
-import fr.uphf.questease.Model.MotPendu;
+import fr.uphf.questease.model.MotPendu;
 import fr.uphf.questease.Repository.MotPenduRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

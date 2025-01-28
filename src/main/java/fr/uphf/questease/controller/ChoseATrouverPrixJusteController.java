@@ -1,6 +1,6 @@
 package fr.uphf.questease.controller;
 
-import fr.uphf.questease.Model.ChoseATrouverPrixJuste;
+import fr.uphf.questease.model.ChoseATrouverPrixJuste;
 import fr.uphf.questease.Service.ChoseATrouverPrixJusteServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

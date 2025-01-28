@@ -1,6 +1,6 @@
 package fr.uphf.questease.Service;
 
-import fr.uphf.questease.Model.Resultat;
+import fr.uphf.questease.model.Resultat;
 import fr.uphf.questease.Repository.ResultatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

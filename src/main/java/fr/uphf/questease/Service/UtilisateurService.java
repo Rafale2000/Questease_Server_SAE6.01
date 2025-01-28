@@ -1,6 +1,6 @@
 package fr.uphf.questease.Service;
 
-import fr.uphf.questease.Model.Utilisateur;
+import fr.uphf.questease.model.Utilisateur;
 
 import java.util.List;
 
