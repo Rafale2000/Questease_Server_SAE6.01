@@ -68,5 +68,31 @@ public class Indice {
         return indiceText;
     }
 
- 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getIndiceText() {
+        return indiceText;
+    }
+
+    public void setIndiceText(String indiceText) {
+        this.indiceText = indiceText;
+    }
+
+    public List<MotCryptex> getMotCryptexList() {
+        return motCryptexList;
+    }
+
+    public void setMotCryptexList(List<MotCryptex> motCryptexList) {
+        this.motCryptexList = motCryptexList;
+    }
+
+    public List<MotCryptex> getSonList() {
+        return sonList;
+    }
+
+    public void setSonList(List<MotCryptex> sonList) {
+        this.sonList = sonList;
+    }
 }
