@@ -21,7 +21,7 @@ public class Indice {
      * Le texte de l'indice
      */
     @Column(name = "indice",unique=true, nullable=false)
-    private String indice;
+    private String indiceText;
 
 
     /**
@@ -49,7 +49,7 @@ public class Indice {
      */
     public Indice(int id, String indice) {
         this.id = id;
-        this.indice = indice;
+        this.indiceText = indice;
     }
 
     /**
@@ -65,7 +65,7 @@ public class Indice {
      * @return Le texte de l'indice
      */
     public String getHint() {
-        return indice;
+        return indiceText;
     }
 
  
