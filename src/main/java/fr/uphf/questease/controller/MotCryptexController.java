@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 /**
  * Controller de la classe MotCryptex
@@ -14,6 +15,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/motcryptex")  // Base path to avoid conflicts
 public class MotCryptexController {
+    public final Random random = new Random();
 
     /**
      * Service du repositoire de MotCryptex
@@ -33,9 +35,9 @@ public class MotCryptexController {
      * @param idMotCryptex L'id du mot récupéré
      * @return Le mot récupéré
      */
-    @GetMapping("/idMotCryptex")
+    @GetMapping("/idMotCryptex{idMotCryptex}")
     public Optional<MotCryptex> getMotById(@PathVariable Long idMotCryptex) {
-        return repo.FetchMotCryptex(idMotCryptex);
+        return repo.fetchMotCryptex(idMotCryptex);
     }
 
     /**
@@ -44,8 +46,8 @@ public class MotCryptexController {
      */
     @GetMapping("/random")
     public MotCryptex getRandomWord(){
-        List<MotCryptex> liste = repo.FetchMotCryptexList();
-        return liste.get((int) (Math.random() * ((liste.size()) + 1)));
+        List<MotCryptex> liste = repo.fetchMotCryptexList();
+        return liste.get((random.nextInt() * (liste.size() + 1)));
     }
 
     /**
@@ -53,28 +55,28 @@ public class MotCryptexController {
      * @param M Le mot qui sera ajouté à la base de donnée
      */
     @PostMapping("/{idMotCryptex}")
-    public void PostIndice(@PathVariable MotCryptex M) {
-        repo.SaveMotCryptex(M);
+    public void postIndice(@PathVariable MotCryptex M) {
+        repo.saveMotCryptex(M);
     }
 
     /**
      * Méthode Update permettant de mettre à jour un mot de la base de donnée
-     * @param IdMot L'id du mot qui sera mis à jour
-     * @param M Le mot qui sera mis à jour
+     * @param idMot L'id du mot qui sera mis à jour
+     * @param motCryptex Le mot qui sera mis à jour
      */
     @PatchMapping("/{idMotCryptex}")
-    public void UpdateMot(Long IdMot, @PathVariable MotCryptex M) {
-        repo.deleteMotCryptex(IdMot);
-        repo.SaveMotCryptex(M);
+    public void updateMot(Long idMot, @PathVariable MotCryptex motCryptex) {
+        repo.deleteMotCryptex(idMot);
+        repo.saveMotCryptex(motCryptex);
     }
 
     /**
      * Méthode Delete permettant de supprimer un mot de la base de donnée
-     * @param M Le mot qui sera supprimé de la base de donnée
+     * @param motId Le mot qui sera supprimé de la base de donnée
      */
-    @DeleteMapping("/{idMoCryptex}")
-    public void DeleteMot(@PathVariable MotCryptex M) {
-        repo.deleteMotCryptex(M.getId());
+    @DeleteMapping("/{motId}")
+    public void deleteMot(@PathVariable int motId) {
+        repo.deleteMotCryptex((long) motId);
     }
 
     /**
@@ -82,13 +84,13 @@ public class MotCryptexController {
      * @return List<MotCryptex> une liste qui contient des valeurs (s'il y en a dans la BDD)
      */
     @GetMapping("")
-    public List<MotCryptex> getMotCryptex() {return repo.FetchMotCryptexList();}
+    public List<MotCryptex> getMotCryptex() {return repo.fetchMotCryptexList();}
 
     /**
      * Méthode POST qui renvoit une liste contenant tous les MotCryptex de la base de données.
      * @return List<MotCryptex> une liste qui contient des valeurs (s'il y en a dans la BDD)
      */
     @PostMapping("")
-    public List<MotCryptex> getMotCryptexPost() {return repo.FetchMotCryptexList();}
+    public List<MotCryptex> getMotCryptexPost() {return repo.fetchMotCryptexList();}
 
 }
