@@ -21,7 +21,7 @@ public class InfoSecuServiceImpl implements InfoSecuService {
      * @return L'objet `MotCryptex` sauvegardé.
      */
     @Override
-    public InfoSecu SaveInfoSecu(InfoSecu infoSecu) {
+    public InfoSecu saveInfoSecu(InfoSecu infoSecu) {
         return repo.save(infoSecu);
     }
     /**
@@ -31,7 +31,7 @@ public class InfoSecuServiceImpl implements InfoSecuService {
      * @return Un `Optional` contenant l'infoSecu s'il est trouvé, sinon vide.
      */
     @Override
-    public Optional<InfoSecu> FetchInfoSecu(Long id) {
+    public Optional<InfoSecu> fetchInfoSecu(Long id) {
         return repo.findById(id);
     }
 
@@ -43,7 +43,7 @@ public class InfoSecuServiceImpl implements InfoSecuService {
      * @return L'objet `infoSecu` mis à jour.
      */
     @Override
-    public InfoSecu UpdateInfoSecu(InfoSecu infoSecu, Long infoSecuId) {
+    public InfoSecu updateInfoSecu(InfoSecu infoSecu, Long infoSecuId) {
         repo.deleteById(infoSecuId);
         return repo.save(infoSecu);
     }

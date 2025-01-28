@@ -11,7 +11,7 @@ public interface InfoSecuService {
      * @param infoSecu L'objet `infoSecu` à sauvegarder.
      * @return L'objet `infoSecu` sauvegardé.
      */
-    InfoSecu SaveInfoSecu(InfoSecu infoSecu);
+    InfoSecu saveInfoSecu(InfoSecu infoSecu);
 
 
     /**
@@ -20,7 +20,7 @@ public interface InfoSecuService {
      * @param id L'identifiant de l'infoSecu à récupérer.
      * @return Un `Optional` contenant l'objet `InfoSecu` s'il est trouvé, sinon vide.
      */
-    Optional<InfoSecu> FetchInfoSecu(Long id);
+    Optional<InfoSecu> fetchInfoSecu(Long id);
 
     /**
      * Met à jour un mot Cryptex existant en fonction de son identifiant.
@@ -29,7 +29,7 @@ public interface InfoSecuService {
      * @param infoSecuId  L'identifiant de l'infoSecu à mettre à jour.
      * @return L'objet `infoSecu` mis à jour.
      */
-    InfoSecu UpdateInfoSecu(InfoSecu infoSecu, Long infoSecuId);
+    InfoSecu updateInfoSecu(InfoSecu infoSecu, Long infoSecuId);
 
     /**
      * Supprime un infoSecu à partir de son identifiant.
