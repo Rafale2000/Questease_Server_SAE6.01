@@ -14,6 +14,7 @@ import java.util.Random;
 @RestController
 @RequestMapping("/choseATrouver")
 public class ChoseATrouverPrixJusteController {
+    private final Random random = new Random();
 
     /**
      * Implémentation du service permettant d'accéder au repositoire
@@ -68,7 +69,7 @@ public class ChoseATrouverPrixJusteController {
     @GetMapping("/random")
     public ChoseATrouverPrixJuste getRandomChose() {
         List<ChoseATrouverPrixJuste> liste = repo.fetchChoseList();
-        Random random = new Random();
+
         return liste.get((random.nextInt() * (liste.size())));
     }
 
