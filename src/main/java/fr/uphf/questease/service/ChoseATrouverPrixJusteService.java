@@ -16,14 +16,14 @@ public interface ChoseATrouverPrixJusteService {
      * @param chose L'objet à sauvegarder ou mettre à jour.
      * @return L'objet sauvegardé.
      */
-    ChoseATrouverPrixJuste SaveChose(ChoseATrouverPrixJuste chose);
+    ChoseATrouverPrixJuste saveChose(ChoseATrouverPrixJuste chose);
 
     /**
      * Récupère la liste de tous les objets enregistrés.
      *
      * @return Une liste contenant tous les objets (List<ChoseATrouverPrixJuste>).
      */
-    List<ChoseATrouverPrixJuste> FetchChoseList();
+    List<ChoseATrouverPrixJuste> fetchChoseList();
 
     /**
      * Lit un objet spécifique à partir de son identifiant.
@@ -31,7 +31,7 @@ public interface ChoseATrouverPrixJusteService {
      * @param id L'identifiant de l'objet.
      * @return Un `Optional` contenant l'objet s'il est trouvé, sinon vide.
      */
-    Optional<ChoseATrouverPrixJuste> ReadChose(Long id);
+    Optional<ChoseATrouverPrixJuste> readChose(Long id);
 
     /**
      * Met à jour un objet existant en fonction de son identifiant.
@@ -40,13 +40,13 @@ public interface ChoseATrouverPrixJusteService {
      * @param choseId L'identifiant de l'objet à mettre à jour.
      * @return L'objet mis à jour.
      */
-    ChoseATrouverPrixJuste UpdateChose(ChoseATrouverPrixJuste chose, Long choseId);
+    ChoseATrouverPrixJuste updateChose(ChoseATrouverPrixJuste chose, Long choseId);
 
     /**
      * Supprime un objet à partir de son identifiant.
      *
      * @param choseId L'identifiant de l'objet à supprimer.
      */
-    void DeleteChose(Long choseId);
+    void deleteChose(Long choseId);
 }
 

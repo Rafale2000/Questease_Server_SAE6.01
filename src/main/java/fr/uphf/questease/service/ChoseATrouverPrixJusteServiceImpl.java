@@ -24,7 +24,7 @@ public class ChoseATrouverPrixJusteServiceImpl implements ChoseATrouverPrixJuste
      * @return L'objet `ChoseATrouverPrixJuste` sauvegardé.
      */
     @Override
-    public ChoseATrouverPrixJuste SaveChose(ChoseATrouverPrixJuste infoSecu) {
+    public ChoseATrouverPrixJuste saveChose(ChoseATrouverPrixJuste infoSecu) {
         return repo.save(infoSecu);
     }
 
@@ -34,7 +34,7 @@ public class ChoseATrouverPrixJusteServiceImpl implements ChoseATrouverPrixJuste
      * @return Une liste contenant tous les objets `ChoseATrouverPrixJuste`.
      */
     @Override
-    public List<ChoseATrouverPrixJuste> FetchChoseList() {
+    public List<ChoseATrouverPrixJuste> fetchChoseList() {
         return (List<ChoseATrouverPrixJuste>)repo.findAll();
     }
 
@@ -45,7 +45,7 @@ public class ChoseATrouverPrixJusteServiceImpl implements ChoseATrouverPrixJuste
      * @return Un `Optional` contenant l'objet s'il est trouvé, sinon vide.
      */
     @Override
-    public Optional<ChoseATrouverPrixJuste> ReadChose(Long id) {
+    public Optional<ChoseATrouverPrixJuste> readChose(Long id) {
         return repo.findById(id);
     }
 
@@ -57,7 +57,7 @@ public class ChoseATrouverPrixJusteServiceImpl implements ChoseATrouverPrixJuste
      * @return L'objet `ChoseATrouverPrixJuste` mis à jour.
      */
     @Override
-    public ChoseATrouverPrixJuste UpdateChose(ChoseATrouverPrixJuste chose, Long choseId) {
+    public ChoseATrouverPrixJuste updateChose(ChoseATrouverPrixJuste chose, Long choseId) {
         repo.deleteById(choseId);
         return repo.save(chose);
     }
@@ -68,7 +68,7 @@ public class ChoseATrouverPrixJusteServiceImpl implements ChoseATrouverPrixJuste
      * @param choseId L'identifiant de la "chose à trouver" à supprimer.
      */
     @Override
-    public void DeleteChose(Long choseId) {
+    public void deleteChose(Long choseId) {
         repo.deleteById(choseId);
     }
 }
