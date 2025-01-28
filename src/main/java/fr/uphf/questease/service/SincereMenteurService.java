@@ -32,7 +32,7 @@ public interface SincereMenteurService {
      * @param id L'identifiant de l'objet à récupérer.
      * @return Un `Optional` contenant l'objet s'il est trouvé, sinon vide.
      */
-    Optional<SincereMenteur> FetchSincereMenteur(Long id);
+    Optional<SincereMenteur> fetchSincereMenteur(Long id);
 
     /**
      * Met à jour un objet `SincereMenteur` existant.
@@ -42,7 +42,7 @@ public interface SincereMenteurService {
      * @param sincereMenteurId    L'identifiant de l'objet à mettre à jour.
      * @return L'objet `SincereMenteur` mis à jour.
      */
-    SincereMenteur UpdateSincereMenteur(SincereMenteur sincereMenteur, Long sincereMenteurId);
+    SincereMenteur updateSincereMenteur(SincereMenteur sincereMenteur, Long sincereMenteurId);
 
     /**
      * Supprime un objet `SincereMenteur` à partir de son identifiant.

@@ -48,7 +48,7 @@ public class SincereMenteurServiceImpl implements SincereMenteurService {
      * @return Un `Optional` contenant l'objet s'il est trouvé, sinon vide.
      */
     @Override
-    public Optional<SincereMenteur> FetchSincereMenteur(Long id) {
+    public Optional<SincereMenteur> fetchSincereMenteur(Long id) {
         return repo.findById(id);
     }
 
@@ -61,7 +61,7 @@ public class SincereMenteurServiceImpl implements SincereMenteurService {
      * @return L'objet `SincereMenteur` mis à jour.
      */
     @Override
-    public SincereMenteur UpdateSincereMenteur(SincereMenteur sincereMenteur, Long sincereMenteurId) {
+    public SincereMenteur updateSincereMenteur(SincereMenteur sincereMenteur, Long sincereMenteurId) {
         repo.deleteById(sincereMenteurId);
         return repo.save(sincereMenteur);
     }
