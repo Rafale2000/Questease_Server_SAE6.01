@@ -2,7 +2,7 @@ package fr.uphf.questease.controller;
 
 
 import fr.uphf.questease.model.MotCryptex;
-import fr.uphf.questease.Service.MotCryptexServiceImpl;
+import fr.uphf.questease.service.MotCryptexServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

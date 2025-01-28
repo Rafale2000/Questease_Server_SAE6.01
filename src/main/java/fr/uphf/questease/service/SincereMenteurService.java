@@ -1,4 +1,4 @@
-package fr.uphf.questease.Service;
+package fr.uphf.questease.service;
 
 import java.util.List;
 import java.util.Optional;

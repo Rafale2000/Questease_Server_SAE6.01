@@ -1,4 +1,4 @@
-package fr.uphf.questease.Service;
+package fr.uphf.questease.service;
 
 import fr.uphf.questease.model.Son;
 import fr.uphf.questease.repository.SonRepository;

@@ -2,7 +2,7 @@ package fr.uphf.questease.controller;
 
 
 import fr.uphf.questease.model.Son;
-import fr.uphf.questease.Service.SonServiceImpl;
+import fr.uphf.questease.service.SonServiceImpl;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;

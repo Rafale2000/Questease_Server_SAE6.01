@@ -1,7 +1,7 @@
 package fr.uphf.questease.controller;
 
 import fr.uphf.questease.model.Utilisateur;
-import fr.uphf.questease.Service.UtilisateurServiceImpl;
+import fr.uphf.questease.service.UtilisateurServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
