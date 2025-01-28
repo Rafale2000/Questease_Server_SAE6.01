@@ -30,7 +30,7 @@ public class ChoseATrouverPrixJusteController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<ChoseATrouverPrixJuste>> getChoseById(@PathVariable Long id) {
-        return ResponseEntity.ok(repo.ReadChose(id));
+        return ResponseEntity.ok(repo.readChose(id));
     }
 
     /**
@@ -39,7 +39,7 @@ public class ChoseATrouverPrixJusteController {
      */
     @PostMapping("/{idChoseATrouver}")
     public void postChose(@PathVariable Long idChoseATrouver, @RequestBody ChoseATrouverPrixJuste c) {
-        repo.SaveChose(c);
+        repo.saveChose(c);
     }
 
     /**
@@ -49,7 +49,7 @@ public class ChoseATrouverPrixJusteController {
      */
     @PatchMapping("/{idChoseATrouver}")
     public void updateChoseATrouver(@PathVariable Long idChoseATrouver, @RequestBody ChoseATrouverPrixJuste c) {
-        repo.UpdateChose(c, idChoseATrouver);
+        repo.updateChose(c, idChoseATrouver);
     }
 
     /**
@@ -58,7 +58,7 @@ public class ChoseATrouverPrixJusteController {
      */
     @DeleteMapping("/{idChoseATrouver}")
     public void deleteChose(@PathVariable Long idChoseATrouver) {
-        repo.DeleteChose(idChoseATrouver);
+        repo.deleteChose(idChoseATrouver);
     }
 
     /**
@@ -67,7 +67,7 @@ public class ChoseATrouverPrixJusteController {
      */
     @GetMapping("/random")
     public ChoseATrouverPrixJuste getRandomChose() {
-        List<ChoseATrouverPrixJuste> liste = repo.FetchChoseList();
+        List<ChoseATrouverPrixJuste> liste = repo.fetchChoseList();
         Random random = new Random();
         return liste.get((random.nextInt() * (liste.size())));
     }
@@ -78,7 +78,7 @@ public class ChoseATrouverPrixJusteController {
      */
     @GetMapping("")
     public List<ChoseATrouverPrixJuste> getAll(){
-        return repo.FetchChoseList();
+        return repo.fetchChoseList();
     }
 }
 
