@@ -15,14 +15,14 @@ public interface MotCryptexService {
      * @param motCryptex L'objet `MotCryptex` à sauvegarder.
      * @return L'objet `MotCryptex` sauvegardé.
      */
-    MotCryptex SaveMotCryptex(MotCryptex motCryptex);
+    MotCryptex saveMotCryptex(MotCryptex motCryptex);
 
     /**
      * Récupère la liste de tous les mots Cryptex enregistrés.
      *
      * @return Une liste contenant tous les objets `MotCryptex`.
      */
-    List<MotCryptex> FetchMotCryptexList();
+    List<MotCryptex> fetchMotCryptexList();
 
     /**
      * Récupère un mot Cryptex spécifique à partir de son identifiant.
@@ -30,7 +30,7 @@ public interface MotCryptexService {
      * @param id L'identifiant du mot Cryptex à récupérer.
      * @return Un `Optional` contenant l'objet `MotCryptex` s'il est trouvé, sinon vide.
      */
-    Optional<MotCryptex> FetchMotCryptex(Long id);
+    Optional<MotCryptex> fetchMotCryptex(Long id);
 
     /**
      * Met à jour un mot Cryptex existant en fonction de son identifiant.
@@ -39,7 +39,7 @@ public interface MotCryptexService {
      * @param motCrpyexId  L'identifiant du mot Cryptex à mettre à jour.
      * @return L'objet `MotCryptex` mis à jour.
      */
-    MotCryptex UpdateMotCryptex(MotCryptex motCryptex, Long motCrpyexId);
+    MotCryptex updateMotCryptex(MotCryptex motCryptex, Long motCrpyexId);
 
     /**
      * Supprime un mot Cryptex à partir de son identifiant.

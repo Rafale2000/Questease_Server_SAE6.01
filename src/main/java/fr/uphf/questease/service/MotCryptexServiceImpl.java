@@ -25,7 +25,7 @@ public class MotCryptexServiceImpl implements MotCryptexService {
      * @return L'objet `MotCryptex` sauvegardé.
      */
     @Override
-    public MotCryptex SaveMotCryptex(MotCryptex motCryptex) {
+    public MotCryptex saveMotCryptex(MotCryptex motCryptex) {
         return repo.save(motCryptex);
     }
 
@@ -35,7 +35,7 @@ public class MotCryptexServiceImpl implements MotCryptexService {
      * @return Une liste contenant tous les objets `MotCryptex`.
      */
     @Override
-    public List<MotCryptex> FetchMotCryptexList() {
+    public List<MotCryptex> fetchMotCryptexList() {
         return (List<MotCryptex>) repo.findAll();
     }
 
@@ -46,7 +46,7 @@ public class MotCryptexServiceImpl implements MotCryptexService {
      * @return Un `Optional` contenant le mot s'il est trouvé, sinon vide.
      */
     @Override
-    public Optional<MotCryptex> FetchMotCryptex(Long id) {
+    public Optional<MotCryptex> fetchMotCryptex(Long id) {
         return repo.findById(id);
     }
 
@@ -58,7 +58,7 @@ public class MotCryptexServiceImpl implements MotCryptexService {
      * @return L'objet `MotCryptex` mis à jour.
      */
     @Override
-    public MotCryptex UpdateMotCryptex(MotCryptex motCryptex, Long motCryptexId) {
+    public MotCryptex updateMotCryptex(MotCryptex motCryptex, Long motCryptexId) {
         repo.deleteById(motCryptexId);
         return repo.save(motCryptex);
     }
