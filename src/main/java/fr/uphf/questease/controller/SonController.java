@@ -15,6 +15,8 @@ import java.util.Random;
 @RequestMapping("/son")
 public class SonController {
 
+    public final Random rand = new Random();
+
     /**
      * Le repositoire de Son
      */
@@ -35,28 +37,28 @@ public class SonController {
      */
     @GetMapping("/idSon")
     public Optional<Son> getSonById(@PathVariable Long idSon) {
-        return repo.FetchOne(idSon);
+        return repo.fetchOne(idSon);
     }
 
     /**
      * Méthode Post permettant d'ajouter un Son à la base de donnée
-     * @param S
+     * @param son
      */
     @PostMapping("/{idSon}")
-    public void PostSon(@PathVariable Son S) {
-        repo.SaveSon(S);
+    public void postSon(@PathVariable Son son) {
+        repo.saveSon(son);
     }
 
 
     /**
      * Méthode Update permettant de mettre à jour un Son dans la base de donnée
-     * @param IdSon L'id du Son à mettre à jour
-     * @param S Le son qui sera mis à jour
+     * @param idSon L'id du Son à mettre à jour
+     * @param son Le son qui sera mis à jour
      */
     @PatchMapping("/{idSon}")
-    public void UpdateSon(Long IdSon, @PathVariable Son S) {
-        repo.DeleteSon(IdSon);
-        repo.SaveSon(S);
+    public void updateSon(Long idSon, @PathVariable Son son) {
+        repo.deleteSon(idSon);
+        repo.saveSon(son);
     }
 
     /**
@@ -64,8 +66,8 @@ public class SonController {
      * @param idSon L'id du son à supprimer
      */
     @DeleteMapping("/{idSon}")
-    public void DeleteSon(@PathVariable Long idSon) {
-        repo.DeleteSon(idSon);
+    public void deleteSon(@PathVariable Long idSon) {
+        repo.deleteSon(idSon);
     }
 
     /**
@@ -73,22 +75,22 @@ public class SonController {
      * @return List<Son>
      */
     @GetMapping()
-    public List<Son> GetAllSonGet() {return repo.FetchSonList();}
+    public List<Son> getAllSonGet() {return repo.fetchSonList();}
 
     /**
      * Méthode get qui renvoie tous les sons de la base de donnée
      * @return List<Son>
      */
     @PostMapping()
-    public List<Son> GetAllSonPost() {return repo.FetchSonList();}
+    public List<Son> getAllSonPost() {return repo.fetchSonList();}
 
     /**
      * Méthode get qui renvoie un Son random contenu dans la base de données
      * @return List<Son>
      */
     @GetMapping("/random")
-    public Son GetRandomSon() {
-        Random rand = new Random();
-        return repo.FetchSonList().get(rand.nextInt(repo.FetchSonList().size()));
+    public Son getRandomSon() {
+
+        return repo.fetchSonList().get(rand.nextInt(repo.fetchSonList().size()));
     }
 }
