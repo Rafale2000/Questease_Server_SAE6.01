@@ -1,9 +1,7 @@
-package fr.uphf.Questease.Service;
+package fr.uphf.questease.Service;
 
-import fr.uphf.Questease.Model.InfoSecu;
-import fr.uphf.Questease.Model.MotCryptex;
+import fr.uphf.questease.Model.InfoSecu;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface InfoSecuService {

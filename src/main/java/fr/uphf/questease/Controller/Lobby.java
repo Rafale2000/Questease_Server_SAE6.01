@@ -1,4 +1,4 @@
-package fr.uphf.Questease.Controller;
+package fr.uphf.questease.Controller;
 
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;

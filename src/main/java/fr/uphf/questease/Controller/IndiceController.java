@@ -1,7 +1,7 @@
-package fr.uphf.Questease.Controller;
+package fr.uphf.questease.Controller;
 
-import fr.uphf.Questease.Model.Indice;
-import fr.uphf.Questease.Service.IndiceServiceImpl;
+import fr.uphf.questease.Model.Indice;
+import fr.uphf.questease.Service.IndiceServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

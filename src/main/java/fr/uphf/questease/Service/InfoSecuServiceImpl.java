@@ -1,13 +1,10 @@
-package fr.uphf.Questease.Service;
+package fr.uphf.questease.Service;
 
-import fr.uphf.Questease.Model.InfoSecu;
-import fr.uphf.Questease.Model.MotCryptex;
-import fr.uphf.Questease.Repository.InfoSecuRepository;
-import fr.uphf.Questease.Repository.MotCryptexRepository;
+import fr.uphf.questease.Model.InfoSecu;
+import fr.uphf.questease.Repository.InfoSecuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,9 +15,9 @@ public class InfoSecuServiceImpl implements InfoSecuService {
 
 
     /**
-     * Sauvegarde un nouveau mot Cryptex ou met à jour un mot existant.
+     * Sauvegarde un nouveau InfoSecu ou met à jour un existant.
      *
-     * @param motCryptex L'objet `MotCryptex` à sauvegarder.
+     * @param infoSecu L'objet `Infosecu` à sauvegarder.
      * @return L'objet `MotCryptex` sauvegardé.
      */
     @Override

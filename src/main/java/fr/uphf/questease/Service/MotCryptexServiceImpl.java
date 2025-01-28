@@ -1,7 +1,7 @@
-package fr.uphf.Questease.Service;
+package fr.uphf.questease.Service;
 
-import fr.uphf.Questease.Model.MotCryptex;
-import fr.uphf.Questease.Repository.MotCryptexRepository;
+import fr.uphf.questease.Model.MotCryptex;
+import fr.uphf.questease.Repository.MotCryptexRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

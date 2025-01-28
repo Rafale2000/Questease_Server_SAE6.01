@@ -1,7 +1,7 @@
-package fr.uphf.Questease.Service;
+package fr.uphf.questease.Service;
 
-import fr.uphf.Questease.Model.ChoseATrouverPrixJuste;
-import fr.uphf.Questease.Repository.ChoseATrouverPrixJusteRepository;
+import fr.uphf.questease.Model.ChoseATrouverPrixJuste;
+import fr.uphf.questease.Repository.ChoseATrouverPrixJusteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
-package fr.uphf.Questease.Controller;
+package fr.uphf.questease.Controller;
 
-import fr.uphf.Questease.Model.MotPendu;
-import fr.uphf.Questease.Service.MotPenduServiceImpl;
+import fr.uphf.questease.Model.MotPendu;
+import fr.uphf.questease.Service.MotPenduServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

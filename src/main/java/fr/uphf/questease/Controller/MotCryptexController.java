@@ -1,8 +1,8 @@
-package fr.uphf.Questease.Controller;
+package fr.uphf.questease.Controller;
 
 
-import fr.uphf.Questease.Model.MotCryptex;
-import fr.uphf.Questease.Service.MotCryptexServiceImpl;
+import fr.uphf.questease.Model.MotCryptex;
+import fr.uphf.questease.Service.MotCryptexServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

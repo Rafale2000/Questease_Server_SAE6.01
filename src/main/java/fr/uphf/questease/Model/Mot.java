@@ -1,4 +1,4 @@
-package fr.uphf.Questease.Model;
+package fr.uphf.questease.Model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,5 +26,5 @@ public class Mot {
         return texte;
     }
 
-    // Getters et setters
+
 }

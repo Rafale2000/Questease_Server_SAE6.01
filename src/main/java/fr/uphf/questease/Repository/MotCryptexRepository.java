@@ -1,6 +1,6 @@
-package fr.uphf.Questease.Repository;
+package fr.uphf.questease.Repository;
 
-import fr.uphf.Questease.Model.MotCryptex;
+import fr.uphf.questease.Model.MotCryptex;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
