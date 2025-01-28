@@ -25,7 +25,7 @@ public class MotPenduServiceImpl implements MotPenduService {
      * @return L'objet `MotPendu` sauvegardé.
      */
     @Override
-    public MotPendu SaveMotPendu(MotPendu motPendu) {
+    public MotPendu saveMotPendu(MotPendu motPendu) {
         return repo.save(motPendu);
     }
 
@@ -35,7 +35,7 @@ public class MotPenduServiceImpl implements MotPenduService {
      * @return Une liste contenant tous les objets `MotPendu`.
      */
     @Override
-    public List<MotPendu> FetchMotPenduList() {
+    public List<MotPendu> fetchMotPenduList() {
         return (List<MotPendu>) repo.findAll();
     }
 
@@ -45,7 +45,7 @@ public class MotPenduServiceImpl implements MotPenduService {
      * @param idPendu L'identifiant du mot à récupérer.
      * @return Un `Optional` contenant le mot s'il est trouvé, sinon vide.
      */
-    public Optional<MotPendu> FetchOne(Long idPendu){
+    public Optional<MotPendu> fetchOneMotPendu(Long idPendu){
         return repo.findById(idPendu);
     }
 
@@ -58,7 +58,7 @@ public class MotPenduServiceImpl implements MotPenduService {
      * @return L'objet `MotPendu` mis à jour.
      */
     @Override
-    public MotPendu UpdateMotPendu(MotPendu motPendu, Long motPenduId) {
+    public MotPendu updateMotPendu(MotPendu motPendu, Long motPenduId) {
         repo.deleteById(motPenduId);
         return repo.save(motPendu);
     }
@@ -69,7 +69,7 @@ public class MotPenduServiceImpl implements MotPenduService {
      * @param motPenduId L'identifiant du mot à supprimer.
      */
     @Override
-    public void DeleteMotPendu(Long motPenduId) {
+    public void deleteMotPendu(Long motPenduId) {
         repo.deleteById(motPenduId);
     }
 }

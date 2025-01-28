@@ -18,14 +18,14 @@ public interface MotPenduService {
      * @param motPendu L'objet `MotPendu` à sauvegarder.
      * @return L'objet `MotPendu` sauvegardé.
      */
-    MotPendu SaveMotPendu(MotPendu motPendu);
+    MotPendu saveMotPendu(MotPendu motPendu);
 
     /**
      * Récupère la liste de tous les mots du jeu "Pendu" enregistrés.
      *
      * @return Une liste contenant tous les objets `MotPendu`.
      */
-    List<MotPendu> FetchMotPenduList();
+    List<MotPendu> fetchMotPenduList();
 
     /**
      * Récupère un mot du jeu "Pendu" spécifique à partir de son identifiant.
@@ -33,7 +33,7 @@ public interface MotPenduService {
      * @param idPendu L'identifiant du mot à récupérer.
      * @return Un `Optional` contenant le mot s'il est trouvé, sinon vide.
      */
-    Optional<MotPendu> FetchOne(Long idPendu);
+    Optional<MotPendu> fetchOneMotPendu(Long idPendu);
 
     /**
      * Met à jour un mot du jeu "Pendu" existant en fonction de son identifiant.
@@ -42,12 +42,12 @@ public interface MotPenduService {
      * @param motpenduId L'identifiant du mot à mettre à jour.
      * @return L'objet `MotPendu` mis à jour.
      */
-    MotPendu UpdateMotPendu(MotPendu motPendu, Long motpenduId);
+    MotPendu updateMotPendu(MotPendu motPendu, Long motpenduId);
 
     /**
      * Supprime un mot du jeu "Pendu" à partir de son identifiant.
      *
      * @param motPenduId L'identifiant du mot à supprimer.
      */
-    void DeleteMotPendu(Long motPenduId);
+    void deleteMotPendu(Long motPenduId);
 }
