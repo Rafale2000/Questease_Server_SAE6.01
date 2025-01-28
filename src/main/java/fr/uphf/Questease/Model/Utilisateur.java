@@ -1,6 +1,8 @@
 package fr.uphf.Questease.Model;
 
 import jakarta.persistence.*;
+
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -21,7 +23,7 @@ public class Utilisateur {
     /**
      * Le pseudonyme de l'utilisateur
      */
-    @Column(name = "pseudouser",nullable = false, unique = true)
+    @Column(name = "nom",nullable = false, unique = true)
     private String nom;
 
     /**
@@ -29,6 +31,24 @@ public class Utilisateur {
      */
     @Column(name = "xp",nullable = false)
     private int Xp;
+
+    /**
+     * Lien vers les informations générales de l'utilisateur
+     */
+    @OneToOne(mappedBy = "utilisateur", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private InfoSecu infoSecu;
+
+
+
+
+
+
+
+    /**
+     * La liste de resultat pour un utilisateur
+     */
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idPartie", cascade = CascadeType.ALL)
+    private List<Resultat> resultat;
 
 
     /**
