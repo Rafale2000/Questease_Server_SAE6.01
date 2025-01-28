@@ -15,14 +15,14 @@ public interface SonService {
      * @param son L'objet `Son` à sauvegarder.
      * @return L'objet `Son` sauvegardé.
      */
-    Son SaveSon(Son son);
+    Son saveSon(Son son);
 
     /**
      * Récupère la liste de tous les objets `Son` enregistrés.
      *
      * @return Une liste contenant tous les objets `Son`.
      */
-    List<Son> FetchSonList();
+    List<Son> fetchSonList();
 
     /**
      * Récupère un objet `Son` spécifique à partir de son identifiant.
@@ -30,7 +30,7 @@ public interface SonService {
      * @param idSon L'identifiant de l'objet à récupérer.
      * @return Un `Optional` contenant l'objet s'il est trouvé, sinon vide.
      */
-    Optional<Son> FetchOne(Long idSon);
+    Optional<Son> fetchOne(Long idSon);
 
     /**
      * Met à jour un objet `Son` existant.
@@ -40,12 +40,12 @@ public interface SonService {
      * @param sonId   L'identifiant de l'objet à mettre à jour.
      * @return L'objet `Son` mis à jour.
      */
-    Son UpdateSon(Son son, Long sonId);
+    Son updateSon(Son son, Long sonId);
 
     /**
      * Supprime un objet `Son` à partir de son identifiant.
      *
      * @param sonId L'identifiant de l'objet à supprimer.
      */
-    void DeleteSon(Long sonId);
+    void deleteSon(Long sonId);
 }

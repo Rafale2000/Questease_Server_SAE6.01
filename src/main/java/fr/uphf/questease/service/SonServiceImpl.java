@@ -26,7 +26,7 @@ public class SonServiceImpl implements SonService {
      * @return L'objet `Son` sauvegardé.
      */
     @Override
-    public Son SaveSon(Son son) {
+    public Son saveSon(Son son) {
         return repo.save(son);
     }
 
@@ -36,7 +36,7 @@ public class SonServiceImpl implements SonService {
      * @return Une liste contenant tous les objets `Son`.
      */
     @Override
-    public List<Son> FetchSonList() {
+    public List<Son> fetchSonList() {
         return (List<Son>) repo.findAll();
     }
 
@@ -47,7 +47,7 @@ public class SonServiceImpl implements SonService {
      * @return Un `Optional` contenant l'objet s'il est trouvé, sinon vide.
      */
     @Override
-    public Optional<Son> FetchOne(Long idSon){
+    public Optional<Son> fetchOne(Long idSon){
         return repo.findById(idSon);
     }
 
@@ -60,13 +60,17 @@ public class SonServiceImpl implements SonService {
      * @return L'objet `Son` mis à jour.
      */
     @Override
-    public Son UpdateSon(Son son, Long sonId) {
+    public Son updateSon(Son son, Long sonId) {
         repo.deleteById(sonId);
         return repo.save(son);
     }
 
+    /**
+     * Méthode qui supprime un son de la base de donnée
+     * @param sonId L'identifiant de l'objet à supprimer.
+     */
     @Override
-    public void DeleteSon(Long sonId) {
+    public void deleteSon(Long sonId) {
         repo.deleteById(sonId);
     }
 }
