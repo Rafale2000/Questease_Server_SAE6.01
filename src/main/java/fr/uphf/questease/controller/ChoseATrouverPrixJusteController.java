@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 /**
  * Controller du repositoire de ChoseATrouverPrixJuste
@@ -28,27 +29,27 @@ public class ChoseATrouverPrixJusteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<ChoseATrouverPrixJuste>> GetChoseById(@PathVariable Long id) {
+    public ResponseEntity<Optional<ChoseATrouverPrixJuste>> getChoseById(@PathVariable Long id) {
         return ResponseEntity.ok(repo.ReadChose(id));
     }
 
     /**
      * Méthode Post permettant d'ajouter un élément mystère du Prix Juste à la base de donnée
-     * @param C L'élément à ajouter à la base de donnée
+     * @param c L'élément à ajouter à la base de donnée
      */
     @PostMapping("/{idChoseATrouver}")
-    public void PostChose(@PathVariable Long idChoseATrouver, @RequestBody ChoseATrouverPrixJuste C) {
-        repo.SaveChose(C);
+    public void postChose(@PathVariable Long idChoseATrouver, @RequestBody ChoseATrouverPrixJuste c) {
+        repo.SaveChose(c);
     }
 
     /**
      * Méthode Update permettant de mettre à jour un élément mystère du Prix Juste dans la base de donnée
      * @param idChoseATrouver L'id de l'élément qui mettra à jour
-     * @param C L'élément qui sera mis à jour
+     * @param c L'élément qui sera mis à jour
      */
     @PatchMapping("/{idChoseATrouver}")
-    public void UpdateChoseATrouver(@PathVariable Long idChoseATrouver, @RequestBody ChoseATrouverPrixJuste C) {
-        repo.UpdateChose(C, idChoseATrouver);
+    public void updateChoseATrouver(@PathVariable Long idChoseATrouver, @RequestBody ChoseATrouverPrixJuste c) {
+        repo.UpdateChose(c, idChoseATrouver);
     }
 
     /**
@@ -56,7 +57,7 @@ public class ChoseATrouverPrixJusteController {
      * @param idChoseATrouver L'id de l'élément à supprimer
      */
     @DeleteMapping("/{idChoseATrouver}")
-    public void DeleteChose(@PathVariable Long idChoseATrouver) {
+    public void deleteChose(@PathVariable Long idChoseATrouver) {
         repo.DeleteChose(idChoseATrouver);
     }
 
@@ -65,9 +66,10 @@ public class ChoseATrouverPrixJusteController {
      * @return ChoseATrouverPrixJuste
      */
     @GetMapping("/random")
-    public ChoseATrouverPrixJuste GetRandomChose() {
+    public ChoseATrouverPrixJuste getRandomChose() {
         List<ChoseATrouverPrixJuste> liste = repo.FetchChoseList();
-        return liste.get((int) (Math.random() * ((liste.size()))));
+        Random random = new Random();
+        return liste.get((random.nextInt() * (liste.size())));
     }
 
     /**
@@ -75,7 +77,7 @@ public class ChoseATrouverPrixJusteController {
      * @return une list de ChoseATrouverPrixJuste
      */
     @GetMapping("")
-    public List<ChoseATrouverPrixJuste> GetAll(){
+    public List<ChoseATrouverPrixJuste> getAll(){
         return repo.FetchChoseList();
     }
 }
