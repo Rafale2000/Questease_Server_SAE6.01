@@ -1,8 +1,10 @@
 package fr.uphf.Questease.Service;
 
 import fr.uphf.Questease.Model.InfoSecu;
+import fr.uphf.Questease.Model.MotCryptex;
 import fr.uphf.Questease.Model.Resultat;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ResultatService {
@@ -14,6 +16,12 @@ public interface ResultatService {
      */
     Resultat SaveResultat(Resultat resultat);
 
+    /**
+     * Récupère la liste de tous les mots Cryptex enregistrés.
+     *
+     * @return Une liste contenant tous les objets `MotCryptex`.
+     */
+    List<Resultat> FetchResultatList();
 
     /**
      * Récupère un mot resulat spécifique à partir de son identifiant.
