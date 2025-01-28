@@ -1,4 +1,4 @@
-package fr.uphf.questease.Controller;
+package fr.uphf.questease.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.uphf.questease.Model.Mot;

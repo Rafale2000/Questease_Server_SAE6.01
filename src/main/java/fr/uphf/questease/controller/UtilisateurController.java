@@ -1,4 +1,4 @@
-package fr.uphf.questease.Controller;
+package fr.uphf.questease.controller;
 
 import fr.uphf.questease.Model.Utilisateur;
 import fr.uphf.questease.Service.UtilisateurServiceImpl;

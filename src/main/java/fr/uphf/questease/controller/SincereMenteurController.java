@@ -1,4 +1,4 @@
-package fr.uphf.questease.Controller;
+package fr.uphf.questease.controller;
 
 import fr.uphf.questease.Model.SincereMenteur;
 import fr.uphf.questease.Repository.SincereMenteurRepository;
