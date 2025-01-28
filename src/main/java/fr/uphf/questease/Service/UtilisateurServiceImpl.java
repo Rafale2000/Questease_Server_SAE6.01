@@ -1,7 +1,7 @@
 package fr.uphf.questease.Service;
 
 import fr.uphf.questease.model.Utilisateur;
-import fr.uphf.questease.Repository.UtilisateurRepository;
+import fr.uphf.questease.repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

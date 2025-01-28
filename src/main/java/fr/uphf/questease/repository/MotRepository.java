@@ -1,4 +1,4 @@
-package fr.uphf.questease.Repository;
+package fr.uphf.questease.repository;
 
 import fr.uphf.questease.model.Mot;
 import org.springframework.data.jpa.repository.JpaRepository;

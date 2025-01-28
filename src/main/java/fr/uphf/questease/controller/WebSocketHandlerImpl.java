@@ -3,7 +3,7 @@ package fr.uphf.questease.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.uphf.questease.model.Mot;
 import fr.uphf.questease.model.WebSocketMessage;
-import fr.uphf.questease.Repository.MotRepository;
+import fr.uphf.questease.repository.MotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;

@@ -8,7 +8,7 @@ import java.util.Optional;
 
 
 import fr.uphf.questease.model.SincereMenteur;
-import fr.uphf.questease.Repository.SincereMenteurRepository;
+import fr.uphf.questease.repository.SincereMenteurRepository;
 
 /**
  * Implémentation du service pour gérer les objets `SincereMenteur`.

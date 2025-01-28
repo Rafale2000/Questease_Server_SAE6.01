@@ -1,7 +1,7 @@
 package fr.uphf.questease.controller;
 
 import fr.uphf.questease.model.SincereMenteur;
-import fr.uphf.questease.Repository.SincereMenteurRepository;
+import fr.uphf.questease.repository.SincereMenteurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

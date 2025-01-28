@@ -1,7 +1,7 @@
 package fr.uphf.questease.Service;
 
 import fr.uphf.questease.model.Indice;
-import fr.uphf.questease.Repository.IndiceRepository;
+import fr.uphf.questease.repository.IndiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

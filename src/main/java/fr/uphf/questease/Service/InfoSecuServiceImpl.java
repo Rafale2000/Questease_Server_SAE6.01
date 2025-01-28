@@ -1,7 +1,7 @@
 package fr.uphf.questease.Service;
 
 import fr.uphf.questease.model.InfoSecu;
-import fr.uphf.questease.Repository.InfoSecuRepository;
+import fr.uphf.questease.repository.InfoSecuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
