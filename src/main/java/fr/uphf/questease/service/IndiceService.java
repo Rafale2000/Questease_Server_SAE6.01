@@ -17,14 +17,14 @@ public interface IndiceService {
      * @param indice L'objet `Indice` à sauvegarder ou mettre à jour.
      * @return L'objet `Indice` sauvegardé.
      */
-    Indice SaveIndice(Indice indice);
+    Indice saveIndice(Indice indice);
 
     /**
      * Récupère la liste de tous les indices enregistrés.
      *
      * @return Une liste contenant tous les indices (List<Indice>).
      */
-    List<Indice> FetchIndiceList();
+    List<Indice> fetchIndiceList();
 
     /**
      * Récupère un indice spécifique en fonction de son identifiant.
@@ -32,7 +32,7 @@ public interface IndiceService {
      * @param id L'identifiant de l'indice à récupérer.
      * @return Un `Optional` contenant l'indice s'il est trouvé, sinon vide.
      */
-    Optional<Indice> FetchIndice(Long id);
+    Optional<Indice> fetchIndice(Long id);
 
     /**
      * Met à jour un indice existant en fonction de son identifiant.
@@ -41,7 +41,7 @@ public interface IndiceService {
      * @param indiceId L'identifiant de l'indice à mettre à jour.
      * @return L'objet `Indice` mis à jour.
      */
-    Indice UpdateIndice(Indice indice, Long indiceId);
+    Indice updateIndice(Indice indice, Long indiceId);
 
     /**
      * Supprime un indice à partir de son identifiant.

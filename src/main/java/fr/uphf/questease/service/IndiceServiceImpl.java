@@ -25,7 +25,7 @@ public class IndiceServiceImpl implements IndiceService {
      * @return L'objet `Indice` sauvegardé.
      */
     @Override
-    public Indice SaveIndice(Indice indice) {
+    public Indice saveIndice(Indice indice) {
         return repo.save(indice);
     }
 
@@ -35,7 +35,7 @@ public class IndiceServiceImpl implements IndiceService {
      * @return Une liste contenant tous les indices.
      */
     @Override
-    public List<Indice> FetchIndiceList() {
+    public List<Indice> fetchIndiceList() {
         return (List<Indice>) repo.findAll();
     }
 
@@ -46,7 +46,7 @@ public class IndiceServiceImpl implements IndiceService {
      * @return Un `Optional` contenant l'indice s'il est trouvé, sinon vide.
      */
     @Override
-    public Optional<Indice> FetchIndice(Long id) {
+    public Optional<Indice> fetchIndice(Long id) {
         return repo.findById(id);
     }
 
@@ -58,7 +58,7 @@ public class IndiceServiceImpl implements IndiceService {
      * @return L'objet `Indice` mis à jour.
      */
     @Override
-    public Indice UpdateIndice(Indice indice, Long indiceId) {
+    public Indice updateIndice(Indice indice, Long indiceId) {
         repo.deleteById(indiceId); // Supprime l'indice existant avec l'ID donné.
         return repo.save(indice); // Sauvegarde le nouvel indice.
     }
