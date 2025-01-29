@@ -1,6 +1,9 @@
 package fr.uphf.questease.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.uphf.questease.controller.Lobby;
+import fr.uphf.questease.controller.User;
+import fr.uphf.questease.model.DatabaseManager;
 import fr.uphf.questease.model.Mot;
 import fr.uphf.questease.model.WebSocketMessage;
 import fr.uphf.questease.repository.MotRepository;
@@ -12,6 +15,7 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.TextMessage;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -38,20 +42,25 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
     }
     @Override
     public void handleMessage(WebSocketSession session, org.springframework.web.socket.WebSocketMessage<?> message) {
+        DatabaseManager databaseManager = new DatabaseManager();
+
         System.out.println("Message reçu: " + message.getPayload());
         ObjectMapper objectMapper = new ObjectMapper();
         WebSocketMessage responseMessage;
+        String responseJson;
         try {
             WebSocketMessage receivedMessage = objectMapper.readValue(message.getPayload().toString(), WebSocketMessage.class);
             System.out.println("Tag: " + receivedMessage.getTag());
             System.out.println("Message: " + receivedMessage.getMessage());
-            if ("gameupdate".equals(receivedMessage.getTag())) {
+            String tag = receivedMessage.getTag();
+            String lemessage = receivedMessage.getMessage();
+            if (tag == "gameupdate") {
                 System.out.println("Mise à jour de jeu : " + receivedMessage.getMessage());
                 responseMessage = new WebSocketMessage("ack", "Message reçu avec succès");
-                String responseJson = objectMapper.writeValueAsString(responseMessage);
+                responseJson = objectMapper.writeValueAsString(responseMessage);
                 session.sendMessage(new TextMessage(responseJson));
             }
-            else if("requestLobbies".equals(receivedMessage.getTag())) {
+            else if(tag == "requestLobbies") {
                 System.out.println("requête de la liste des lobby");
                 ArrayList<String> content = new ArrayList<String>();
                 //this.lobbies.add(new Lobby(identifyUserBySession(session),"lobbytest"));
@@ -59,16 +68,16 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
                     content.add(lobby.getNom());}
                 String contentJson = objectMapper.writeValueAsString(content);
                 responseMessage = new WebSocketMessage("Lobbylist",contentJson);
-                String responseJson = objectMapper.writeValueAsString(responseMessage);
+                responseJson = objectMapper.writeValueAsString(responseMessage);
                 session.sendMessage(new TextMessage(responseJson));
                 System.out.println("message envoyé");
             }
-            else if("createLobby".equals(receivedMessage.getTag())) {
+            else if(tag == "createLobby") {
                 boolean found = false;
                 for (Lobby lobby : this.lobbies) {
                     if (lobby.getNom().equals(receivedMessage.getMessage())) {
                         responseMessage = new WebSocketMessage("info","nom déja utilisé");
-                        String responseJson = objectMapper.writeValueAsString(responseMessage);
+                        responseJson = objectMapper.writeValueAsString(responseMessage);
                         session.sendMessage(new TextMessage(responseJson));
                         found = true;
                         break;
@@ -77,21 +86,21 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
                 if (!found) {
                     this.lobbies.add(new Lobby(identifyUserBySession(session),receivedMessage.getMessage()));
                     responseMessage = new WebSocketMessage("info","Lobby crée");
-                    String responseJson = objectMapper.writeValueAsString(responseMessage);
+                    responseJson = objectMapper.writeValueAsString(responseMessage);
                     session.sendMessage(new TextMessage(responseJson));
                 }
             }
-            else if("setP2Name".equals(receivedMessage.getTag())) {
+            else if(tag == "setP2Name") {
                 Lobby lobby = findlobbybyplayer(session);
-                
+
                 User p1 = lobby.getp1();
                 WebSocketSession sessionp1 = p1.getSession();
                 lobby.getp2().setNom(receivedMessage.getMessage());
                 WebSocketMessage webSocketMessage = new WebSocketMessage("setP2Name", receivedMessage.getMessage());
-                String responseJson = objectMapper.writeValueAsString(webSocketMessage);
+                responseJson = objectMapper.writeValueAsString(webSocketMessage);
                 sessionp1.sendMessage(new TextMessage(responseJson));
             }
-            else if ("joinLobby".equals(receivedMessage.getTag())) {
+            else if (tag == "joinLobby") {
                 Lobby lobby = findlobbybyname(receivedMessage.getMessage());
                 if(lobby != null && lobby.getp2() == null) {
                     lobby.setp2(identifyUserBySession(session));
@@ -100,10 +109,10 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
                 else{
                     responseMessage = new WebSocketMessage("LobbyRejected","Lobby introuvable ou plein");
                 }
-                String responseJson = objectMapper.writeValueAsString(responseMessage);
+                responseJson = objectMapper.writeValueAsString(responseMessage);
                 session.sendMessage(new TextMessage(responseJson));
                 System.out.println(lobby.toString());
-            } else if ("destroyLobby".equals(receivedMessage.getTag())) {
+            } else if (tag == "destroyLobby") {
                 Lobby lobby = findlobbybyname(receivedMessage.getMessage());
                 if (lobby != null) {
                     this.lobbies.remove(lobby);
@@ -111,20 +120,23 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
                 } else {
                     responseMessage = new WebSocketMessage("info","Lobby introuvable");
                 }
-                String responseJson = objectMapper.writeValueAsString(responseMessage);
+                responseJson = objectMapper.writeValueAsString(responseMessage);
                 session.sendMessage(new TextMessage(responseJson));
-            } else if("setnom".equals(receivedMessage.getTag())){
+            } else if(tag == "setnom"){
                 System.out.println("j'ai reçu un message setnom");
-                if(findUser(receivedMessage.getMessage()) != null){
-                    responseMessage = new WebSocketMessage("setnom","le nom est déja utilisé");
-                } else{
+                String query = "Select nom from utilisateurs where nom = "+receivedMessage.getMessage();
+                List<String> utilisateurs = databaseManager.getValuesFromColumn(query);
+                if(utilisateurs.size() > 0 || findUser(receivedMessage.getMessage()) != null) {
+                    responseMessage = new WebSocketMessage("setnom","un utilisateur possède déja ce nom");
+                }
+                else{
                     responseMessage = new WebSocketMessage("setnom","success");
                     User user = identifyUserBySession(session);
                     user.setNom(receivedMessage.getMessage());
                 }
-                String responseJson = objectMapper.writeValueAsString(responseMessage);
+                responseJson = objectMapper.writeValueAsString(responseMessage);
                 session.sendMessage(new TextMessage(responseJson));
-            } else if ("leaveLobby".equals(receivedMessage.getTag())) {
+            } else if (tag=="leaveLobby") {
                 User user = identifyUserBySession(session);
                 if(findlobbybyname(receivedMessage.getMessage()) != null){
                     Lobby lobby = findlobbybyname(receivedMessage.getMessage());
@@ -135,7 +147,7 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
                             webSocketSession1 = lobby.getp2().getSession();
                         }
                         responseMessage = new WebSocketMessage("p1Leaved",lobby.getp1().getNom());
-                        String responseJson = objectMapper.writeValueAsString(responseMessage);
+                        responseJson = objectMapper.writeValueAsString(responseMessage);
                         if (webSocketSession1!= null){
                             webSocketSession1.sendMessage(new TextMessage(responseJson));
                         }
@@ -143,8 +155,8 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
                     } else if (lobby.getp2() != null && lobby.getp2() == user) {
                         WebSocketSession webSocketSession2 = lobby.getp1().getSession();
                         responseMessage = new WebSocketMessage("p2Leaved",lobby.getp2().getNom());
-                        String responsejson = objectMapper.writeValueAsString(responseMessage);
-                        webSocketSession2.sendMessage(new TextMessage(responsejson));
+                        responseJson = objectMapper.writeValueAsString(responseMessage);
+                        webSocketSession2.sendMessage(new TextMessage(responseJson));
                         lobby.setp2(null);
                         System.out.println(lobby.toString());
                     }
@@ -153,7 +165,7 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
                     }
                     user.setNom(null);
                     responseMessage = new WebSocketMessage("lobbyLeaved","");
-                    String responseJson = objectMapper.writeValueAsString(responseMessage);
+                    responseJson = objectMapper.writeValueAsString(responseMessage);
                     session.sendMessage(new TextMessage(responseJson));
 
                 }
@@ -170,7 +182,7 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
                     session2 = user2.getSession();
                 }
                 responseMessage = new WebSocketMessage("playerReady", receivedMessage.getMessage());
-                String responseJson = objectMapper.writeValueAsString(responseMessage);
+                responseJson = objectMapper.writeValueAsString(responseMessage);
                 session2.sendMessage(new TextMessage(responseJson));
             }
             else if("startGame".equals(receivedMessage.getTag())){
@@ -211,7 +223,7 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
                 User user1 = lobby.getp1();
                 User user2 = lobby.getp2();
                 responseMessage = new WebSocketMessage("RotatingPicOrientation",receivedMessage.getMessage());
-                String responseJson = objectMapper.writeValueAsString(responseMessage);
+                responseJson = objectMapper.writeValueAsString(responseMessage);
                 if(user1.equals(sourceUser)){
                     user2.getSession().sendMessage(new TextMessage(responseJson));
                 }
@@ -224,7 +236,7 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
                 User user1 = lobby.getp1();
                 User user2 = lobby.getp2();
                 responseMessage = new WebSocketMessage("PenduTry",receivedMessage.getMessage());
-                String responseJson = objectMapper.writeValueAsString(responseMessage);
+                responseJson = objectMapper.writeValueAsString(responseMessage);
                 if(user1.equals(sourceUser)){
                     user2.getSession().sendMessage(new TextMessage(responseJson));
                 }
@@ -246,14 +258,14 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
                         } else {
                             responseMessage = new WebSocketMessage("setWord", "Aucun mot trouvé");
                         }
-                        String responseJson = objectMapper.writeValueAsString(responseMessage);
+                        String responseJson2 = objectMapper.writeValueAsString(responseMessage);
 
                         // Planifier l'envoi avec un délai de 2 secondes
                         ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
                         scheduler.schedule(() -> {
                             try {
-                                session1.sendMessage(new TextMessage(responseJson));
-                                session2.sendMessage(new TextMessage(responseJson));
+                                session1.sendMessage(new TextMessage(responseJson2));
+                                session2.sendMessage(new TextMessage(responseJson2));
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -262,7 +274,7 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
                     } catch (Exception e) {
                         e.printStackTrace();
                         responseMessage = new WebSocketMessage("error", "Erreur lors de l'accès à la base de données");
-                        String responseJson = objectMapper.writeValueAsString(responseMessage);
+                        responseJson = objectMapper.writeValueAsString(responseMessage);
                         session.sendMessage(new TextMessage(responseJson));
                     }
                 }
@@ -273,7 +285,7 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
                 User user1 = lobby.getp1();
                 User user2 = lobby.getp2();
                 responseMessage = new WebSocketMessage("successPopup",receivedMessage.getMessage());
-                String responseJson = objectMapper.writeValueAsString(responseMessage);
+                responseJson = objectMapper.writeValueAsString(responseMessage);
                 if(user1.equals(sourceUser)){
                     user2.getSession().sendMessage(new TextMessage(responseJson));
                 }
@@ -286,7 +298,7 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
                 User user1 = lobby.getp1();
                 User user2 = lobby.getp2();
                 responseMessage = new WebSocketMessage("showTip",receivedMessage.getMessage());
-                String responseJson = objectMapper.writeValueAsString(responseMessage);
+                responseJson = objectMapper.writeValueAsString(responseMessage);
                 if(user1.equals(sourceUser)){
                     user2.getSession().sendMessage(new TextMessage(responseJson));
                 }
@@ -300,7 +312,7 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
                 User user1 = lobby.getp1();
                 User user2 = lobby.getp2();
                 responseMessage = new WebSocketMessage("PrixJusteTry",receivedMessage.getMessage());
-                String responseJson = objectMapper.writeValueAsString(responseMessage);
+                responseJson = objectMapper.writeValueAsString(responseMessage);
                 if(user1.equals(sourceUser)){
                     user2.getSession().sendMessage(new TextMessage(responseJson));
                 }
@@ -313,7 +325,7 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
                 User user1 = lobby.getp1();
                 User user2 = lobby.getp2();
                 responseMessage = new WebSocketMessage("TrouveLeSonMessage",receivedMessage.getMessage());
-                String responseJson = objectMapper.writeValueAsString(responseMessage);
+                responseJson = objectMapper.writeValueAsString(responseMessage);
                 if(user1.equals(sourceUser)){
                     user2.getSession().sendMessage(new TextMessage(responseJson));
                 }
@@ -321,6 +333,9 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
                     user1.getSession().sendMessage(new TextMessage(responseJson));
                 }
             }
+
+            //TODO marqueur saé 6.01
+
         } catch (Exception e) {
             e.printStackTrace();
             try {
@@ -344,8 +359,8 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
             this.lobbies.remove(lobby);
         }
         try{
-        User user = identifyUserBySession(session);
-        users.remove(user);}
+            User user = identifyUserBySession(session);
+            users.remove(user);}
         catch (Exception e){
             System.out.println("la session n'avais pas défini de user");
         }
