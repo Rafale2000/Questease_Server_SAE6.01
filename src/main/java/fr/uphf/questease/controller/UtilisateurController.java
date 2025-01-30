@@ -33,7 +33,7 @@ public class UtilisateurController {
     **/
     @GetMapping("/{idUtil}")
     public ResponseEntity<Iterable<Utilisateur>> getUserByName(@PathVariable String nameUtil){
-        return ResponseEntity.ok(UtilRepository.FetchOne(nameUtil));
+        return ResponseEntity.ok(UtilRepository.fetchOne(nameUtil));
     }
 
     /**
@@ -42,7 +42,7 @@ public class UtilisateurController {
     **/
     @PostMapping("/{idUtil}")
     public void PostUser(@PathVariable Utilisateur Util){
-        UtilRepository.SaveUtilisateur(Util);
+        UtilRepository.saveUtilisateur(Util);
     }
 
     /**
@@ -52,8 +52,8 @@ public class UtilisateurController {
     **/
     @PatchMapping("/{idUtil}")
     public void UpdateUser(Long IdUser, @PathVariable Utilisateur Util){
-        UtilRepository.DeleteUtilisateur(IdUser);
-        UtilRepository.SaveUtilisateur(Util);
+        UtilRepository.deleteUtilisateur(IdUser);
+        UtilRepository.saveUtilisateur(Util);
     }
 
     /**
@@ -62,7 +62,7 @@ public class UtilisateurController {
     **/
     @DeleteMapping("/{idUtil}")
     public void DeleteUser(@PathVariable Long idUtil){
-        UtilRepository.DeleteUtilisateur(idUtil);
+        UtilRepository.deleteUtilisateur(idUtil);
     }
 
     /**
@@ -70,13 +70,13 @@ public class UtilisateurController {
      * @return une list de JoueurTmp
      */
     @GetMapping()
-    public List<Utilisateur> GetAllUserGet(){return UtilRepository.FetchUtilisateurList();}
+    public List<Utilisateur> GetAllUserGet(){return UtilRepository.fetchUtilisateurList();}
 
     /**
      * Méthode POST qui renvoie tous les JoueurTmp de la base de données
      * @return une list de JoueurTmp
      */
     @PostMapping()
-    public List<Utilisateur> GetAllUserPost(){return UtilRepository.FetchUtilisateurList();}
+    public List<Utilisateur> GetAllUserPost(){return UtilRepository.fetchUtilisateurList();}
 
 }

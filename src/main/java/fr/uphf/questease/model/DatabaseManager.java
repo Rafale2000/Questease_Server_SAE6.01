@@ -2,11 +2,9 @@ package fr.uphf.questease.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.List;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class DatabaseManager {
 
@@ -16,7 +14,6 @@ public class DatabaseManager {
 
     public List<String> getValuesFromColumn(String query) {
         List<String> results = new ArrayList<>();
-
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement preparedStatement = connection.prepareStatement(query);
              ResultSet resultSet = preparedStatement.executeQuery()) {
