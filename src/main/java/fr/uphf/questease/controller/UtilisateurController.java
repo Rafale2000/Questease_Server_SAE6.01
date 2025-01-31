@@ -33,7 +33,7 @@ public class UtilisateurController {
     **/
     @GetMapping("/{idUtil}")
     public ResponseEntity<Iterable<Utilisateur>> getUserByName(@PathVariable String nameUtil){
-        return ResponseEntity.ok(UtilRepository.FetchOne(nameUtil));
+        return ResponseEntity.ok(UtilRepository.fetchOne(nameUtil));
     }
 
     /**
@@ -41,19 +41,19 @@ public class UtilisateurController {
      * @param Util L'utilisateur à ajouté à la base de donnée
     **/
     @PostMapping("/{idUtil}")
-    public void PostUser(@PathVariable Utilisateur Util){
-        UtilRepository.SaveUtilisateur(Util);
+    public void postUser(@PathVariable Utilisateur Util){
+        UtilRepository.saveUtilisateur(Util);
     }
 
     /**
      * Méthode Update permettant de mettre à jour un Utilisateur dans la base de donnée
-     * @param IdUser L'id de L'Utilisateur à mettre à jour
+     * @param idUtil L'id de L'Utilisateur à mettre à jour
      * @param Util L'utilisateur qui sera mis à jour
     **/
     @PatchMapping("/{idUtil}")
-    public void UpdateUser(Long IdUser, @PathVariable Utilisateur Util){
-        UtilRepository.DeleteUtilisateur(IdUser);
-        UtilRepository.SaveUtilisateur(Util);
+    public void updateUser(Long idUtil, @PathVariable Utilisateur Util){
+        UtilRepository.deleteUtilisateur(idUtil);
+        UtilRepository.saveUtilisateur(Util);
     }
 
     /**
@@ -61,8 +61,8 @@ public class UtilisateurController {
      * @param idUtil L'id de l'Utilisateur à supprimer de la base de donnée
     **/
     @DeleteMapping("/{idUtil}")
-    public void DeleteUser(@PathVariable Long idUtil){
-        UtilRepository.DeleteUtilisateur(idUtil);
+    public void deleteUser(@PathVariable Long idUtil){
+        UtilRepository.deleteUtilisateur(idUtil);
     }
 
     /**
@@ -70,13 +70,13 @@ public class UtilisateurController {
      * @return une list de JoueurTmp
      */
     @GetMapping()
-    public List<Utilisateur> GetAllUserGet(){return UtilRepository.FetchUtilisateurList();}
+    public List<Utilisateur> getAllUserGet(){return UtilRepository.fetchUtilisateurList();}
 
     /**
      * Méthode POST qui renvoie tous les JoueurTmp de la base de données
      * @return une list de JoueurTmp
      */
     @PostMapping()
-    public List<Utilisateur> GetAllUserPost(){return UtilRepository.FetchUtilisateurList();}
+    public List<Utilisateur> getAllUserPost(){return UtilRepository.fetchUtilisateurList();}
 
 }
