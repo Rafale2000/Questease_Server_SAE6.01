@@ -31,6 +31,25 @@ public class Utilisateur {
     @Column(name = "xp",nullable = false)
     private int Xp;
 
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "diff", nullable = false)
+    private Status diff = Status.ONE;
+
+
+    public enum Status {
+        ONE(1), TWO(2), THREE(3);
+
+        private final int value;
+
+        Status(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+
     /**
      * Lien vers les informations générales de l'utilisateur
      */
