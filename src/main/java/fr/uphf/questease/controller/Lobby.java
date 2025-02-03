@@ -4,9 +4,8 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.*;
+
 /**
  * Classe Lobby qui est utilisé dans l'application
  */
@@ -16,28 +15,36 @@ public class Lobby {
     private User p1;
     private User p2;
     private final ArrayList<String> lobbyGames;
+    private int difficulty;
     /**
      * Constructeur de la classe Lobby
      * @param user l'host du lobby et aussi le créateur
      * @param nom nom du lobby
      */
 
-    public Lobby(User user,String nom) {
+    public Lobby(User user,String nom,int difficulty) {
 
         this.nom = nom;
         this.p1 = user;
         this.p2 = null;
+        this.difficulty = difficulty;
         ArrayList<String> possiblegames = new ArrayList<>(Arrays.asList("prix_juste", "pendu", "rotating_pictures", "menteur", "son"));
-
-        this.lobbyGames= new ArrayList<>();
+        Map<String,Integer> possiblegamesDict = new Hashtable<>();
+        possiblegamesDict.put("prix_juste", 1);
+        possiblegamesDict.put("pendu", 1);
+        possiblegamesDict.put("rotating_pictures", 2);
+        possiblegamesDict.put("menteur", 3);
+        possiblegamesDict.put("son", 3);
+        /*this.lobbyGames= new ArrayList<>();
         Collections.shuffle(possiblegames);
         for(int x=0;x<2;x++){
             this.lobbyGames.add(possiblegames.get(x));
         }
-
         this.lobbyGames.add("gyroscope");
         this.lobbyGames.add("endActivity");
-        this.lobbyGames.addAll(possiblegames);
+        this.lobbyGames.addAll(possiblegames);*/
+        this.lobbyGames = getLobbyGames(possiblegamesDict,difficulty);
+        System.out.println("je vais faire le lobby"+nom+" de difficulty "+difficulty);
     }
 
     /**
@@ -106,5 +113,47 @@ public class Lobby {
                 ", p2=" + p2 +
                 ", lobbygames=" + lobbyGames +
                 '}';
+    }
+
+    private ArrayList<String> getLobbyGames(Map<String,Integer> possiblegames,int difficulty){
+        ArrayList<String> filteredGames = new ArrayList<>();
+        ArrayList<String> probabilityList = new ArrayList<>();
+        for (Map.Entry<String, Integer> entry : possiblegames.entrySet()) {
+            if (entry.getValue() == difficulty) {
+                for(int x = 0;x<30;x++){
+                    probabilityList.add(entry.getKey());
+                }
+            } else if (Math.abs(entry.getValue() - difficulty) >=2 ) {
+                for(int x=0;x<10;x++){
+                    probabilityList.add(entry.getKey());
+                }
+            } else if (Math.abs(entry.getValue() - difficulty) == 1) {
+                for (int x=0;x<20;x++){
+                    probabilityList.add(entry.getKey());
+                }
+            }
+        }
+        Random random = new Random();
+        while(filteredGames.size()< 4){
+            int index = random.nextInt(0, probabilityList.size());
+            String game = probabilityList.get(index);
+            filteredGames.add(game);
+            probabilityList = clearProbabilityList(probabilityList,game);
+
+        }
+        return filteredGames;
+    }
+    private ArrayList<String> clearProbabilityList(ArrayList<String> probabilities,String game){
+        ArrayList<String> filteredProbabilities = new ArrayList<>();
+        for (String probability : probabilities){
+            if (!probability.equals(game)){
+                filteredProbabilities.add(probability);
+            }
+        }
+        return filteredProbabilities;
+    }
+
+    public int getDifficulty() {
+        return difficulty;
     }
 }

@@ -2,6 +2,7 @@ package fr.uphf.questease.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.uphf.questease.model.DatabaseManager;
+
 import fr.uphf.questease.model.Mot;
 import fr.uphf.questease.model.WebSocketMessage;
 import fr.uphf.questease.repository.MotRepository;
@@ -14,9 +15,7 @@ import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.TextMessage;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -30,11 +29,9 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
     private MotRepository motRepository;
 
     public WebSocketHandlerImpl() {
-        
         logger.info("WebSocketHandlerImpl chargé et prêt.");
         this.lobbies = new ArrayList<>();
         this.users = new ArrayList<>();
-
     }
     @Override
     public void afterConnectionEstablished(WebSocketSession session){
@@ -64,17 +61,20 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
             }
             else if(tag.equals("requestLobbies")) {
                 logger.info("requête de la liste des lobby");
-                ArrayList<String> content = new ArrayList<>();
+                Map<String,Integer> lobbies = new HashMap<>();
+
                 //this.lobbies.add(new Lobby(identifyUserBySession(session),"lobbytest"));
                 for(Lobby lobby : this.lobbies) {
-                    content.add(lobby.getNom());}
-                String contentJson = objectMapper.writeValueAsString(content);
+                    lobbies.put(lobby.getNom(),lobby.getDifficulty());
+                }
+                String contentJson = objectMapper.writeValueAsString(lobbies);
                 responseMessage = new WebSocketMessage("Lobbylist",contentJson);
                 responseJson = objectMapper.writeValueAsString(responseMessage);
                 session.sendMessage(new TextMessage(responseJson));
                 logger.info("message envoyé");
             }
             else if(tag.equals("createLobby")) {
+
                 boolean found = false;
                 for (Lobby lobby : this.lobbies) {
                     if (lobby.getNom().equals(lemessage)) {
@@ -86,7 +86,7 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
                     }
                 }
                 if (!found) {
-                    this.lobbies.add(new Lobby(identifyUserBySession(session),lemessage));
+                    this.lobbies.add(new Lobby(identifyUserBySession(session),lemessage,receivedMessage.getDifficulty()));
                     responseMessage = new WebSocketMessage("info","Lobby crée");
                     responseJson = objectMapper.writeValueAsString(responseMessage);
                     session.sendMessage(new TextMessage(responseJson));
@@ -128,8 +128,9 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
                 session.sendMessage(new TextMessage(responseJson));
             } else if(tag.equals("setnom")){
                 logger.info("j'ai reçu un message setnom");
-                String query = "Select nom from utilisateurs where nom = "+lemessage;
-                List<String> utilisateurs = databaseManager.getValuesFromColumn(query);
+                String query = "SELECT nom FROM utilisateur WHERE nom = ?";
+                List<String> utilisateurs = databaseManager.getValuesFromColumn(query, lemessage);
+                logger.info("j'ai fait ma requête "+utilisateurs.size());
                 if(!utilisateurs.isEmpty() || findUser(lemessage) != null) {
                     responseMessage = new WebSocketMessage("setnom","un utilisateur possède déja ce nom");
                 }
@@ -209,7 +210,6 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
                 String responseJson2 = objectMapper.writeValueAsString(responseMessage2);
                 logger.info("j'envoie {}",responseJson1+" au joueur "+lobby.getp1().getNom());
                 session1.sendMessage(new TextMessage(responseJson1));
-
                 logger.info("j'envoie {} au joueur {}",responseJson2,lobby.getp2().getNom());
                 session2.sendMessage(new TextMessage(responseJson2));
 
