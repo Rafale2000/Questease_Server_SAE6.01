@@ -32,13 +32,16 @@ class ChoseATrouverPrixJusteControllerTest {
     @Test
     void testGetChoseById() {
         ChoseATrouverPrixJuste chose = new ChoseATrouverPrixJuste(100L, "Laptop", "Electronics", 45);
-        when(service.readChose(1L)).thenReturn(Optional.of(chose));
+        service.saveChose(chose);
+        when(service.readChose(100L)).thenReturn(Optional.of(chose));
 
         ResponseEntity<Optional<ChoseATrouverPrixJuste>> response = controller.getChoseById(100L);
 
         assertTrue(response.getBody().isPresent());
         assertEquals("Laptop", response.getBody().get().getNom());
     }
+
+
 
     @Test
     void testPostChose() {
@@ -77,6 +80,7 @@ class ChoseATrouverPrixJusteControllerTest {
         List<ChoseATrouverPrixJuste> response = controller.getAll();
 
         assertEquals(2, response.size());
-        assertEquals("TV", response.get(0).getNom());
+        assertEquals("Laptop", response.get(0).getNom());
+        assertEquals("Phone", response.get(1).getNom());
     }
 }
