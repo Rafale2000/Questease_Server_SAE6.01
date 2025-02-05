@@ -15,6 +15,10 @@ import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.TextMessage;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -27,6 +31,8 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
     private static final Logger logger = LoggerFactory.getLogger(WebSocketHandlerImpl.class);
     @Autowired
     private MotRepository motRepository;
+    @Autowired
+    private WebSocketHandler webSocketHandler;
 
     public WebSocketHandlerImpl() {
         logger.info("WebSocketHandlerImpl chargé et prêt.");
@@ -129,7 +135,17 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
             } else if(tag.equals("setnom")){
                 logger.info("j'ai reçu un message setnom");
                 String query = "SELECT nom FROM utilisateur WHERE nom = ?";
-                List<String> utilisateurs = databaseManager.getValuesFromColumn(query, lemessage);
+                List utilisateurs = new ArrayList();
+                try (Connection connection = DriverManager.getConnection(DatabaseManager.URL, DatabaseManager.USER, DatabaseManager.PASSWORD);
+                     PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+                    preparedStatement.setString(1, lemessage);
+
+                    utilisateurs = databaseManager.getValuesFromColumn(preparedStatement);
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 logger.info("j'ai fait ma requête "+utilisateurs.size());
                 if(!utilisateurs.isEmpty() || findUser(lemessage) != null) {
                     responseMessage = new WebSocketMessage("setnom","un utilisateur possède déja ce nom");
@@ -359,7 +375,66 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
             }
 
             //info marqueur saé 6.01
+            //partie pour créer un compte,on réceptionne le mot de passe hashé et vérifié et on regarde si
+            // le pseudo existe ou non puis on insert dans la base le nouvel utilisateur
+            else if ("createAccount".equals(tag)){
+                User sourceUser = identifyUserBySession(session);
+                String cleanedInput = lemessage.replace("[", "").replace("]", "").replace("'", "").trim();
+                String[] items = cleanedInput.split(",");
+                List<String> logs = Arrays.asList(items);
+                List<String> utilisateurs= new ArrayList<>();
+                String username = logs.get(0);
+                String password = logs.get(1);
+                String query = "SELECT nom FROM utilisateur WHERE nom = ?";
 
+                try (Connection connection = DriverManager.getConnection(DatabaseManager.URL, DatabaseManager.USER, DatabaseManager.PASSWORD);
+                     PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+                    preparedStatement.setString(1, username);
+
+                    utilisateurs = databaseManager.getValuesFromColumn(preparedStatement);
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                if(utilisateurs.isEmpty()){
+                    String insertQuery = "INSERT INTO users (username, password) VALUES (?, ?)";
+                    databaseManager.insert(insertQuery, username, password);
+                    responseMessage = new WebSocketMessage("CreateSucess",lemessage);
+                }
+                else{
+                    responseMessage = new WebSocketMessage("CreateError",lemessage);
+                }
+                responseJson = objectMapper.writeValueAsString(responseMessage);
+                sourceUser.getSession().sendMessage(new TextMessage(responseJson));
+            } else if ("connectAccount".equals(tag)) {
+                User sourceUser = identifyUserBySession(session);
+                String cleanedInput = lemessage.replace("[", "").replace("]", "").replace("'", "").trim();
+                String[] items = cleanedInput.split(",");
+                List<String> logs = Arrays.asList(items);
+
+                String username = logs.get(0);
+                String password = logs.get(1);
+                String query = "SELECT nom FROM utilisateur WHERE nom = ? and password = ?";
+                List utilisateurs = new ArrayList<>();
+                try (Connection connection = DriverManager.getConnection(DatabaseManager.URL, DatabaseManager.USER, DatabaseManager.PASSWORD);
+                     PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+                    preparedStatement.setString(1, username);
+                    preparedStatement.setString(2, password);
+                    utilisateurs = databaseManager.getValuesFromColumn(preparedStatement);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                if(utilisateurs.isEmpty()){
+                    responseMessage = new WebSocketMessage("ConnexionSuccess",lemessage);
+                }
+                else{
+                    responseMessage = new WebSocketMessage("ConnexionError",lemessage);
+                }
+                responseJson = objectMapper.writeValueAsString(responseMessage);
+                sourceUser.getSession().sendMessage(new TextMessage(responseJson));
+            }
         } catch (Exception e) {
             logger.error("erreur", e);
             try {
