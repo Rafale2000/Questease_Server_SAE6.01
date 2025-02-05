@@ -44,10 +44,12 @@ class ChoseATrouverPrixJusteControllerTest {
      */
     @Test
     void testGetChoseById() {
+        // Création et sauvegarde subséquente de l'objet.
         ChoseATrouverPrixJuste chose = new ChoseATrouverPrixJuste(100L, "Laptop", "Electronics", 45);
         service.saveChose(chose);
-        when(service.readChose(100L)).thenReturn(Optional.of(chose));
 
+        // Récupération des données sur la base.
+        when(service.readChose(100L)).thenReturn(Optional.of(chose));
         ResponseEntity<Optional<ChoseATrouverPrixJuste>> response = controller.getChoseById(100L);
 
         // Vérification finale.
