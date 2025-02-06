@@ -1,6 +1,6 @@
-package fr.uphf.questease.controller;
+package fr.uphf.questease.controller.testunitaire;
 
-import fr.uphf.questease.model.ChoseATrouverPrixJuste;
+import fr.uphf.questease.controller.SonController;
 import fr.uphf.questease.model.Indice;
 import fr.uphf.questease.model.Son;
 import fr.uphf.questease.service.SonServiceImpl;

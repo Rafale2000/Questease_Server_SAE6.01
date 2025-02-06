@@ -1,9 +1,8 @@
-package fr.uphf.questease.controller;
+package fr.uphf.questease.controller.testunitaire;
 
-import fr.uphf.questease.model.ChoseATrouverPrixJuste;
+import fr.uphf.questease.controller.UtilisateurController;
 import fr.uphf.questease.model.InfoSecu;
 import fr.uphf.questease.model.Utilisateur;
-import fr.uphf.questease.service.ChoseATrouverPrixJusteServiceImpl;
 import fr.uphf.questease.service.UtilisateurServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
