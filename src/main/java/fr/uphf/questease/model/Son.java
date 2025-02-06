@@ -36,6 +36,10 @@ public class Son {
         this.indice = indice;
     }
 
+    public Son() {
+
+    }
+
     public Long getId() {
         return id;
     }

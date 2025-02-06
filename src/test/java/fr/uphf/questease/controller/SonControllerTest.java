@@ -58,7 +58,7 @@ public class SonControllerTest {
 
         // Vérification finale.
         assertTrue(Objects.requireNonNull(response.getBody()).isPresent());
-        assertEquals("Laptop", response.getBody().get().getId());
+        assertEquals(100L, response.getBody().get().getId());
     }
 
     /**
@@ -88,7 +88,7 @@ public class SonControllerTest {
         // Création d'un nouveau objet.
         Son son = new Son(101L, "CCCCCCCC", new Indice(101, "CCCCCCCCCC"));
         // Appel a la méthode pour mettre un jour un objet.
-        controller.updateSon(101L, son);
+        controller.postSon(son);
         // Test si l'objet est bien modifié.
         verify(service, times(1)).updateSon(son, 101L);
     }
