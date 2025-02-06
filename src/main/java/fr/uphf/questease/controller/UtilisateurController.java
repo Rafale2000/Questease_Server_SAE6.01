@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Controller du repositoire d'Utilisateur
@@ -32,7 +33,7 @@ public class UtilisateurController {
      * @return L'Utilisateur à trouver
     **/
     @GetMapping("/{idUtil}")
-    public ResponseEntity<Iterable<Utilisateur>> getUserByName(@PathVariable String nameUtil){
+    public ResponseEntity<Optional<Utilisateur>> getUserByName(@PathVariable String nameUtil){
         return ResponseEntity.ok(UtilRepository.fetchOne(nameUtil));
     }
 
@@ -48,12 +49,11 @@ public class UtilisateurController {
     /**
      * Méthode Update permettant de mettre à jour un Utilisateur dans la base de donnée
      * @param idUtil L'id de L'Utilisateur à mettre à jour
-     * @param Util L'utilisateur qui sera mis à jour
+     * @param util L'utilisateur qui sera mis à jour
     **/
     @PatchMapping("/{idUtil}")
-    public void updateUser(Long idUtil, @PathVariable Utilisateur Util){
-        UtilRepository.deleteUtilisateur(idUtil);
-        UtilRepository.saveUtilisateur(Util);
+    public void updateUser(Long idUtil, @PathVariable Utilisateur util){
+        UtilRepository.updateUtilisateur(util,idUtil);
     }
 
     /**
