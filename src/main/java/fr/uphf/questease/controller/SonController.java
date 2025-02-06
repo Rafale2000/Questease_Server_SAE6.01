@@ -3,6 +3,7 @@ package fr.uphf.questease.controller;
 
 import fr.uphf.questease.model.Son;
 import fr.uphf.questease.service.SonServiceImpl;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
@@ -36,8 +37,8 @@ public class SonController {
      * @return Le son à récupérer
      */
     @GetMapping("/idSon")
-    public Optional<Son> getSonById(@PathVariable Long idSon) {
-        return repo.fetchOne(idSon);
+    public ResponseEntity<Optional<Son>> getSonById(@PathVariable Long idSon) {
+        return ResponseEntity.ok(repo.fetchOne(idSon));
     }
 
     /**
