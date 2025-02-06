@@ -1,4 +1,4 @@
-package fr.uphf.questease.controller.testunitaire;
+package fr.uphf.questease.testunitaire;
 
 import fr.uphf.questease.controller.MotPenduController;
 import fr.uphf.questease.model.MotPendu;
