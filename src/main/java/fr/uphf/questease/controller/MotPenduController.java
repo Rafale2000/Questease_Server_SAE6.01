@@ -2,6 +2,7 @@ package fr.uphf.questease.controller;
 
 import fr.uphf.questease.model.MotPendu;
 import fr.uphf.questease.service.MotPenduServiceImpl;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,8 +36,8 @@ public class MotPenduController {
      * @return Le mot à trouver
      */
     @GetMapping("/{idMotPendu}")
-    public Optional<MotPendu> getMotById(@PathVariable Long idMotPendu) {
-        return repo.fetchOneMotPendu(idMotPendu);
+    public ResponseEntity<Optional<MotPendu>> getMotById(@PathVariable Long idMotPendu) {
+        return ResponseEntity.ok(repo.fetchOneMotPendu(idMotPendu));
     }
 
     /**
@@ -51,12 +52,11 @@ public class MotPenduController {
     /**
      * Méthode Update permettant de mettre à jour un mot dans la base de donnée
      * @param idMotPendu L'id du mot à mettre à jour
-     * @param M Le mot qui sera mis à jour
+     * @param mot Le mot qui sera mis à jour
      */
     @PatchMapping("/{idMotPendu}")
-    public void updateMot(Long idMotPendu, @PathVariable MotPendu M) {
-        repo.deleteMotPendu(idMotPendu);
-        repo.saveMotPendu(M);
+    public void updateMot(Long idMotPendu, @PathVariable MotPendu mot) {
+        repo.updateMotPendu(mot,idMotPendu);
     }
 
     /**
