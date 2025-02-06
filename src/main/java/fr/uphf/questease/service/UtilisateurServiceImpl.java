@@ -6,13 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Implémentation du service pour gérer les objets `Utilisateur`.
  * Cette classe implémente les opérations CRUD pour les objets `Utilisateur`.
  */
 @Service
-public class UtilisateurServiceImpl implements UtilisateurService{
+public class UtilisateurServiceImpl implements UtilisateurService {
 
     // Repository utilisé pour interagir avec la base de données des objets `Utilisateur`.
     @Autowired
@@ -46,7 +47,7 @@ public class UtilisateurServiceImpl implements UtilisateurService{
      * @return Un `Iterable` contenant l'utilisateur correspondant, ou vide si aucun utilisateur n'est trouvé.
      */
     @Override
-    public Iterable<Utilisateur> fetchOne(String pseudoUser){
+    public Optional<Utilisateur> fetchOne(String pseudoUser) {
         return repo.findUtilByName(pseudoUser);
     }
 
@@ -71,5 +72,15 @@ public class UtilisateurServiceImpl implements UtilisateurService{
     @Override
     public void deleteUtilisateur(Long utilisateurId) {
         repo.deleteById(utilisateurId);
+    }
+
+    /**
+     * Renvoie un optional si un objet existe avec un id donnée
+     * @param id L'id de l'utilisateur à récupérer.
+     * @return Optianal
+     */
+    @Override
+    public Optional<Utilisateur> getUser(long id) {
+        return repo.findById(id);
     }
 }
