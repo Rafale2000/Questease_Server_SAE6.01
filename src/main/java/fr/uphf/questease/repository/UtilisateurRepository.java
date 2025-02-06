@@ -6,6 +6,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 /**
  * Repositoire de la classe Utilisateur
  */
@@ -18,6 +20,6 @@ public interface UtilisateurRepository extends CrudRepository<Utilisateur, Long>
      * @return L'utilisateur associé au nom
      */
     @Query("SELECT u FROM Utilisateur u WHERE u.nom = :pseudoUser")
-    Iterable<Utilisateur> findUtilByName(@Param("pseudoUser") String pseudoUser);
+    Optional<Utilisateur> findUtilByName(@Param("pseudoUser") String pseudoUser);
 
 }
