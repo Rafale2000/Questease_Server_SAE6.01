@@ -23,5 +23,27 @@ public class MotPendu {
     @Column(name = "mot",unique=true, nullable = false)
     private String mot;
 
+    public MotPendu(Long id, String mot) {
+        this.id = id;
+        this.mot = mot;
+    }
 
+    public MotPendu() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getMot() {
+        return mot;
+    }
+
+    public void setMot(String mot) {
+        this.mot = mot;
+    }
 }
