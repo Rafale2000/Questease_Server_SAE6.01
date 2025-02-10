@@ -58,8 +58,7 @@ public class SonController {
      */
     @PatchMapping("/{idSon}")
     public void updateSon(Long idSon, @PathVariable Son son) {
-        repo.deleteSon(idSon);
-        repo.saveSon(son);
+        repo.updateSon(son,idSon);
     }
 
     /**
