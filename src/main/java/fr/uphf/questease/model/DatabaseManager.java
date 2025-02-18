@@ -41,4 +41,23 @@ public class DatabaseManager {
             return false;
         }
     }
+    public List<List<String>> getResultsAsMatrix(PreparedStatement preparedStatement) {
+        List<List<String>> results = new ArrayList<>();
+        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int columnCount = metaData.getColumnCount();
+            while (resultSet.next()) {
+                List<String> row = new ArrayList<>();
+                // Parcourt chaque colonne de la ligne
+                for (int i = 1; i <= columnCount; i++) {
+                    row.add(resultSet.getString(i));
+                }
+                results.add(row);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return results;
+    }
+
 }

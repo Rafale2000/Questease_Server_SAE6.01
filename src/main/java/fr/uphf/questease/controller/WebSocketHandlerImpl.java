@@ -15,10 +15,7 @@ import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.TextMessage;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -31,8 +28,7 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
     private static final Logger logger = LoggerFactory.getLogger(WebSocketHandlerImpl.class);
     @Autowired
     private MotRepository motRepository;
-    @Autowired
-    private WebSocketHandler webSocketHandler;
+
 
     public WebSocketHandlerImpl() {
         logger.info("WebSocketHandlerImpl chargé et prêt.");
@@ -191,7 +187,6 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
                     responseMessage = new WebSocketMessage("lobbyLeaved","");
                     responseJson = objectMapper.writeValueAsString(responseMessage);
                     session.sendMessage(new TextMessage(responseJson));
-
                 }
             } else if ("ready".equals(tag)) {
                 User sourceUser = identifyUserBySession(session);
@@ -399,9 +394,11 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
                 }
 
                 if(utilisateurs.isEmpty()){
-                    String insertQuery = "INSERT INTO users (username, password) VALUES (?, ?)";
+                    String insertQuery = "INSERT INTO utilisateur (nom, password) VALUES (?, ?)";
                     databaseManager.insert(insertQuery, username, password);
-                    responseMessage = new WebSocketMessage("CreateSucess",lemessage);
+                    String insertQuery2 = "INSERT INTO utilisateur_stats (playedgames, wongames) VALUES (0,0)";
+                    databaseManager.insert(insertQuery2);
+                    responseMessage = new WebSocketMessage("CreateSuccess",lemessage);
                 }
                 else{
                     responseMessage = new WebSocketMessage("CreateError",lemessage);
@@ -427,13 +424,63 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
                     e.printStackTrace();
                 }
                 if(utilisateurs.isEmpty()){
-                    responseMessage = new WebSocketMessage("ConnexionSuccess",lemessage);
+                    responseMessage = new WebSocketMessage("ConnectionError",lemessage);
                 }
                 else{
-                    responseMessage = new WebSocketMessage("ConnexionError",lemessage);
+                    responseMessage = new WebSocketMessage("ConnectionSuccess",lemessage);
                 }
                 responseJson = objectMapper.writeValueAsString(responseMessage);
                 sourceUser.getSession().sendMessage(new TextMessage(responseJson));
+            }
+            else if("ConnectedCreate".equals(tag)){
+                responseMessage = new WebSocketMessage("setnom","success");
+                User user = identifyUserBySession(session);
+                assert user != null;
+                user.setNom(lemessage);
+                responseJson = objectMapper.writeValueAsString(responseMessage);
+                session.sendMessage(new TextMessage(responseJson));
+            }
+            else if ("getStats".equals(tag)) {
+                User sourceUser = identifyUserBySession(session);
+                String query = "SELECT playedgames, wongames FROM utilisateur_stats "
+                        + "JOIN utilisateur ON utilisateur_stats.idutilisateur = utilisateur.idutilisateur "
+                        + "WHERE utilisateur.nom = ?";
+                List<Integer> resultats = new ArrayList<>();
+                String username = lemessage;
+
+                try (Connection connection = DriverManager.getConnection(DatabaseManager.URL, DatabaseManager.USER, DatabaseManager.PASSWORD);
+                     PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+                    preparedStatement.setString(1, username); // On passe bien le nom de l'utilisateur
+
+                    try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                        if (resultSet.next()) { // Vérifie si des résultats existent
+                            resultats.add(resultSet.getInt("playedgames"));
+                            resultats.add(resultSet.getInt("wongames"));
+                        }
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                if (resultats.isEmpty()) {
+                    responseMessage = new WebSocketMessage("getStatsError",lemessage);
+                }
+                else {
+                    responseMessage = new WebSocketMessage("getStatsSuccess",resultats.toString());
+                }
+                responseJson = objectMapper.writeValueAsString(responseMessage);
+                sourceUser.getSession().sendMessage(new TextMessage(responseJson));
+            } else if ("updateStats".equals(tag)) {
+
+                String query = "UPDATE utilisateur_stats" +
+                        "SET playedgames = playedgames + 1, wongames = wongames + 1" +
+                        "FROM utilisateur" +
+                        "WHERE utilisateur.idutilisateur = utilisateur_stats.idutilisateur" +
+                        "  AND utilisateur.nom = ?;";
+                databaseManager.insert(query, lemessage);
+                responseMessage = new WebSocketMessage("updateStatsSuccess",lemessage);
+                responseJson = objectMapper.writeValueAsString(responseMessage);
+                session.sendMessage(new TextMessage(responseJson));
             }
         } catch (Exception e) {
             logger.error("erreur", e);
