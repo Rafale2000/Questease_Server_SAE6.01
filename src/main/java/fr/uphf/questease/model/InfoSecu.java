@@ -86,4 +86,21 @@ public class InfoSecu {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    /**
+     * LE getter de l'utilisateur de infoSecu
+     * @param utilisateur utilisateur passé en paramètre
+     */
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
+    }
+
+    public InfoSecu(Long id, String mdp, String email) {
+        this.id = id;
+        this.mdp = mdp;
+        this.email = email;
+        this.utilisateur = null;
+    }
+
+    public InfoSecu(){}
 }

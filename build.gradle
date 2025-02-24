@@ -2,6 +2,42 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.3.4'
 	id 'io.spring.dependency-management' version '1.1.6'
+	id 'org.sonarqube' version '4.0.0.2929'
+	id 'jacoco'
+}
+
+sonarqube {
+	properties {
+		property "sonar.projectKey", "JAVATEST"
+		property "sonar.projectName", "JAVATEST"
+		property "sonar.sourceEncoding", "UTF-8"
+		property "sonar.host.url", "http://localhost:9000"
+
+		// Séparation claire des sources et des tests
+		property "sonar.sources", "src/main/java"
+		property "sonar.tests", "src/test/java"
+
+		property "sonar.token", "sqp_4e6da52669982cda99706f234dc2ace00e10c246"
+		// Intégration de JaCoCo pour la couverture de tests
+		property "sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
+	}
+}
+
+jacoco {
+	toolVersion = "0.8.10"
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+	finalizedBy jacocoTestReport // Générer le rapport JaCoCo après les tests
+}
+
+jacocoTestReport {
+	dependsOn test
+	reports {
+		xml.required.set(true)  // SonarQube a besoin du rapport XML
+		html.required.set(true) // Rapport lisible dans `build/reports/jacoco/test/html/index.html`
+	}
 }
 
 group = 'fr.uphf'
@@ -10,6 +46,12 @@ version = '0.0.1-SNAPSHOT'
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+configurations {
+	cucumberRuntime {
+		extendsFrom testImplementation
 	}
 }
 
@@ -31,6 +73,31 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
+	// Extensions Junit
+	testImplementation 'org.junit.jupiter:junit-jupiter'
+	testImplementation 'org.junit.platform:junit-platform-suite'
+
+	// Cucumber
+	testImplementation platform('io.cucumber:cucumber-bom:7.15.0')
+	testImplementation 'io.cucumber:cucumber-java:7.15.0'
+	testImplementation 'io.cucumber:cucumber-junit-platform-engine:7.15.0'
+	testImplementation 'io.cucumber:cucumber-spring:7.15.0'
+}
+
+tasks.register('cucumberCli') {
+	dependsOn assemble, testClasses
+	doLast {
+		javaexec {
+			main = "io.cucumber.core.cli.Main"
+			classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+			args = [
+					'--plugin', 'pretty',
+					'--plugin', 'html:target/cucumber-report.html',
+					'--glue', 'com.baeldung.cucumber',
+					'src/test/resources']
+		}
+	}
 }
 
 tasks.named('test') {

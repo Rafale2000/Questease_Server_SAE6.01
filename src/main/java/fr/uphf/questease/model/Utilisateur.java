@@ -31,17 +31,40 @@ public class Utilisateur {
     @Column(name = "xp",nullable = false)
     private int Xp;
 
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "diff", nullable = false)
+    private Status diff = Status.ONE;
+
+
+    public enum Status {
+        ONE(1), TWO(2), THREE(3);
+
+        private final int value;
+
+        Status(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+
     /**
      * Lien vers les informations générales de l'utilisateur
      */
     @OneToOne(mappedBy = "utilisateur", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private InfoSecu infoSecu;
 
-
-
-
-
-
+    public Utilisateur(Long id, String nom, int xp, Status diff, InfoSecu infoSecu, List<Resultat> resultat) {
+        this.id = id;
+        this.nom = nom;
+        Xp = xp;
+        this.diff = diff;
+        this.infoSecu = infoSecu;
+        this.resultat = resultat;
+    }
+    public Utilisateur() {}
 
     /**
      * La liste de resultat pour un utilisateur
@@ -96,5 +119,29 @@ public class Utilisateur {
      */
     public void setXp(int xp) {
         Xp = xp;
+    }
+
+    public Status getDiff() {
+        return diff;
+    }
+
+    public void setDiff(Status diff) {
+        this.diff = diff;
+    }
+
+    public InfoSecu getInfoSecu() {
+        return infoSecu;
+    }
+
+    public void setInfoSecu(InfoSecu infoSecu) {
+        this.infoSecu = infoSecu;
+    }
+
+    public List<Resultat> getResultat() {
+        return resultat;
+    }
+
+    public void setResultat(List<Resultat> resultat) {
+        this.resultat = resultat;
     }
 }

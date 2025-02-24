@@ -1,0 +1,23 @@
+INSERT INTO indice VALUES (1, 'voiture couleur champagne a la porte droite d''une fermeture douteuse'),
+                          (2, 'voiture russe a 4 roues motrice'),
+                          (3, 'Téléphone d''une marque à la pomme croquée'),
+                          (4, 'animal à la longue trompe'),
+                          (5, 'mot le plus long de la longue francaise') ,
+                          (6, 'fait a partir de lait'),
+                          (7, 'reservoir');
+
+INSERT INTO mot_pendu values(1, 'elephant'),
+                            (2, 'anticonstitutionnelement'),
+                            (3, 'yaourt'),
+                            (4, 'fromage'),
+                            (5, 'tank');
+
+INSERT INTO public.choseatrouver_prix_just (id_choseatrouver, pathtopicture, nom, prix) VALUES (1, 'lada', 'lada', 2000);
+INSERT INTO public.choseatrouver_prix_just (id_choseatrouver, pathtopicture, nom, prix) VALUES (2, 'modus', 'modus', 3500);
+INSERT INTO public.choseatrouver_prix_just (id_choseatrouver, pathtopicture, nom, prix) VALUES (3, 'iphone', 'iphone5', 12);
+
+
+
+
+
+
