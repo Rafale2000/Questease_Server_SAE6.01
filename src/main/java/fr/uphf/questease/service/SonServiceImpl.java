@@ -15,13 +15,14 @@ import java.util.Optional;
 @Service
 public class SonServiceImpl implements SonService {
 
-    // Repository utilisé pour interagir avec la base de données des objets `Son`.
+    /**
+     * Repository utilisé pour interagir avec la base de données des objets `Son`.
+     */
     @Autowired
     private SonRepository repo;
 
     /**
      * Sauvegarde un nouvel objet `Son` ou met à jour un objet existant.
-     *
      * @param son L'objet `Son` à sauvegarder.
      * @return L'objet `Son` sauvegardé.
      */

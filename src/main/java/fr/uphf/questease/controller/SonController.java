@@ -3,6 +3,7 @@ package fr.uphf.questease.controller;
 
 import fr.uphf.questease.model.Son;
 import fr.uphf.questease.service.SonServiceImpl;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
@@ -36,8 +37,8 @@ public class SonController {
      * @return Le son à récupérer
      */
     @GetMapping("/idSon")
-    public Optional<Son> getSonById(@PathVariable Long idSon) {
-        return repo.fetchOne(idSon);
+    public ResponseEntity<Optional<Son>> getSonById(@PathVariable Long idSon) {
+        return ResponseEntity.ok(repo.fetchOne(idSon));
     }
 
     /**
@@ -56,9 +57,8 @@ public class SonController {
      * @param son Le son qui sera mis à jour
      */
     @PatchMapping("/{idSon}")
-    public void updateSon(Long idSon, @PathVariable Son son) {
-        repo.deleteSon(idSon);
-        repo.saveSon(son);
+    public void updateSon(@PathVariable Long idSon, @RequestBody Son son) {
+        repo.updateSon(son,idSon);
     }
 
     /**

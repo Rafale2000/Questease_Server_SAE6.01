@@ -3,6 +3,7 @@ package fr.uphf.questease.service;
 import fr.uphf.questease.model.Utilisateur;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Interface pour le service de gestion des objets `Utilisateur`.
@@ -31,7 +32,7 @@ public interface UtilisateurService {
      * @param pseudoUser Le pseudo de l'utilisateur à récupérer.
      * @return Un `Iterable` contenant l'utilisateur correspondant, ou vide si aucun utilisateur n'est trouvé.
      */
-    public Iterable<Utilisateur> fetchOne(String pseudoUser);
+    public Optional<Utilisateur> fetchOne(String pseudoUser);
 
     /**
      * Met à jour un objet `Utilisateur` existant.
@@ -48,4 +49,13 @@ public interface UtilisateurService {
      * @param utilisateurId L'identifiant de l'objet `Utilisateur` à supprimer.
      */
     public void deleteUtilisateur(Long utilisateurId);
+
+    /**
+     * Récupère un  objets `Utilisateur` spécifiques à partir du son id de l'utilisateur.
+     *
+     * @param id L'id de l'utilisateur à récupérer.
+     * @return Un `Iterable` contenant l'utilisateur correspondant, ou vide si aucun utilisateur n'est trouvé.
+     */
+    public Optional<Utilisateur> getUser(long id);
+
 }
