@@ -24,7 +24,6 @@ class MotPenduControllerTest {
      */
     @Mock
     private MotPenduServiceImpl service;
-
     /**
      * Le controller de ChoseATrouverPrixJuste.
      */
@@ -69,7 +68,7 @@ class MotPenduControllerTest {
         MotPendu mot = new MotPendu(101L, "Pandémonium");
 
         // Ajout de l'objet dans la base de données.
-        controller.PostMot(mot);
+        controller.postMot(mot);
 
         // Vérification si l'objet est bien sauvegardé.
         verify(service, times(1)).saveMotPendu(mot);
