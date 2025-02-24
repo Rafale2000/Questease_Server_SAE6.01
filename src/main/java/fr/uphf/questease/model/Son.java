@@ -47,4 +47,13 @@ public class Son {
     public void setId(Long id) {
         this.id = id;
     }
+
+
+    public String getCheminSon() {
+        return cheminSon;
+    }
+
+    public void setCheminSon(String cheminSon) {
+        this.cheminSon = cheminSon;
+    }
 }

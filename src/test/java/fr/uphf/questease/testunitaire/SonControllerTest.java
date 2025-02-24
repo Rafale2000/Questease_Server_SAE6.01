@@ -58,7 +58,7 @@ public class SonControllerTest {
 
         // Vérification finale.
         assertTrue(Objects.requireNonNull(response.getBody()).isPresent());
-        assertEquals(100L, response.getBody().get().getId());
+        assertEquals("AAAAAAA", response.getBody().get().getCheminSon());
     }
 
     /**
@@ -88,7 +88,7 @@ public class SonControllerTest {
         // Création d'un nouveau objet.
         Son son = new Son(101L, "CCCCCCCC", new Indice(101, "CCCCCCCCCC"));
         // Appel a la méthode pour mettre un jour un objet.
-        controller.postSon(son);
+        controller.updateSon(101L, son);
         // Test si l'objet est bien modifié.
         verify(service, times(1)).updateSon(son, 101L);
     }
@@ -113,7 +113,7 @@ public class SonControllerTest {
         // Liste contenant 2 éléments de test
         List<Son> sons = Arrays.asList(
                 new Son(100L, "AAAAAAAA", new Indice(100, "AAAAAAAAAAA")),
-                new Son(101L, "BBBBBBBB", new Indice(100, "BBBBBBBBBBB"))
+                new Son(101L, "BBBBBBBB", new Indice(101, "BBBBBBBBBBB"))
         );
 
         // Ajout dans le service des élements de la list
@@ -125,8 +125,8 @@ public class SonControllerTest {
         // Test de la taille des éléments retourné
         assertEquals(2, response.size());
         // Test de l'id du 1er élément
-        assertEquals(100L, response.get(0).getId());
+        assertEquals("AAAAAAAA", response.get(0).getCheminSon());
         // Test de l'id du 2e élément
-        assertEquals(101L, response.get(1).getId());
+        assertEquals("BBBBBBBB", response.get(1).getCheminSon());
     }
 }

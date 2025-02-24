@@ -57,7 +57,7 @@ public class SonController {
      * @param son Le son qui sera mis à jour
      */
     @PatchMapping("/{idSon}")
-    public void updateSon(Long idSon, @PathVariable Son son) {
+    public void updateSon(@PathVariable Long idSon, @RequestBody Son son) {
         repo.updateSon(son,idSon);
     }
 
