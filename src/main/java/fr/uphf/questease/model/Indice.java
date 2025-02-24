@@ -24,18 +24,12 @@ public class Indice {
     private String indiceText;
 
 
-    /**
-     * La liste d'indices pour le Cryptex
-     */
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "indice", cascade = CascadeType.ALL)
-    private List<MotCryptex> motCryptexList;
-
 
     /**
      * La liste d'indices du Deviner le Son
      */
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "indice", cascade = CascadeType.ALL)
-    private List<MotCryptex> sonList;
+    private List<Son> sonList;
 
     /**
      * Le constructeur par défaut de l'indice
@@ -80,19 +74,11 @@ public class Indice {
         this.indiceText = indiceText;
     }
 
-    public List<MotCryptex> getMotCryptexList() {
-        return motCryptexList;
-    }
-
-    public void setMotCryptexList(List<MotCryptex> motCryptexList) {
-        this.motCryptexList = motCryptexList;
-    }
-
-    public List<MotCryptex> getSonList() {
+    public List<Son> getSonList() {
         return sonList;
     }
 
-    public void setSonList(List<MotCryptex> sonList) {
+    public void setSonList(List<Son> sonList) {
         this.sonList = sonList;
     }
 }
