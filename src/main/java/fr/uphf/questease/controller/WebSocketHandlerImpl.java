@@ -482,6 +482,37 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
                 responseJson = objectMapper.writeValueAsString(responseMessage);
                 session.sendMessage(new TextMessage(responseJson));
             }
+            else if("deleteAccount".equals(tag)) {
+                String query = "SELECT idutilisateur from utilisateur where nom = ?";
+                List<Integer> resultats = new ArrayList<>();
+                String username = lemessage;
+
+                try (Connection connection = DriverManager.getConnection(DatabaseManager.URL, DatabaseManager.USER, DatabaseManager.PASSWORD);
+                     PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+                    preparedStatement.setString(1, username); // On passe bien le nom de l'utilisateur
+
+                    try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                        if (resultSet.next()) { // Vérifie si des résultats existent
+                            resultats.add(resultSet.getInt("idutilisateur"));
+                        }
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                if (!resultats.isEmpty()){
+                    int idutilisateur = Integer.parseInt(resultats.get(0).toString());
+
+
+                    String deleteQuery = "DELETE FROM utilisateur_stats WHERE idutilisateur = ?";
+                    String deleteQuery2 = "DELETE FROM utilisateur WHERE idutilisateur = ?";
+                    databaseManager.delete(deleteQuery, idutilisateur);
+                    databaseManager.delete(deleteQuery2, idutilisateur);
+                    responseMessage = new WebSocketMessage("accountDeleted",lemessage);
+                    responseJson = objectMapper.writeValueAsString(responseMessage);
+                    session.sendMessage(new TextMessage(responseJson));
+                }
+            }
         } catch (Exception e) {
             logger.error("erreur", e);
             try {

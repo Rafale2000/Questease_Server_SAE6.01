@@ -41,6 +41,23 @@ public class DatabaseManager {
             return false;
         }
     }
+    public boolean delete(String query, Object... params) {
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            for (int i = 0; i < params.length; i++) {
+                preparedStatement.setObject(i + 1, params[i]);
+            }
+
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public List<List<String>> getResultsAsMatrix(PreparedStatement preparedStatement) {
         List<List<String>> results = new ArrayList<>();
         try (ResultSet resultSet = preparedStatement.executeQuery()) {
