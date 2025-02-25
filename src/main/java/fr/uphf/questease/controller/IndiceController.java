@@ -10,29 +10,29 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Controller du repositoire d'IndiceRepositoire
+ * Controller du repositoire d'IndiceRepositoire.
  */
 @RestController
 @RequestMapping("/indice")
 public class IndiceController {
 
     /**
-     * Le repositoire de la classe Indice
+     * Le repositoire de la classe Indice.
      */
     private final IndiceServiceImpl repo;
 
     /**
-     * Constructeur de la classe IndiceController
-     * @param repo Le repositoire de la classe Indice
+     * Constructeur de la classe IndiceController.
+     * @param repo Le repositoire de la classe Indice.
      */
     public IndiceController(IndiceServiceImpl repo) {
         this.repo = repo;
     }
 
     /**
-     * Methode Get permettant de recuperer un indice grace a son Id
-     * @param idIndice L'id de l'indice a recuperer
-     * @return L'indice qui possede l'id precedemment mentionne
+     * Methode Get permettant de recuperer un indice grace a son Id.
+     * @param idIndice L'id de l'indice a recuperer.
+     * @return L'indice qui possede l'id precedemment mentionne.
      */
     @GetMapping("/idIndice{idIndice}")
     public Optional<Indice> getIndiceById(@PathVariable Long idIndice) {
@@ -40,8 +40,8 @@ public class IndiceController {
     }
 
     /**
-     * Methode Get permettant de recuperer tout les indices
-     * @return Une liste contenant tout les indices
+     * Methode Get permettant de recuperer tout les indices.
+     * @return Une liste contenant tout les indices.
      */
     @GetMapping("")
     public List<Indice> getAllIndices() {
@@ -49,8 +49,8 @@ public class IndiceController {
     }
 
     /**
-     * Methode Post permettant d'ajouter a la base de donnee un indice
-     * @param indice L'indice a ajouter a la base de donnee
+     * Methode Post permettant d'ajouter a la base de donnee un indice.
+     * @param indice L'indice a ajouter a la base de donnee.
      */
     @PostMapping("/get{idIndice}")
     public void postIndice(@PathVariable("idIndice") Long idIndice, @RequestBody Indice indice) {
@@ -59,9 +59,9 @@ public class IndiceController {
     }
 
     /**
-     * Methode Update permettant de mettre a jour un indice de la base de donnee
-     * @param idIndice L'id de l'indice a mettre a jour
-     * @param updatedIndice L'indice qui remplacera celui mis a jour
+     * Methode Update permettant de mettre a jour un indice de la base de donnee.
+     * @param idIndice L'id de l'indice a mettre a jour.
+     * @param updatedIndice L'indice qui remplacera celui mis a jour.
      */
     @PatchMapping("/{idIndice}")
     public void updateIndice(@PathVariable("idIndice") Long idIndice, @RequestBody Indice updatedIndice) {
@@ -71,8 +71,8 @@ public class IndiceController {
     }
 
     /**
-     * Methode Delete permettant de supprimer un Indice de la base de donnee
-     * @param idIndice L'indice supprime de la base de donnee
+     * Methode Delete permettant de supprimer un Indice de la base de donnee.
+     * @param idIndice L'indice supprime de la base de donnee.
      */
     @DeleteMapping("/{idIndice}")
     public void deleteinfoSecu(@PathVariable int idIndice) {

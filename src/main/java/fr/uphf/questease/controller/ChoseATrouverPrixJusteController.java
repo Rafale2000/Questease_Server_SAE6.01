@@ -9,25 +9,25 @@ import java.util.Optional;
 import java.util.Random;
 
 /**
- * Controller du repositoire de ChoseATrouverPrixJuste
+ * Controller du repositoire de ChoseATrouverPrixJuste.
  */
 @RestController
 @RequestMapping("/choseATrouver")
 public class ChoseATrouverPrixJusteController {
 
     /**
-     * Generation d'un chiffre au hasard
+     * Generation d'un chiffre au hasard.
      */
     private final Random random = new Random();
 
     /**
-     * Implementation du service permettant d'acceder au repositoire
+     * Implementation du service permettant d'acceder au repositoire.
      */
     private final ChoseATrouverPrixJusteServiceImpl repo;
 
     /**
-     * Constructeur de la classe ChoseATrouverPrixJusteController
-     * @param repo Repositoire de la classe ChoseATrouverPrixJusteController
+     * Constructeur de la classe ChoseATrouverPrixJusteController.
+     * @param repo Repositoire de la classe ChoseATrouverPrixJusteController.
      */
     public ChoseATrouverPrixJusteController(ChoseATrouverPrixJusteServiceImpl repo) {
         this.repo = repo;
@@ -44,8 +44,8 @@ public class ChoseATrouverPrixJusteController {
     }
 
     /**
-     * Methode Post permettant d'ajouter un element mystere du Prix Juste a la base de donnee
-     * @param c L'element a ajouter a la base de donnee
+     * Methode Post permettant d'ajouter un element mystere du Prix Juste a la base de donnee.
+     * @param c L'element a ajouter a la base de donnee.
      */
     @PostMapping("/{idChoseATrouver}")
     public void postChose(@PathVariable Long idChoseATrouver, @RequestBody ChoseATrouverPrixJuste c) {
@@ -53,9 +53,9 @@ public class ChoseATrouverPrixJusteController {
     }
 
     /**
-     * Methode Update permettant de mettre a jour un element mystere du Prix Juste dans la base de donnee
-     * @param idChoseATrouver L'id de l'element qui mettra a jour
-     * @param c L'element qui sera mis a jour
+     * Methode Update permettant de mettre a jour un element mystere du Prix Juste dans la base de donnee.
+     * @param idChoseATrouver L'id de l'element qui mettra a jour.
+     * @param c L'element qui sera mis a jour.
      */
     @PatchMapping("/{idChoseATrouver}")
     public void updateChoseATrouver(@PathVariable Long idChoseATrouver, @RequestBody ChoseATrouverPrixJuste c) {
@@ -63,8 +63,8 @@ public class ChoseATrouverPrixJusteController {
     }
 
     /**
-     * Methode Delete permettant de supprimer un element de la base de donnee
-     * @param idChoseATrouver L'id de l'element a supprimer
+     * Methode Delete permettant de supprimer un element de la base de donnee.
+     * @param idChoseATrouver L'id de l'element a supprimer.
      */
     @DeleteMapping("/{idChoseATrouver}")
     public void deleteChose(@PathVariable Long idChoseATrouver) {
@@ -73,7 +73,7 @@ public class ChoseATrouverPrixJusteController {
 
     /**
      * Methode GET permettant d'obtenir un objet ChoseATrouverPrixJuste choisi au hasard parmi tout ceux presents dans la base de donnees.
-     * @return ChoseATrouverPrixJuste
+     * @return ChoseATrouverPrixJuste.
      */
     @GetMapping("/random")
     public ChoseATrouverPrixJuste getRandomChose() {
@@ -83,7 +83,7 @@ public class ChoseATrouverPrixJusteController {
 
     /**
      * Methode GET par defaut, renvoie tous les elements ChoseATrouverPrixJuste de la base de donnees.
-     * @return une list de ChoseATrouverPrixJuste
+     * @return une list de ChoseATrouverPrixJuste.
      */
     @GetMapping("")
     public List<ChoseATrouverPrixJuste> getAll(){
