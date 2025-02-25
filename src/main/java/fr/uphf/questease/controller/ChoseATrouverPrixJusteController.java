@@ -14,10 +14,14 @@ import java.util.Random;
 @RestController
 @RequestMapping("/choseATrouver")
 public class ChoseATrouverPrixJusteController {
+
+    /**
+     * Generation d'un chiffre au hasard
+     */
     private final Random random = new Random();
 
     /**
-     * Implémentation du service permettant d'accéder au repositoire
+     * Implementation du service permettant d'acceder au repositoire
      */
     private final ChoseATrouverPrixJusteServiceImpl repo;
 
@@ -29,14 +33,19 @@ public class ChoseATrouverPrixJusteController {
         this.repo = repo;
     }
 
+    /**
+     * Methode Get permettant de recuperer un element de la BDD selon son id.
+     * @param id L'id de l'element a recuperer.
+     * @return L'element a recuperer.
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Optional<ChoseATrouverPrixJuste>> getChoseById(@PathVariable Long id) {
         return ResponseEntity.ok(repo.readChose(id));
     }
 
     /**
-     * Méthode Post permettant d'ajouter un élément mystère du Prix Juste à la base de donnée
-     * @param c L'élément à ajouter à la base de donnée
+     * Methode Post permettant d'ajouter un element mystere du Prix Juste a la base de donnee
+     * @param c L'element a ajouter a la base de donnee
      */
     @PostMapping("/{idChoseATrouver}")
     public void postChose(@PathVariable Long idChoseATrouver, @RequestBody ChoseATrouverPrixJuste c) {
@@ -44,9 +53,9 @@ public class ChoseATrouverPrixJusteController {
     }
 
     /**
-     * Méthode Update permettant de mettre à jour un élément mystère du Prix Juste dans la base de donnée
-     * @param idChoseATrouver L'id de l'élément qui mettra à jour
-     * @param c L'élément qui sera mis à jour
+     * Methode Update permettant de mettre a jour un element mystere du Prix Juste dans la base de donnee
+     * @param idChoseATrouver L'id de l'element qui mettra a jour
+     * @param c L'element qui sera mis a jour
      */
     @PatchMapping("/{idChoseATrouver}")
     public void updateChoseATrouver(@PathVariable Long idChoseATrouver, @RequestBody ChoseATrouverPrixJuste c) {
@@ -54,8 +63,8 @@ public class ChoseATrouverPrixJusteController {
     }
 
     /**
-     * Méthode Delete permettant de supprimer un élément de la base de donnée
-     * @param idChoseATrouver L'id de l'élément à supprimer
+     * Methode Delete permettant de supprimer un element de la base de donnee
+     * @param idChoseATrouver L'id de l'element a supprimer
      */
     @DeleteMapping("/{idChoseATrouver}")
     public void deleteChose(@PathVariable Long idChoseATrouver) {
@@ -63,18 +72,17 @@ public class ChoseATrouverPrixJusteController {
     }
 
     /**
-     * Méthode GET permettant d'obtenir un objet ChoseATrouverPrixJuste choisi au hasard parmi tous ceux présents dans la base de données.
+     * Methode GET permettant d'obtenir un objet ChoseATrouverPrixJuste choisi au hasard parmi tout ceux presents dans la base de donnees.
      * @return ChoseATrouverPrixJuste
      */
     @GetMapping("/random")
     public ChoseATrouverPrixJuste getRandomChose() {
         List<ChoseATrouverPrixJuste> liste = repo.fetchChoseList();
-
         return liste.get((random.nextInt() * (liste.size())));
     }
 
     /**
-     * Méthode GET par défault, renvoie tous les elements ChoseATrouverPrixJuste de la base de données.
+     * Methode GET par defaut, renvoie tous les elements ChoseATrouverPrixJuste de la base de donnees.
      * @return une list de ChoseATrouverPrixJuste
      */
     @GetMapping("")

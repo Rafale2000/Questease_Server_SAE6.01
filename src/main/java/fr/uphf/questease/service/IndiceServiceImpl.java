@@ -9,20 +9,19 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Implémentation du service pour la gestion des objets `Indice`.
+ * Implementation du service pour la gestion des objets `Indice`.
  */
 @Service
 public class IndiceServiceImpl implements IndiceService {
 
-    // Référentiel pour interagir avec la base de données des indices.
+    // Referentiel pour interagir avec la base de donnees des indices.
     @Autowired
     private IndiceRepository repo;
 
     /**
-     * Sauvegarde un nouvel indice ou met à jour un indice existant.
-     *
-     * @param indice L'objet `Indice` à sauvegarder.
-     * @return L'objet `Indice` sauvegardé.
+     * Sauvegarde un nouvel indice ou met a jour un indice existant.
+     * @param indice L'objet `Indice` a sauvegarder.
+     * @return L'objet `Indice` sauvegarde.
      */
     @Override
     public Indice saveIndice(Indice indice) {
@@ -30,8 +29,7 @@ public class IndiceServiceImpl implements IndiceService {
     }
 
     /**
-     * Récupère la liste de tous les indices enregistrés.
-     *
+     * Recupere la liste de tous les indices enregistres.
      * @return Une liste contenant tous les indices.
      */
     @Override
@@ -40,10 +38,9 @@ public class IndiceServiceImpl implements IndiceService {
     }
 
     /**
-     * Récupère un indice spécifique à partir de son identifiant.
-     *
-     * @param id L'identifiant de l'indice à récupérer.
-     * @return Un `Optional` contenant l'indice s'il est trouvé, sinon vide.
+     * Recupere un indice specifique a partir de son identifiant.
+     * @param id L'identifiant de l'indice a recuperer.
+     * @return Un `Optional` contenant l'indice s'il est trouve, sinon vide.
      */
     @Override
     public Optional<Indice> fetchIndice(Long id) {
@@ -51,22 +48,20 @@ public class IndiceServiceImpl implements IndiceService {
     }
 
     /**
-     * Met à jour un indice existant en supprimant d'abord l'ancien, puis en sauvegardant le nouveau.
-     *
+     * Met a jour un indice existant en supprimant d'abord l'ancien, puis en sauvegardant le nouveau.
      * @param indice   L'objet contenant les nouvelles informations.
-     * @param indiceId L'identifiant de l'indice à mettre à jour.
-     * @return L'objet `Indice` mis à jour.
+     * @param indiceId L'identifiant de l'indice a mettre a jour.
+     * @return L'objet `Indice` mis a jour.
      */
     @Override
     public Indice updateIndice(Indice indice, Long indiceId) {
-        repo.deleteById(indiceId); // Supprime l'indice existant avec l'ID donné.
+        repo.deleteById(indiceId); // Supprime l'indice existant avec l'ID donne.
         return repo.save(indice); // Sauvegarde le nouvel indice.
     }
 
     /**
-     * Supprime un indice à partir de son identifiant.
-     *
-     * @param indiceId L'identifiant de l'indice à supprimer.
+     * Supprime un indice a partir de son identifiant.
+     * @param indiceId L'identifiant de l'indice a supprimer.
      */
     @Override
     public void deleteIndice(Long indiceId) {

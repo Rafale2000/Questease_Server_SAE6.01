@@ -35,8 +35,8 @@ public class UtilisateurControllerTest {
     private UtilisateurController controller;
 
     /**
-     * Méthode permettant d'initialiser les champs annotés avec les mockitos avant tous les tests.
-     * Il s'agit de la première méthode appelée de ce fichier.
+     * Methode permettant d'initialiser les champs annotes avec les mockitos avant tous les tests.
+     * Il s'agit de la premiere methode appelee de ce fichier.
      */
     @BeforeEach
     void setUp() {
@@ -44,53 +44,53 @@ public class UtilisateurControllerTest {
     }
 
     /**
-     * Méthode permettant de tester si la méthode getUserByName fonctionne correctement.
+     * Methode permettant de tester si la methode getUserByName fonctionne correctement.
      */
     @Test
     void testPostUser() {
-        // Création et sauvegarde subséquente de l'objet.
+        // Creation et sauvegarde subsequente de l'objet.
         InfoSecu infoSecu = new InfoSecu(1L, "azerty12345", "roberto.robert@mail.su");
         Utilisateur utilisateur = new Utilisateur(100L, "roberto", 100, Utilisateur.Status.ONE, infoSecu, null);
         infoSecu.setUtilisateur(utilisateur);
         service.saveUtilisateur(utilisateur);
 
-        // Récupération des données sur la base.
+        // Recuperation des donnees sur la base.
         when(service.fetchOne("roberto")).thenReturn(Optional.of(utilisateur));
 
         ResponseEntity<Optional<Utilisateur>> response = controller.getUserByName("roberto");
 
-        // Vérification finale.
+        // Verification finale.
         assertTrue(Objects.requireNonNull(response.getBody()).isPresent());
         assertEquals("roberto", response.getBody().get().getNom());
     }
 
 
     /**
-     * Méthode permettant de tester si la méthode updateChoseATrouver de la clase UtilisateurController fonctionne correctement.
-     * Elle crée un objet pour le test et modifie l'objet crée précédemment dans la méthode testPostChose.
-     * Enfin, elle vérifie si l'objet est bien modifié.
+     * Methode permettant de tester si la methode updateChoseATrouver de la clase UtilisateurController fonctionne correctement.
+     * Elle cree un objet pour le test et modifie l'objet cree precedemment dans la methode testPostChose.
+     * Enfin, elle verifie si l'objet est bien modifie.
      */
     @Test
     void testUpdateUser() {
-        // Création d'un nouveau objet.
+        // Creation d'un nouveau objet.
         InfoSecu infoSecu = new InfoSecu(1L, "azerty12345", "roberto.robert@mail.su");
         Utilisateur updateUtilisateur = new Utilisateur(100L, "roberto", 100, Utilisateur.Status.ONE, infoSecu, null);
         infoSecu.setUtilisateur(updateUtilisateur);
 
 
-        // Appel a la méthode pour mettre un jour un objet.
+        // Appel a la methode pour mettre un jour un objet.
         when(service.updateUtilisateur(any(Utilisateur.class), eq(101L))).thenReturn(updateUtilisateur);
 
         controller.updateUser(101L, updateUtilisateur);
-        // Test si l'objet est bien modifié.
+        // Test si l'objet est bien modifie.
 
         verify(service, times(1)).updateUtilisateur(updateUtilisateur, 101L);
 
     }
 
     /**
-     * Méthode permettant de tester si la méthode deleteChose de la classe UtilisateurController fonctionne correctement.
-     * Elle vérifie qu'un objet est bien supprimé de la base de données.
+     * Methode permettant de tester si la methode deleteChose de la classe UtilisateurController fonctionne correctement.
+     * Elle verifie qu'un objet est bien supprime de la base de donnees.
      */
     @Test
     void testDeleteUser() {
@@ -100,12 +100,12 @@ public class UtilisateurControllerTest {
     }
 
     /**
-     * Méthode permettant de tester si la méthode getAll de la classe UtilisateurController fonctionne correctement.
-     * Elle vérifie que les éléments créés sont bien dans la base de données.
+     * Methode permettant de tester si la methode getAll de la classe UtilisateurController fonctionne correctement.
+     * Elle verifie que les elements crees sont bien dans la base de donnees.
      */
     @Test
     void testGetAllUserGet() {
-        // Liste contenant 2 éléments de test
+        // Liste contenant 2 elements de test
         InfoSecu infoSecu = new InfoSecu(1L, "azerty12345", "roberto.robert@mail.su");
 
         List<Utilisateur> utils = Arrays.asList(
@@ -113,7 +113,7 @@ public class UtilisateurControllerTest {
                 new Utilisateur(101L, "twingo", 100, Utilisateur.Status.ONE, infoSecu, null)
         );
 
-        // Ajout dans le service des élements de la list
+        // Ajout dans le service des elements de la list
         for (Utilisateur util : utils) {
             when(service.saveUtilisateur((util))).thenReturn(util);
 
@@ -121,24 +121,24 @@ public class UtilisateurControllerTest {
 
         when(service.fetchUtilisateurList()).thenReturn(utils);
 
-        // Test de la méthode du controller
+        // Test de la methode du controller
         List<Utilisateur> response = controller.getAllUserGet();
 
-        // Test de la taille des éléments retourné
+        // Test de la taille des elements retourne
         assertEquals(2, response.size());
-        // Test de l'id du 1er élément
+        // Test de l'id du 1er element
         assertEquals("roberto", response.get(0).getNom());
-        // Test de l'id du 2e élément
+        // Test de l'id du 2e element
         assertEquals("twingo", response.get(1).getNom());
     }
 
     /**
-     * Méthode permettant de tester si la méthode getAll de la classe ChosePrixATrouverPrixJusteController fonctionne correctement.
-     * Elle vérifie que les éléments créés sont bien dans la base de données.
+     * Methode permettant de tester si la methode getAll de la classe ChosePrixATrouverPrixJusteController fonctionne correctement.
+     * Elle verifie que les elements crees sont bien dans la base de donnees.
      */
     @Test
     void testGetAllUserPost() {
-        // Liste contenant 2 éléments de test
+        // Liste contenant 2 elements de test
         InfoSecu infoSecu = new InfoSecu(1L, "azerty12345", "roberto.robert@mail.su");
 
         List<Utilisateur> utils = Arrays.asList(
@@ -146,7 +146,7 @@ public class UtilisateurControllerTest {
                 new Utilisateur(101L, "twingo", 100, Utilisateur.Status.ONE, infoSecu, null)
         );
 
-        // Ajout dans le service des élements de la list
+        // Ajout dans le service des elements de la list
         for (Utilisateur util : utils) {
             when(service.saveUtilisateur((util))).thenReturn(util);
 
@@ -154,14 +154,14 @@ public class UtilisateurControllerTest {
 
         when(service.fetchUtilisateurList()).thenReturn(utils);
 
-        // Test de la méthode du controller
+        // Test de la methode du controller
         List<Utilisateur> response = controller.getAllUserPost();
 
-        // Test de la taille des éléments retourné
+        // Test de la taille des elements retourne
         assertEquals(2, response.size());
-        // Test de l'id du 1er élément
+        // Test de l'id du 1er element
         assertEquals("roberto", response.get(0).getNom());
-        // Test de l'id du 2e élément
+        // Test de l'id du 2e element
         assertEquals("twingo", response.get(1).getNom());
     }
 }

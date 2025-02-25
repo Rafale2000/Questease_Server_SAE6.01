@@ -9,21 +9,22 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Implémentation du service pour gérer les objets `Utilisateur`.
- * Cette classe implémente les opérations CRUD pour les objets `Utilisateur`.
+ * Implementation du service pour gerer les objets `Utilisateur`.
+ * Cette classe implemente les operations CRUD pour les objets `Utilisateur`.
  */
 @Service
 public class UtilisateurServiceImpl implements UtilisateurService {
 
-    // Repository utilisé pour interagir avec la base de données des objets `Utilisateur`.
+    /**
+     * Repository utilise pour interagir avec la base de donnees des objets `Utilisateur`.
+     */
     @Autowired
     private UtilisateurRepository repo;
 
     /**
-     * Sauvegarde un nouvel objet `Utilisateur` ou met à jour un objet existant.
-     *
-     * @param utilisateur L'objet `Utilisateur` à sauvegarder.
-     * @return L'objet `Utilisateur` sauvegardé.
+     * Sauvegarde un nouvel objet `Utilisateur` ou met a jour un objet existant.
+     * @param utilisateur L'objet `Utilisateur` a sauvegarder.
+     * @return L'objet `Utilisateur` sauvegarde.
      */
     @Override
     public Utilisateur saveUtilisateur(Utilisateur utilisateur) {
@@ -31,8 +32,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
     /**
-     * Récupère la liste de tous les objets `Utilisateur` enregistrés.
-     *
+     * Recupere la liste de tous les objets `Utilisateur` enregistres.
      * @return Une liste contenant tous les objets `Utilisateur`.
      */
     @Override
@@ -41,10 +41,9 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
     /**
-     * Récupère un ou plusieurs objets `Utilisateur` spécifiques à partir du pseudo de l'utilisateur.
-     *
-     * @param pseudoUser Le pseudo de l'utilisateur à récupérer.
-     * @return Un `Iterable` contenant l'utilisateur correspondant, ou vide si aucun utilisateur n'est trouvé.
+     * Recupere un ou plusieurs objets `Utilisateur` specifiques a partir du pseudo de l'utilisateur.
+     * @param pseudoUser Le pseudo de l'utilisateur a recuperer.
+     * @return Un `Iterable` contenant l'utilisateur correspondant, ou vide si aucun utilisateur n'est trouve.
      */
     @Override
     public Optional<Utilisateur> fetchOne(String pseudoUser) {
@@ -52,11 +51,10 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
     /**
-     * Met à jour un objet `Utilisateur` existant.
-     *
+     * Met a jour un objet `Utilisateur` existant.
      * @param utilisateur   L'objet contenant les nouvelles informations.
-     * @param utilisateurId L'identifiant de l'objet `Utilisateur` à mettre à jour.
-     * @return L'objet `Utilisateur` mis à jour.
+     * @param utilisateurId L'identifiant de l'objet `Utilisateur` a mettre a jour.
+     * @return L'objet `Utilisateur` mis a jour.
      */
     @Override
     public Utilisateur updateUtilisateur(Utilisateur utilisateur, Long utilisateurId) {
@@ -65,9 +63,8 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
     /**
-     * Supprime un objet `Utilisateur` à partir de son identifiant.
-     *
-     * @param utilisateurId L'identifiant de l'objet `Utilisateur` à supprimer.
+     * Supprime un objet `Utilisateur` a partir de son identifiant.
+     * @param utilisateurId L'identifiant de l'objet `Utilisateur` a supprimer.
      */
     @Override
     public void deleteUtilisateur(Long utilisateurId) {
@@ -75,9 +72,9 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
     /**
-     * Renvoie un optional si un objet existe avec un id donnée
-     * @param id L'id de l'utilisateur à récupérer.
-     * @return Optianal
+     * Renvoie un optional si un objet existe avec un id donnee
+     * @param id L'id de l'utilisateur a recuperer.
+     * @return Optional
      */
     @Override
     public Optional<Utilisateur> getUser(long id) {

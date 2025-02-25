@@ -11,41 +11,36 @@ import java.util.Optional;
 public interface ChoseATrouverPrixJusteService {
 
     /**
-     * Sauvegarde un nouvel objet ou met à jour un objet existant.
-     *
-     * @param chose L'objet à sauvegarder ou mettre à jour.
-     * @return L'objet sauvegardé.
+     * Sauvegarde un nouvel objet ou met a jour un objet existant.
+     * @param chose L'objet a sauvegarder ou mettre a jour.
+     * @return L'objet sauvegarde.
      */
     ChoseATrouverPrixJuste saveChose(ChoseATrouverPrixJuste chose);
 
     /**
-     * Récupère la liste de tous les objets enregistrés.
-     *
+     * Recupere la liste de tous les objets enregistres.
      * @return Une liste contenant tous les objets (List<ChoseATrouverPrixJuste>).
      */
     List<ChoseATrouverPrixJuste> fetchChoseList();
 
     /**
-     * Lit un objet spécifique à partir de son identifiant.
-     *
+     * Lit un objet specifique a partir de son identifiant.
      * @param id L'identifiant de l'objet.
-     * @return Un `Optional` contenant l'objet s'il est trouvé, sinon vide.
+     * @return Un `Optional` contenant l'objet s'il est trouve, sinon vide.
      */
     Optional<ChoseATrouverPrixJuste> readChose(Long id);
 
     /**
-     * Met à jour un objet existant en fonction de son identifiant.
-     *
+     * Met a jour un objet existant en fonction de son identifiant.
      * @param chose   L'objet contenant les nouvelles informations.
-     * @param choseId L'identifiant de l'objet à mettre à jour.
-     * @return L'objet mis à jour.
+     * @param choseId L'identifiant de l'objet a mettre a jour.
+     * @return L'objet mis a jour.
      */
     ChoseATrouverPrixJuste updateChose(ChoseATrouverPrixJuste chose, Long choseId);
 
     /**
-     * Supprime un objet à partir de son identifiant.
-     *
-     * @param choseId L'identifiant de l'objet à supprimer.
+     * Supprime un objet a partir de son identifiant.
+     * @param choseId L'identifiant de l'objet a supprimer.
      */
     void deleteChose(Long choseId);
 }

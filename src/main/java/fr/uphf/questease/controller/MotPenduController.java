@@ -10,30 +10,34 @@ import java.util.Optional;
 import java.util.Random;
 
 /**
- * Controller du repositoire de motPendu
+ * Controller du repositoire de motPendu.
  */
 @RestController
 @RequestMapping("/motpendu")
 public class MotPenduController {
+
+    /**
+     * Generation d'un chiffre au hasard.
+     */
     public final Random random = new Random();
 
     /**
-     * Le repositoire de motPendu
+     * Le repositoire de motPendu.
      */
     private final MotPenduServiceImpl repo;
 
     /**
-     * Le constructeur de la classe motPenduController
-     * @param repo le repositoire de motPendu
+     * Le constructeur de la classe motPenduController.
+     * @param repo le repositoire de motPendu.
      */
     public MotPenduController(MotPenduServiceImpl repo) {
         this.repo = repo;
     }
 
     /**
-     * Méthode Get permettant de récupérer un mot via son id
-     * @param idMotPendu L'id du mot à trouver lors d'un pendu
-     * @return Le mot à trouver
+     * Methode Get permettant de recuperer un mot via son id.
+     * @param idMotPendu L'id du mot a trouver lors d'un pendu.
+     * @return Le mot a trouver.
      */
     @GetMapping("/{idMotPendu}")
     public ResponseEntity<Optional<MotPendu>> getMotById(@PathVariable Long idMotPendu) {
@@ -41,8 +45,8 @@ public class MotPenduController {
     }
 
     /**
-     * Méthode Post permettant d'ajouter un mot à la base de donnée
-     * @param M Le mot à ajouter à la base de donnée
+     * Methode Post permettant d'ajouter un mot a la base de donnee.
+     * @param M Le mot a ajouter a la base de donnee.
      */
     @PostMapping("/{idMotPendu}")
     public void PostMot(@PathVariable MotPendu M) {
@@ -50,9 +54,9 @@ public class MotPenduController {
     }
 
     /**
-     * Méthode Update permettant de mettre à jour un mot dans la base de donnée
-     * @param idMotPendu L'id du mot à mettre à jour
-     * @param mot Le mot qui sera mis à jour
+     * Methode Update permettant de mettre a jour un mot dans la base de donnee.
+     * @param idMotPendu L'id du mot a mettre a jour.
+     * @param mot Le mot qui sera mis a jour.
      */
     @PatchMapping("/{idMotPendu}")
     public void updateMot(Long idMotPendu, @PathVariable MotPendu mot) {
@@ -60,20 +64,24 @@ public class MotPenduController {
     }
 
     /**
-     * Méthode Delete permettant de supprimer un mot dans la base de donnée
-     * @param idPendu L'id du mot dans la base de donnée à supprimer
+     * Methode Delete permettant de supprimer un mot dans la base de donnee.
+     * @param idPendu L'id du mot dans la base de donnee a supprimer.
      */
     @DeleteMapping("/{idPendu}")
     public void deleteMot(@PathVariable Long idPendu) {
         repo.deleteMotPendu(idPendu);
     }
 
+    /**
+     * Methode Get permettant de recuperer tous les Mots possibles pour une partie de Pendu.
+     * @return tous les Mots possibles pour une partie de Pendu.
+     */
     @GetMapping()
     public List<MotPendu> getAllMotGet() {return repo.fetchMotPenduList();}
 
     /**
-     * Méthode GET permettant d'obtenir un objet MotPendu choisi au hasard parmi tous ceux présents dans la base de données.
-     * @return MotPendu
+     * Methode GET permettant d'obtenir un objet MotPendu choisi au hasard parmi tous ceux presents dans la base de donnees.
+     * @return Un mot Pendu recuperer au hasard.
      */
     @GetMapping("/random")
     public MotPendu getRandomMotPendu() {

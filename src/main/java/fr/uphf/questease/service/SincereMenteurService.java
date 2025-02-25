@@ -8,46 +8,42 @@ import fr.uphf.questease.model.SincereMenteur;
 
 /**
  * Interface pour le service de gestion des objets `SincereMenteur`.
- * Fournit des fonctionnalités CRUD pour les objets `SincereMenteur`.
+ * Fournit des fonctionnalites CRUD pour les objets `SincereMenteur`.
  */
 public interface SincereMenteurService {
+
     /**
-     * Sauvegarde un nouvel objet `SincereMenteur` ou met à jour un objet existant.
-     *
-     * @param sincereMenteur L'objet `SincereMenteur` à sauvegarder.
-     * @return L'objet `SincereMenteur` sauvegardé.
+     * Sauvegarde un nouvel objet `SincereMenteur` ou met a jour un objet existant.
+     * @param sincereMenteur L'objet `SincereMenteur` a sauvegarder.
+     * @return L'objet `SincereMenteur` sauvegarde.
      */
     SincereMenteur saveSincereMenteur(SincereMenteur sincereMenteur);
 
     /**
-     * Récupère la liste de tous les objets `SincereMenteur` enregistrés.
-     *
+     * Recupere la liste de tous les objets `SincereMenteur` enregistres.
      * @return Une liste contenant tous les objets `SincereMenteur`.
      */
     List<SincereMenteur> fetchSincereMenteur();
 
     /**
-     * Récupère un objet `SincereMenteur` spécifique à partir de son identifiant.
-     *
-     * @param id L'identifiant de l'objet à récupérer.
-     * @return Un `Optional` contenant l'objet s'il est trouvé, sinon vide.
+     * Recupere un objet `SincereMenteur` specifique a partir de son identifiant.
+     * @param id L'identifiant de l'objet a recuperer.
+     * @return Un `Optional` contenant l'objet s'il est trouve, sinon vide.
      */
     Optional<SincereMenteur> fetchSincereMenteur(Long id);
 
     /**
-     * Met à jour un objet `SincereMenteur` existant.
+     * Met a jour un objet `SincereMenteur` existant.
      * Supprime d'abord l'ancien objet et sauvegarde le nouveau.
-     *
      * @param sincereMenteur      L'objet contenant les nouvelles informations.
-     * @param sincereMenteurId    L'identifiant de l'objet à mettre à jour.
-     * @return L'objet `SincereMenteur` mis à jour.
+     * @param sincereMenteurId    L'identifiant de l'objet a mettre a jour.
+     * @return L'objet `SincereMenteur` mis a jour.
      */
     SincereMenteur updateSincereMenteur(SincereMenteur sincereMenteur, Long sincereMenteurId);
 
     /**
-     * Supprime un objet `SincereMenteur` à partir de son identifiant.
-     *
-     * @param sincereMenteurId L'identifiant de l'objet à supprimer.
+     * Supprime un objet `SincereMenteur` a partir de son identifiant.
+     * @param sincereMenteurId L'identifiant de l'objet a supprimer.
      */
     void deleteInfoSecu(Long sincereMenteurId);
 }

@@ -10,31 +10,34 @@ import java.util.Optional;
 import java.util.Random;
 
 /**
- * Controller du repositoire de Son
+ * Controller du repositoire de Son.
  */
 @RestController
 @RequestMapping("/son")
 public class SonController {
 
+    /**
+     * Generation du chiffre au hasard.
+     */
     public final Random rand = new Random();
 
     /**
-     * Le repositoire de Son
+     * Le repositoire de Son.
      */
     private final SonServiceImpl repo;
 
     /**
-     * Le constructeur de SonController
-     * @param repo Le repositoire de Son
+     * Le constructeur de SonController.
+     * @param repo Le repositoire de Son.
      */
     public SonController(SonServiceImpl repo) {
         this.repo = repo;
     }
 
     /**
-     * Méthode Get permettant de récupérer un Son via son id
-     * @param idSon L'id du son à récupérer
-     * @return Le son à récupérer
+     * Methode Get permettant de recuperer un Son via son id.
+     * @param idSon L'id du son a recuperer.
+     * @return Le son a recuperer.
      */
     @GetMapping("/idSon")
     public ResponseEntity<Optional<Son>> getSonById(@PathVariable Long idSon) {
@@ -42,8 +45,8 @@ public class SonController {
     }
 
     /**
-     * Méthode Post permettant d'ajouter un Son à la base de donnée
-     * @param son
+     * Methode Post permettant d'ajouter un Son a la base de donnees.
+     * @param son Le Son qui sera ajoute a la base de donnees.
      */
     @PostMapping("/{idSon}")
     public void postSon(@PathVariable Son son) {
@@ -52,9 +55,9 @@ public class SonController {
 
 
     /**
-     * Méthode Update permettant de mettre à jour un Son dans la base de donnée
-     * @param idSon L'id du Son à mettre à jour
-     * @param son Le son qui sera mis à jour
+     * Methode Update permettant de mettre a jour un Son dans la base de donnees.
+     * @param idSon L'id du Son a mettre a jour.
+     * @param son Le son qui sera mis a jour.
      */
     @PatchMapping("/{idSon}")
     public void updateSon(@PathVariable Long idSon, @RequestBody Son son) {
@@ -62,8 +65,8 @@ public class SonController {
     }
 
     /**
-     * Méthode Delete permettant de supprimer un Son dans la base de donnée
-     * @param idSon L'id du son à supprimer
+     * Methode Delete permettant de supprimer un Son dans la base de donnees.
+     * @param idSon L'id du son a supprimer.
      */
     @DeleteMapping("/{idSon}")
     public void deleteSon(@PathVariable Long idSon) {
@@ -71,26 +74,25 @@ public class SonController {
     }
 
     /**
-     * Méthode get qui renvoie tous les sons de la base de donnée
-     * @return List<Son>
+     * Methode Get qui renvoie tous les sons de la base de donnees.
+     * @return List<Son> La liste de tout les Sons.
      */
     @GetMapping()
     public List<Son> getAllSonGet() {return repo.fetchSonList();}
 
     /**
-     * Méthode get qui renvoie tous les sons de la base de donnée
-     * @return List<Son>
+     * Methode Post qui renvoie tous les sons de la base de donnees.
+     * @return List<Son> La liste de tout les Sons.
      */
     @PostMapping()
     public List<Son> getAllSonPost() {return repo.fetchSonList();}
 
     /**
-     * Méthode get qui renvoie un Son random contenu dans la base de données
-     * @return List<Son>
+     * Methode get qui renvoie un Son au hasard contenu dans la base de donnees.
+     * @return Son Un Son au hasard de la base de donnees.
      */
     @GetMapping("/random")
     public Son getRandomSon() {
-
         return repo.fetchSonList().get(rand.nextInt(repo.fetchSonList().size()));
     }
 }

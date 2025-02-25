@@ -9,19 +9,19 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Implémentation du service pour la gestion des objets "Chose à Trouver" du jeu "Prix Juste".
+ * Implementation du service pour la gestion des objets "Chose a Trouver" du jeu "Prix Juste".
  */
 @Service
 public class ChoseATrouverPrixJusteServiceImpl implements ChoseATrouverPrixJusteService{
-    // Repository permettant d'interagir avec la base de données.
+
+    // Repository permettant d'interagir avec la base de donnees.
     @Autowired
     private ChoseATrouverPrixJusteRepository repo;
 
     /**
-     * Sauvegarde une nouvelle "chose à trouver" ou met à jour une existante.
-     *
-     * @param infoSecu L'objet `ChoseATrouverPrixJuste` à sauvegarder.
-     * @return L'objet `ChoseATrouverPrixJuste` sauvegardé.
+     * Sauvegarde une nouvelle "chose a trouver" ou met a jour une existante.
+     * @param infoSecu L'objet `ChoseATrouverPrixJuste` a sauvegarder.
+     * @return L'objet `ChoseATrouverPrixJuste` sauvegarde.
      */
     @Override
     public ChoseATrouverPrixJuste saveChose(ChoseATrouverPrixJuste infoSecu) {
@@ -29,8 +29,7 @@ public class ChoseATrouverPrixJusteServiceImpl implements ChoseATrouverPrixJuste
     }
 
     /**
-     * Récupère la liste de toutes les "choses à trouver" enregistrées.
-     *
+     * Recupere la liste de toutes les "choses a trouver" enregistrees.
      * @return Une liste contenant tous les objets `ChoseATrouverPrixJuste`.
      */
     @Override
@@ -39,10 +38,9 @@ public class ChoseATrouverPrixJusteServiceImpl implements ChoseATrouverPrixJuste
     }
 
     /**
-     * Récupère une "chose à trouver" spécifique à partir de son identifiant.
-     *
-     * @param id L'identifiant de la "chose à trouver".
-     * @return Un `Optional` contenant l'objet s'il est trouvé, sinon vide.
+     * Recupere une "chose a trouver" specifique a partir de son identifiant.
+     * @param id L'identifiant de la "chose a trouver".
+     * @return Un `Optional` contenant l'objet s'il est trouve, sinon vide.
      */
     @Override
     public Optional<ChoseATrouverPrixJuste> readChose(Long id) {
@@ -50,11 +48,10 @@ public class ChoseATrouverPrixJusteServiceImpl implements ChoseATrouverPrixJuste
     }
 
     /**
-     * Met à jour une "chose à trouver" existante en supprimant d'abord l'ancien, puis en sauvegardant le nouveau.
-     *
+     * Met a jour une "chose a trouver" existante en supprimant d'abord l'ancien, puis en sauvegardant le nouveau.
      * @param chose   L'objet contenant les nouvelles informations.
-     * @param choseId L'identifiant de la "chose à trouver" à mettre à jour.
-     * @return L'objet `ChoseATrouverPrixJuste` mis à jour.
+     * @param choseId L'identifiant de la "chose a trouver" a mettre a jour.
+     * @return L'objet `ChoseATrouverPrixJuste` mis a jour.
      */
     @Override
     public ChoseATrouverPrixJuste updateChose(ChoseATrouverPrixJuste chose, Long choseId) {
@@ -63,9 +60,8 @@ public class ChoseATrouverPrixJusteServiceImpl implements ChoseATrouverPrixJuste
     }
 
     /**
-     * Supprime une "chose à trouver" à partir de son identifiant.
-     *
-     * @param choseId L'identifiant de la "chose à trouver" à supprimer.
+     * Supprime une "chose a trouver" a partir de son identifiant.
+     * @param choseId L'identifiant de la "chose a trouver" a supprimer.
      */
     @Override
     public void deleteChose(Long choseId) {

@@ -9,15 +9,15 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 /**
- * Repositoire de la classe Utilisateur
+ * Repositoire de la classe Utilisateur.
  */
 @Repository
 public interface UtilisateurRepository extends CrudRepository<Utilisateur, Long> {
 
     /**
-     * Requête permettant de récupérer les utilisateurs par leurs noms
-     * @param pseudoUser Le pseudonyme de l'utilisateur qui doit être récupéré
-     * @return L'utilisateur associé au nom
+     * Requête permettant de recuperer les utilisateurs par leurs noms.
+     * @param pseudoUser Le pseudonyme de l'utilisateur qui doit être recupere.
+     * @return L'utilisateur associe au nom.
      */
     @Query("SELECT u FROM Utilisateur u WHERE u.nom = :pseudoUser")
     Optional<Utilisateur> findUtilByName(@Param("pseudoUser") String pseudoUser);

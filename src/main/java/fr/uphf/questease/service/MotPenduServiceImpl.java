@@ -9,20 +9,21 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Implémentation du service pour gérer les mots du jeu "Pendu".
+ * Implementation du service pour gerer les mots du jeu "Pendu".
  */
 @Service
 public class MotPenduServiceImpl implements MotPenduService {
 
-    // Repository utilisé pour interagir avec la base de données des mots du jeu "Pendu".
+    /**
+     * Repository utilise pour interagir avec la base de donnees des mots du jeu "Pendu".
+     */
     @Autowired
     private MotPenduRepository repo;
 
     /**
-     * Sauvegarde un mot du jeu "Pendu" ou met à jour un mot existant.
-     *
-     * @param motPendu L'objet `MotPendu` à sauvegarder.
-     * @return L'objet `MotPendu` sauvegardé.
+     * Sauvegarde un mot du jeu "Pendu" ou met a jour un mot existant.
+     * @param motPendu L'objet `MotPendu` a sauvegarder.
+     * @return L'objet `MotPendu` sauvegarde.
      */
     @Override
     public MotPendu saveMotPendu(MotPendu motPendu) {
@@ -30,8 +31,7 @@ public class MotPenduServiceImpl implements MotPenduService {
     }
 
     /**
-     * Récupère la liste de tous les mots du jeu "Pendu" enregistrés.
-     *
+     * Recupere la liste de tous les mots du jeu "Pendu" enregistres.
      * @return Une liste contenant tous les objets `MotPendu`.
      */
     @Override
@@ -40,22 +40,20 @@ public class MotPenduServiceImpl implements MotPenduService {
     }
 
     /**
-     * Récupère un mot du jeu "Pendu" spécifique à partir de son identifiant.
-     *
-     * @param idPendu L'identifiant du mot à récupérer.
-     * @return Un `Optional` contenant le mot s'il est trouvé, sinon vide.
+     * Recupere un mot du jeu "Pendu" specifique a partir de son identifiant.
+     * @param idPendu L'identifiant du mot a recuperer.
+     * @return Un `Optional` contenant le mot s'il est trouve, sinon vide.
      */
     public Optional<MotPendu> fetchOneMotPendu(Long idPendu){
         return repo.findById(idPendu);
     }
 
     /**
-     * Met à jour un mot du jeu "Pendu" existant.
+     * Met a jour un mot du jeu "Pendu" existant.
      * Supprime d'abord l'ancien mot et sauvegarde le nouveau.
-     *
      * @param motPendu   L'objet contenant les nouvelles informations du mot.
-     * @param motPenduId L'identifiant du mot à mettre à jour.
-     * @return L'objet `MotPendu` mis à jour.
+     * @param motPenduId L'identifiant du mot a mettre a jour.
+     * @return L'objet `MotPendu` mis a jour.
      */
     @Override
     public MotPendu updateMotPendu(MotPendu motPendu, Long motPenduId) {
@@ -64,9 +62,8 @@ public class MotPenduServiceImpl implements MotPenduService {
     }
 
     /**
-     * Supprime un mot du jeu "Pendu" à partir de son identifiant.
-     *
-     * @param motPenduId L'identifiant du mot à supprimer.
+     * Supprime un mot du jeu "Pendu" a partir de son identifiant.
+     * @param motPenduId L'identifiant du mot a supprimer.
      */
     @Override
     public void deleteMotPendu(Long motPenduId) {

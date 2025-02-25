@@ -30,9 +30,9 @@ public class IndiceController {
     }
 
     /**
-     * Méthode Get permettant de récupérer un indice grâce à son Id
-     * @param idIndice L'id de l'indice à récupérer
-     * @return L'indice qui possède l'id précedemment mentionné
+     * Methode Get permettant de recuperer un indice grace a son Id
+     * @param idIndice L'id de l'indice a recuperer
+     * @return L'indice qui possede l'id precedemment mentionne
      */
     @GetMapping("/idIndice{idIndice}")
     public Optional<Indice> getIndiceById(@PathVariable Long idIndice) {
@@ -40,7 +40,7 @@ public class IndiceController {
     }
 
     /**
-     * Méthode Get permettant de récupérer tout les indices
+     * Methode Get permettant de recuperer tout les indices
      * @return Une liste contenant tout les indices
      */
     @GetMapping("")
@@ -49,8 +49,8 @@ public class IndiceController {
     }
 
     /**
-     * Méthode Post permettant d'ajouter à la base de donnée un indice
-     * @param indice L'indice à ajouter à la base de donnée
+     * Methode Post permettant d'ajouter a la base de donnee un indice
+     * @param indice L'indice a ajouter a la base de donnee
      */
     @PostMapping("/get{idIndice}")
     public void postIndice(@PathVariable("idIndice") Long idIndice, @RequestBody Indice indice) {
@@ -59,9 +59,9 @@ public class IndiceController {
     }
 
     /**
-     * Méthode Update permettant de mettre à jour un indice de la base de donnée
-     * @param idIndice L'id de l'indice à mettre à jour
-     * @param updatedIndice L'indice qui remplacera celui mis à jour
+     * Methode Update permettant de mettre a jour un indice de la base de donnee
+     * @param idIndice L'id de l'indice a mettre a jour
+     * @param updatedIndice L'indice qui remplacera celui mis a jour
      */
     @PatchMapping("/{idIndice}")
     public void updateIndice(@PathVariable("idIndice") Long idIndice, @RequestBody Indice updatedIndice) {
@@ -71,8 +71,8 @@ public class IndiceController {
     }
 
     /**
-     * Méthode Delete permettant de supprimer un Indice de la base de donnée
-     * @param idIndice L'indice supprimé de la base de donnée
+     * Methode Delete permettant de supprimer un Indice de la base de donnee
+     * @param idIndice L'indice supprime de la base de donnee
      */
     @DeleteMapping("/{idIndice}")
     public void deleteinfoSecu(@PathVariable int idIndice) {
@@ -80,10 +80,10 @@ public class IndiceController {
     }
 
     /**
-     * Méthode GET permettant de récupérer un indice avec son ID.
+     * Methode GET permettant de recuperer un indice avec son ID.
      *
-     * @param idIndice ID de l'indice à récupérer.
-     * @return L'objet Indice correspondant à l'ID.
+     * @param idIndice ID de l'indice a recuperer.
+     * @return L'objet Indice correspondant a l'ID.
      * @throws ResponseStatusException si l'ID est introuvable.
      */
     @GetMapping("/{idIndice}")

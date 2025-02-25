@@ -11,7 +11,8 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
-import java.util.List;import java.util.Objects;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,8 +32,8 @@ class MotPenduControllerTest {
     private MotPenduController controller;
 
     /**
-     * Méthode permettant d'initialiser les champs annotés avec les mockitos avant tous les tests.
-     * Il s'agit de la première méthode appelée de ce fichier.
+     * Methode permettant d'initialiser les champs annotes avec les mockitos avant tous les tests.
+     * Il s'agit de la premiere methode appelee de ce fichier.
      */
     @BeforeEach
     void setUp() {
@@ -40,58 +41,58 @@ class MotPenduControllerTest {
     }
 
     /**
-     * Méthode permettant de tester si la méthode getMotById fonctionne correctement.
+     * Methode permettant de tester si la methode getMotById fonctionne correctement.
      */
     @Test
     void testGetMotById() {
-        // Création et sauvegarde subséquente de l'objet.
+        // Creation et sauvegarde subsequente de l'objet.
         MotPendu mot = new MotPendu(100L, "Rhododendron");
         service.saveMotPendu(mot);
 
-        // Récupération des données sur la base.
+        // Recuperation des donnees sur la base.
         when(service.fetchOneMotPendu(100L)).thenReturn(Optional.of(mot));
         ResponseEntity<Optional<MotPendu>> response = controller.getMotById(100L);
 
-        // Vérification finale.
+        // Verification finale.
         assertTrue(Objects.requireNonNull(response.getBody()).isPresent());
         assertEquals("Rhododendron", response.getBody().get().getMot());
     }
 
     /**
-     * Méthode permettant de tester si la méthode PostMot de la clase MotPendu fonctionne correctement.
-     * Elle crée un nouveau élément puis l'insère dans la base de données.
-     * Enfin elle vérifie qu'elle est présente dans cette dernière.
+     * Methode permettant de tester si la methode PostMot de la clase MotPendu fonctionne correctement.
+     * Elle cree un nouveau element puis l'insere dans la base de donnees.
+     * Enfin elle verifie qu'elle est presente dans cette derniere.
      */
     @Test
     void testPostMot() {
-        // Nouvel objet de test créé ici.
-        MotPendu mot = new MotPendu(101L, "Pandémonium");
+        // Nouvel objet de test cree ici.
+        MotPendu mot = new MotPendu(101L, "Pandemonium");
 
-        // Ajout de l'objet dans la base de données.
-        controller.postMot(mot);
+        // Ajout de l'objet dans la base de donnees.
+        controller.PostMot(mot);
 
-        // Vérification si l'objet est bien sauvegardé.
+        // Verification si l'objet est bien sauvegarde.
         verify(service, times(1)).saveMotPendu(mot);
     }
 
     /**
-     * Méthode permettant de tester si la méthode updateMot de la clase MotPendu fonctionne correctement.
-     * Elle crée un objet pour le test et modifie l'objet crée précédemment dans la méthode testPostChose.
-     * Enfin, elle vérifie si l'objet est bien modifié.
+     * Methode permettant de tester si la methode updateMot de la clase MotPendu fonctionne correctement.
+     * Elle cree un objet pour le test et modifie l'objet cree precedemment dans la methode testPostChose.
+     * Enfin, elle verifie si l'objet est bien modifie.
      */
     @Test
     void testUpdateChoseATrouver() {
-        // Création d'un nouveau objet.
-        MotPendu mot = new MotPendu(101L, "Kaléidoscope");
-        // Appel a la méthode pour mettre un jour un objet.
+        // Creation d'un nouveau objet.
+        MotPendu mot = new MotPendu(101L, "Kaleidoscope");
+        // Appel a la methode pour mettre un jour un objet.
         controller.updateMot(101L, mot);
-        // Test si l'objet est bien modifié.
+        // Test si l'objet est bien modifie.
         verify(service, times(1)).updateMotPendu(mot, 101L);
     }
 
     /**
-     * Méthode permettant de tester si la méthode deleteMot de la classe MotPendu fonctionne correctement.
-     * Elle vérifie qu'un objet est bien supprimé de la base de données.
+     * Methode permettant de tester si la methode deleteMot de la classe MotPendu fonctionne correctement.
+     * Elle verifie qu'un objet est bien supprime de la base de donnees.
      */
     @Test
     void testDeleteChose() {
@@ -101,28 +102,28 @@ class MotPenduControllerTest {
     }
 
     /**
-     * Méthode permettant de tester si la méthode getAll de la classe MotPendu fonctionne correctement.
-     * Elle vérifie que les éléments créés sont bien dans la base de données.
+     * Methode permettant de tester si la methode getAll de la classe MotPendu fonctionne correctement.
+     * Elle verifie que les elements crees sont bien dans la base de donnees.
      */
     @Test
     void testGetAll() {
-        // Liste contenant 2 éléments de test
+        // Liste contenant 2 elements de test
         List<MotPendu> choses = Arrays.asList(
                 new MotPendu(100L, "Protozoaire"),
                 new MotPendu(101L, "Zygomatique")
         );
 
-        // Ajout dans le service des élements de la list
+        // Ajout dans le service des elements de la list
         when(service.fetchMotPenduList()).thenReturn(choses);
 
-        // Test de la méthode du controller
+        // Test de la methode du controller
         List<MotPendu> response = controller.getAllMotGet();
 
-        // Test de la taille des éléments retourné
+        // Test de la taille des elements retourne
         assertEquals(2, response.size());
-        // Test de l'id du 1er élément
+        // Test de l'id du 1er element
         assertEquals("Protozoaire", response.get(0).getMot());
-        // Test de l'id du 2e élément
+        // Test de l'id du 2e element
         assertEquals("Zygomatique", response.get(1).getMot());
     }
 }

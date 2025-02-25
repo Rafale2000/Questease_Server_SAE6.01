@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * Repositoire de la classe Indice
+ * Repositoire de la classe Indice.
  */
 @Repository
 public interface IndiceRepository extends CrudRepository<Indice, Long> {
