@@ -47,7 +47,7 @@ public class UtilisateurStep {
     @Then("les utilisateurs sont sur la bdd")
     public void lesUtilisateursSontSurLaBdd() {
 
-        // Vérification si l'objet est bien sauvegardé.
+        // Verification si l'objet est bien sauvegarde.
         verify(service, times(1)).saveUtilisateur(u);
 
     }

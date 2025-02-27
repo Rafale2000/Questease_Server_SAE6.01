@@ -16,7 +16,7 @@ Feature: Utilisation de la base de donnée
       | 3  | vega missie      | c:root | 27000 |
 
   Scenario: L'utilisateur modifie un élément contenu dans la bdd
-    Given l utilisateur souaite modifier un objet
+    Given l utilisateur souhaite modifier un objet
     When l utilisateur modifie l objet
     Then l objet est modifie
 

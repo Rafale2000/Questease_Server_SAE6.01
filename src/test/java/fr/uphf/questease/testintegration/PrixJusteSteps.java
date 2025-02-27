@@ -50,12 +50,12 @@ public class PrixJusteSteps {
     public void lesObjetsSontSurLaBdd() {
         controller.postChose(101L, c);
 
-        // Vérification si l'objet est bien sauvegardé.
+        // Verification si l'objet est bien sauvegarde.
         verify(service, times(1)).saveChose(c);
     }
 
 
-    @Given("l utilisateur souaite modifier un objet")
+    @Given("l utilisateur souhaite modifier un objet")
     public void lUtilisateurSouaiteModifierUnObjet() {
         this.c2 = new ChoseATrouverPrixJuste(5L, "beheme", "c:root", 3000);
         controller.postChose(5L, c2);
@@ -67,7 +67,7 @@ public class PrixJusteSteps {
         this.c2 = new ChoseATrouverPrixJuste(5L, "citron", "c:root", 3000);
 
         controller.updateChoseATrouver(5L, c2);
-        // Test si l'objet est bien modifié.
+        // Test si l'objet est bien modifie.
 
     }
 
@@ -77,7 +77,7 @@ public class PrixJusteSteps {
 
     }
 
-    @Given("Il existe un élément")
+    @Given("Il existe un element")
     public void ilExisteUnElement() {
         this.c3 = new ChoseATrouverPrixJuste(6L, "beheme", "c:root", 3000);
         controller.postChose(6L, c3);
@@ -89,7 +89,7 @@ public class PrixJusteSteps {
 
     }
 
-    @Then("Il disparait de la base de donnée")
+    @Then("Il disparait de la base de donnee")
     public void ilDisparaitDeLaBaseDeDonnee() {
         verify(service, times(1)).deleteChose(6L);
 
